@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>分鏡稿編輯器</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #14161a; --panel: #1b1e24; --panel2: #22262e; --line: #2f343d;
+    --text: #e6e9ef; --dim: #9aa3b2; --accent: #f0883e; --accent2: #4a9eff;
+    --ok: #3fb950; --warn: #d29922;
+  }
+  body {
+    background: var(--bg); color: var(--text); height: 100vh; overflow: hidden;
+    font: 14px/1.6 "Noto Sans TC", -apple-system, "Segoe UI", sans-serif;
+  }
+  #top {
+    height: 48px; display: flex; align-items: center; gap: 12px; padding: 0 14px;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  #top h1 { font-size: 15px; font-weight: 600; margin-right: 8px; }
+  select, button, input, textarea {
+    font-family: inherit; font-size: 13px; color: var(--text);
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 10px;
+  }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #1a1000; border-color: var(--accent); font-weight: 600; }
+  button.primary:hover { filter: brightness(1.12); }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  .spacer { flex: 1; }
+  #status { font-size: 12px; color: var(--dim); }
+
+  #main { display: flex; height: calc(100vh - 48px); }
+  #left { width: 46%; flex-shrink: 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+  #divider { width: 6px; flex-shrink: 0; cursor: col-resize; background: var(--line); transition: background .15s; }
+  #divider:hover, body.col-resizing #divider { background: var(--accent); }
+  body.col-resizing { cursor: col-resize; user-select: none; }
+  #right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .head {
+    padding: 8px 14px; background: var(--panel); border-bottom: 1px solid var(--line);
+    font-size: 12px; color: var(--dim); display: flex; align-items: center; gap: 10px;
+  }
+  .body { flex: 1; overflow-y: auto; padding: 10px 14px; }
+
+  /* 左：台詞 */
+  .para { margin-bottom: 14px; }
+  .unit {
+    padding: 5px 9px; border-radius: 5px; cursor: pointer; user-select: none;
+    border-left: 3px solid transparent; position: relative;
+  }
+  .unit:hover { background: var(--panel2); }
+  .unit.sel { background: rgba(240,136,62,.18); border-left-color: var(--accent); }
+  body.dragging { user-select: none; cursor: grabbing; }
+  body.dragging .body { cursor: grabbing; }
+  .unit.assigned { color: var(--dim); }
+  .unit.assigned::after {
+    content: attr(data-sid); position: absolute; right: 8px; top: 5px;
+    font-size: 10px; color: var(--accent2); background: rgba(74,158,255,.12);
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .unit.sel.assigned { color: var(--text); }
+
+  /* 右：編輯器 */
+  .field { margin-bottom: 12px; }
+  .field label {
+    display: block; font-size: 11px; color: var(--dim);
+    margin-bottom: 4px; text-transform: uppercase; letter-spacing: .5px;
+  }
+  .field input, .field textarea, .field select { width: 100%; }
+  .label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .label-row label { margin: 0; }
+  button.mini { padding: 3px 10px; font-size: 12px; }
+  button.mini.on { background: var(--accent2); color: #04121f; border-color: var(--accent2); font-weight: 600; }
+  body.reselect #source { border-color: var(--accent2); box-shadow: 0 0 0 2px rgba(74,158,255,.2); }
+  body.reselect #left { box-shadow: inset 0 0 0 2px rgba(74,158,255,.35); }
+  .field textarea { resize: vertical; line-height: 1.55; }
+  #prompt { min-height: 130px; font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+  #staging { min-height: 90px; font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+  #source { min-height: 60px; background: #191c22; color: var(--dim); font-size: 12px; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  .check { display: flex; align-items: center; gap: 6px; font-size: 13px; text-transform: none; letter-spacing: 0; }
+  .check input { width: auto; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  fieldset { border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin-bottom: 12px; }
+  legend { font-size: 11px; color: var(--dim); padding: 0 6px; letter-spacing: .5px; }
+  .badge {
+    font-size: 10px; padding: 1px 7px; border-radius: 10px;
+    background: rgba(210,153,34,.16); color: var(--warn); border: 1px solid var(--warn);
+  }
+
+  #sceneList { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 14px;
+    background: var(--panel); border-bottom: 1px solid var(--line); max-height: 92px; overflow-y: auto; }
+  .chip {
+    padding: 3px 9px; border-radius: 12px; font-size: 12px; cursor: pointer;
+    background: var(--panel2); border: 1px solid var(--line);
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip.active { background: var(--accent); color: #1a1000; border-color: var(--accent); font-weight: 600; }
+  .chip.empty { border-style: dashed; color: var(--dim); }
+
+  #preview { max-width: 100%; border-radius: 6px; border: 1px solid var(--line); display: none; }
+  #cands { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
+  #cands.show { display: grid; }
+  .cand { position: relative; cursor: pointer; border: 2px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .cand:hover { border-color: var(--accent); }
+  .cand img { width: 100%; display: block; }
+  .cand span {
+    position: absolute; left: 4px; top: 4px; font-size: 11px; font-weight: 600;
+    background: rgba(0,0,0,.65); color: #fff; padding: 1px 6px; border-radius: 3px;
+  }
+  .empty-note { color: var(--dim); text-align: center; padding: 40px 20px; font-size: 13px; }
+  .tag { font-size: 11px; padding: 1px 6px; border-radius: 3px; background: var(--panel2); color: var(--dim); }
+</style>
+</head>
+<body>
+
+<div id="top">
+  <h1>分鏡稿編輯器</h1>
+  <select id="scriptSel"></select>
+  <select id="seriesSel"></select>
+  <input id="newSeries" placeholder="或新系列名稱" style="width:130px">
+  <button id="btnRenum" title="依台詞順序重新編號整個系列">重新編號</button>
+  <div class="spacer"></div>
+  <span id="status"></span>
+</div>
+
+<div id="main">
+  <div id="left">
+    <div class="head">
+      <span>語音稿台詞</span>
+      <span class="tag" id="unitCount"></span>
+      <div class="spacer"></div>
+      <span id="selInfo" style="color:var(--accent)"></span>
+      <button class="primary" id="btnNew" disabled>建立分鏡</button>
+    </div>
+    <div class="body" id="units"></div>
+  </div>
+
+  <div id="divider" title="拖曳調整左右欄寬度"></div>
+
+  <div id="right">
+    <div id="sceneList"></div>
+    <div class="head">
+      <span id="editTitle">分鏡編輯</span>
+      <div class="spacer"></div>
+      <button id="btnGen" disabled>生成提示詞</button>
+      <button id="btnImg" disabled>生成圖片</button>
+      <button id="btnBatch" disabled>批次生成 8 張</button>
+      <button id="btnDel" disabled>刪除</button>
+      <button class="primary" id="btnSave" disabled>儲存</button>
+    </div>
+    <div class="body" id="editor">
+      <div class="empty-note">從左邊選取台詞後按「建立分鏡」，或點上方的分鏡編號來編輯</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let UNITS = [], SCENES = [], CUR = null, SEL = new Set(), BOOT = null, reselectMode = false;
+
+const status = (m, c) => { $('status').textContent = m; $('status').style.color = c || 'var(--dim)'; };
+const series = () => $('newSeries').value.trim() || $('seriesSel').value;
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function syncSelToSource() {
+  const el = $('source');
+  if (!el) return;
+  el.value = [...SEL].sort((a, b) => a - b)
+    .map(u => (UNITS.find(x => x.uid === u) || {}).text).filter(Boolean).join(' ');
+}
+
+function setReselect(on) {
+  reselectMode = on;
+  document.body.classList.toggle('reselect', on);
+  const btn = $('btnReselect');
+  if (btn) { btn.classList.toggle('on', on); btn.textContent = on ? '✓ 完成選取' : '🔗 重新選取台詞'; }
+  status(on ? '重新選取中：在左邊拖曳或點台詞，完成後記得按「儲存」' : '已更新選取，記得按「儲存」寫入',
+    on ? 'var(--accent2)' : 'var(--ok)');
+}
+
+async function api(path, opt) {
+  const r = await fetch(path, opt);
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+  return r.json();
+}
+
+async function boot() {
+  BOOT = await api('/api/bootstrap');
+  $('scriptSel').innerHTML = BOOT.scripts.map(s => `<option>${esc(s)}</option>`).join('');
+  $('seriesSel').innerHTML = BOOT.series.map(s => `<option>${esc(s)}</option>`).join('');
+  await loadScript(); await loadScenes();
+}
+
+async function loadScript() {
+  const d = await api('/api/script?file=' + encodeURIComponent($('scriptSel').value));
+  UNITS = d.units;
+  $('unitCount').textContent = UNITS.length + ' 句';
+  renderUnits();
+}
+
+async function loadScenes() {
+  const s = $('seriesSel').value;
+  if (!s) { SCENES = []; renderChips(); return; }
+  SCENES = (await api('/api/scenes?series=' + encodeURIComponent(s)
+    + '&script=' + encodeURIComponent($('scriptSel').value))).scenes;
+  renderChips(); renderUnits();
+}
+
+function uidToScene() {
+  const m = {};
+  SCENES.forEach(sc => (sc.line_range || []).forEach(u => m[u] = sc.id));
+  return m;
+}
+
+function renderUnits() {
+  const map = uidToScene();
+  const paras = {};
+  UNITS.forEach(u => (paras[u.para] = paras[u.para] || []).push(u));
+  $('units').innerHTML = Object.values(paras).map(list =>
+    `<div class="para">` + list.map(u => {
+      const sid = map[u.uid];
+      return `<div class="unit ${SEL.has(u.uid) ? 'sel' : ''} ${sid ? 'assigned' : ''}"
+        data-uid="${u.uid}" ${sid ? `data-sid="${sid}"` : ''}>${esc(u.text)}</div>`;
+    }).join('') + `</div>`
+  ).join('');
+  bindUnits();
+  $('selInfo').textContent = SEL.size ? `已選 ${SEL.size} 句` : '';
+  $('btnNew').disabled = !SEL.size;
+}
+
+let dragging = false, dragStart = null, dragMoved = false, dragStartSid = null;
+
+function applyRange(fromUid, toUid) {
+  const [a, b] = [Math.min(fromUid, toUid), Math.max(fromUid, toUid)];
+  SEL.clear();
+  for (let i = a; i <= b; i++) SEL.add(i);
+  renderUnits();
+  if (reselectMode) syncSelToSource();
+}
+
+function bindUnits() {
+  const box = $('units');
+  box.onmousedown = e => {
+    const el = e.target.closest('.unit');
+    if (!el) return;
+    e.preventDefault();
+    dragging = true; dragMoved = false;
+    dragStart = +el.dataset.uid;
+    dragStartSid = el.dataset.sid || null;
+    if (!e.shiftKey) SEL.clear();
+    SEL.add(dragStart); renderUnits();
+    if (reselectMode) syncSelToSource();
+    document.body.classList.add('dragging');
+  };
+  box.onmousemove = e => {
+    if (!dragging) return;
+    const el = e.target.closest('.unit');
+    if (!el) return;
+    const uid = +el.dataset.uid;
+    if (uid !== dragStart) dragMoved = true;
+    applyRange(dragStart, uid);
+  };
+}
+
+document.addEventListener('mouseup', () => {
+  if (!dragging) return;
+  dragging = false;
+  document.body.classList.remove('dragging');
+  if (reselectMode) return;
+  if (!dragMoved && dragStartSid) openScene(dragStartSid);
+});
+
+function renderChips() {
+  $('sceneList').innerHTML = SCENES.map(s =>
+    `<div class="chip ${CUR === s.id ? 'active' : ''} ${s.prompt ? '' : 'empty'}" data-id="${s.id}">
+      ${s.id}${s.depiction_mode ? ' · ' + s.depiction_mode : ''}</div>`).join('')
+    || '<span style="color:var(--dim);font-size:12px">尚無分鏡</span>';
+  $('sceneList').querySelectorAll('.chip').forEach(c => c.onclick = () => openScene(c.dataset.id));
+}
+
+const FRAMING_LABEL = {
+  vocabulary: '詞彙組', shot_size: '景別', angle: '視角', composition: '構圖',
+  layout: '版面', info_hierarchy: '資訊層次', directionality: '方向性', contrast_balance: '對比配置',
+};
+
+function sel(id, opts, val, allowEmpty = true) {
+  const o = (allowEmpty ? ['<option value="">—</option>'] : [])
+    .concat(opts.map(x => `<option ${x === val ? 'selected' : ''}>${esc(x)}</option>`));
+  return `<select id="${id}">${o.join('')}</select>`;
+}
+
+function openScene(id) {
+  const s = SCENES.find(x => x.id === id);
+  if (!s) return;
+  CUR = id;
+  reselectMode = false; document.body.classList.remove('reselect');
+  SEL = new Set(s.line_range || []);
+  renderChips(); renderUnits();
+  $('editTitle').textContent = '編輯 ' + id;
+  ['btnGen', 'btnImg', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
+
+  const fr = s.framing || {};
+  const framingCells = BOOT.framing_fields.map(f =>
+    `<div class="field" style="margin:0"><label>${FRAMING_LABEL[f] || f}</label>
+      ${sel('fr_' + f, BOOT.framing_options[f] || [], fr[f])}</div>`).join('');
+
+  $('editor').innerHTML = `
+    <div class="field"><label>預覽圖</label>
+      <img id="preview" src="/api/image?series=${encodeURIComponent(series())}&id=${id}&t=${Date.now()}"
+        onload="this.style.display='block'" onerror="this.style.display='none'">
+      <div id="cands"></div></div>
+
+    <div class="field">
+      <div class="label-row">
+        <label>涵蓋的語音稿原文（source）</label>
+        <button id="btnReselect" class="mini">🔗 重新選取台詞</button>
+      </div>
+      <textarea id="source" readonly>${esc(s.source)}</textarea></div>
+
+    <div class="field" style="border:1px dashed var(--line);padding:8px 10px;border-radius:6px;background:#191c22">
+      <div class="label-row">
+        <label>貼上 AI 回覆（JSON）→ 自動填入各欄位</label>
+        <button id="btnApply" class="mini">套用</button>
+      </div>
+      <textarea id="aiPaste" placeholder="把 Claude 回覆的 JSON 整段貼在這裡，按「套用」會自動填入下方欄位" style="min-height:56px"></textarea></div>
+
+    <div class="row">
+      <div class="field"><label>修辭功能</label>${sel('f_rf', BOOT.rhetorical_functions, s.rhetorical_function, false)}</div>
+      <div class="field"><label>呈現手法</label>${sel('f_dm', BOOT.depiction_modes, s.depiction_mode, false)}</div>
+      <div class="field"><label>論述單元 unit</label><input id="f_unit" value="${esc(s.unit)}"></div>
+    </div>
+
+    <div class="row">
+      <div class="field"><label>情緒偏移（中文，無則留白）</label><input id="f_shift" value="${esc(s.emotional_shift)}"></div>
+      <div class="field"><label>情緒語句 emotion_en</label><input id="f_emo" value="${esc(s.emotion_en)}"></div>
+    </div>
+
+    <div class="row" style="align-items:center;margin-bottom:12px">
+      <label class="check"><input type="checkbox" id="f_spec" ${s.is_speculation ? 'checked' : ''}> 推演格（套用推演調性）</label>
+      <label class="check"><input type="checkbox" id="f_post" ${s.needs_post_text ? 'checked' : ''}> 需後製文字（不出圖）</label>
+      <div class="field" style="margin:0"><label>workflow</label>
+        ${sel('f_wf', ['text_only', 'text_with_character'], s.workflow, false)}</div>
+    </div>
+
+    <fieldset><legend>取景設計 framing</legend><div class="grid4">${framingCells}</div></fieldset>
+
+    <div class="field"><label>場面調度 staging（英文，只寫畫框內容）</label>
+      <textarea id="staging">${esc(s.staging)}</textarea></div>
+
+    <div class="field">
+      <div class="label-row">
+        <label>生圖提示詞 prompt <span id="manualBadge" class="badge" style="display:none">已手改</span></label>
+        <button id="btnRecompose" class="mini">重新組裝</button>
+      </div>
+      <textarea id="prompt">${esc(s.prompt)}</textarea></div>`;
+
+  $('btnReselect').onclick = () => setReselect(!reselectMode);
+  $('btnApply').onclick = applyAiReply;
+  $('btnRecompose').onclick = () => recompose(true);
+  setManual(!!s.prompt_manual);
+
+  // 任何影響 prompt 的欄位變動 → 自動重組（除非已手改）
+  [...BOOT.framing_fields.map(f => 'fr_' + f), 'f_spec', 'f_emo', 'staging']
+    .forEach(k => { const el = $(k); if (el) el.addEventListener('change', () => recompose(false)); });
+  $('staging').addEventListener('blur', () => recompose(false));
+  $('prompt').addEventListener('input', () => setManual(true));
+  // 呈現手法改成「主持人出鏡」時自動切 workflow
+  $('f_dm').addEventListener('change', () => {
+    if ($('f_dm').value === '主持人出鏡') $('f_wf').value = 'text_with_character';
+  });
+
+  api(`/api/tmp-images?series=${encodeURIComponent(series())}&id=${id}`)
+    .then(d => { if (d.variants && d.variants.length) renderCands(d.variants); })
+    .catch(() => {});
+}
+
+let manual = false;
+function setManual(on) {
+  manual = on;
+  const b = $('manualBadge');
+  if (b) b.style.display = on ? 'inline-block' : 'none';
+}
+
+function collect() {
+  const s = SCENES.find(x => x.id === CUR);
+  if (!s) return null;
+  const framing = {};
+  BOOT.framing_fields.forEach(f => { framing[f] = $('fr_' + f).value || null; });
+  return Object.assign({}, s, {
+    unit: $('f_unit').value,
+    rhetorical_function: $('f_rf').value,
+    depiction_mode: $('f_dm').value,
+    emotional_shift: $('f_shift').value || null,
+    emotion_en: $('f_emo').value,
+    is_speculation: $('f_spec').checked,
+    needs_post_text: $('f_post').checked,
+    workflow: $('f_wf').value,
+    framing,
+    staging: $('staging').value,
+    prompt: $('prompt').value,
+    prompt_manual: manual,
+    line_range: [...SEL].sort((a, b) => a - b),
+    source: [...SEL].sort((a, b) => a - b)
+      .map(u => (UNITS.find(x => x.uid === u) || {}).text).filter(Boolean).join(' '),
+  });
+}
+
+async function recompose(force) {
+  if (manual && !force) return;
+  const sc = collect();
+  if (!sc) return;
+  try {
+    const d = await api('/api/compose', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ scene: sc })
+    });
+    $('prompt').value = d.prompt;
+    setManual(false);
+    status('已重新組裝 prompt', 'var(--ok)');
+  } catch (e) { status('組裝失敗：' + e.message, 'var(--warn)'); }
+}
+
+$('btnNew').onclick = async () => {
+  const s = series();
+  if (!s) return status('請選擇或輸入系列名稱', 'var(--warn)');
+  status('建立中…');
+  const d = await api('/api/scene/new', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ series: s, uids: [...SEL], script_file: $('scriptSel').value })
+  });
+  if ($('newSeries').value.trim()) {
+    BOOT = await api('/api/bootstrap');
+    $('seriesSel').innerHTML = BOOT.series.map(x => `<option>${esc(x)}</option>`).join('');
+    $('seriesSel').value = s; $('newSeries').value = '';
+  }
+  await loadScenes(); openScene(d.scene.id);
+  status('已建立 ' + d.scene.id, 'var(--ok)');
+};
+
+$('btnSave').onclick = async () => {
+  const sc = collect(); if (!sc) return;
+  await api('/api/scene', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ series: series(), scene: sc })
+  });
+  await loadScenes(); renderChips();
+  if (reselectMode) setReselect(false);
+  status('已儲存 ' + CUR, 'var(--ok)');
+};
+
+$('btnGen').onclick = async () => {
+  const src = ($('source') || {}).value || '';
+  if (!src.trim()) return status('這一格沒有語音稿原文', 'var(--warn)');
+  const d = await api('/api/gen-instruction', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ source: src })
+  });
+  try {
+    await navigator.clipboard.writeText(d.instruction);
+    status('已複製生成指令到剪貼簿 → 貼給 Claude，再把回覆貼回「貼上 AI 回覆」框', 'var(--ok)');
+  } catch (e) {
+    if ($('aiPaste')) $('aiPaste').value = d.instruction;
+    status('無法自動複製，指令已顯示在下方框內，請手動複製', 'var(--warn)');
+  }
+};
+
+function applyAiReply() {
+  const raw = ($('aiPaste') || {}).value || '';
+  const m = raw.trim().match(/\{[\s\S]*\}/);
+  if (!m) return status('貼上框裡找不到 JSON', 'var(--warn)');
+  let o;
+  try { o = JSON.parse(m[0]); }
+  catch (e) { return status('JSON 解析失敗：' + e.message, 'var(--warn)'); }
+  const set = (id, v) => { if (v !== undefined && $(id)) $(id).value = v ?? ''; };
+  set('f_rf', o.rhetorical_function);
+  set('f_dm', o.depiction_mode);
+  set('f_unit', o.unit);
+  set('f_shift', o.emotional_shift);
+  set('f_emo', o.emotion_en);
+  set('staging', o.staging);
+  if (o.is_speculation !== undefined) $('f_spec').checked = !!o.is_speculation;
+  if (o.needs_post_text !== undefined) $('f_post').checked = !!o.needs_post_text;
+  if (o.workflow) $('f_wf').value = o.workflow;
+  if (o.framing) BOOT.framing_fields.forEach(f => {
+    if (o.framing[f] !== undefined && $('fr_' + f)) $('fr_' + f).value = o.framing[f] ?? '';
+  });
+  setManual(false);
+  recompose(true);
+  status('已套用 AI 回覆並重組 prompt，請檢查後按「儲存」', 'var(--ok)');
+}
+
+$('btnImg').onclick = async () => {
+  status('生成圖片中…（約 40–50 秒）');
+  $('btnImg').disabled = true;
+  try {
+    const d = await api('/api/generate-image', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ series: series(), id: CUR, seed: Math.floor(Math.random() * 90000) })
+    });
+    status(d.ok ? `✓ 圖片完成（${d.secs}s, seed=${d.seed}）` : ('✗ ' + (d.note || '生成失敗')),
+      d.ok ? 'var(--ok)' : 'var(--warn)');
+    if (d.ok) $('preview').src = `/api/image?series=${encodeURIComponent(series())}&id=${CUR}&t=${Date.now()}`;
+  } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
+  $('btnImg').disabled = false;
+};
+
+$('btnBatch').onclick = async () => {
+  status('批次生成 8 張中…（約 6 分鐘）');
+  $('btnBatch').disabled = true; $('btnImg').disabled = true;
+  try {
+    const d = await api('/api/batch-generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ series: series(), id: CUR, seed: Math.floor(Math.random() * 90000) })
+    });
+    if (d.ok) { renderCands(d.variants); status(`✓ 已生成 ${d.count} 張候選，點縮圖選一張`, 'var(--ok)'); }
+    else status('✗ ' + (d.note || '批次生成失敗'), 'var(--warn)');
+  } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
+  $('btnBatch').disabled = false; $('btnImg').disabled = false;
+};
+
+function renderCands(variants) {
+  const box = $('cands');
+  if (!box) return;
+  if (!variants || !variants.length) { box.className = ''; box.innerHTML = ''; return; }
+  const q = `series=${encodeURIComponent(series())}&id=${CUR}`;
+  box.innerHTML = variants.map(v =>
+    `<div class="cand" data-v="${v}"><img src="/api/image?${q}&variant=${v}&t=${Date.now()}"><span>${v}</span></div>`
+  ).join('');
+  box.className = 'show';
+  box.querySelectorAll('.cand').forEach(el => el.onclick = () => pickCand(el.dataset.v));
+}
+
+async function pickCand(v) {
+  if (!confirm(`採用候選圖 ${v}？其餘候選會被刪除。`)) return;
+  status('搬移中…');
+  try {
+    await api('/api/pick-image', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ series: series(), id: CUR, variant: v })
+    });
+    renderCands([]);
+    $('preview').src = `/api/image?series=${encodeURIComponent(series())}&id=${CUR}&t=${Date.now()}`;
+    status(`✓ 已採用候選圖 ${v}`, 'var(--ok)');
+  } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
+}
+
+$('btnDel').onclick = async () => {
+  if (!confirm('確定刪除 ' + CUR + '？（對應的圖片也會刪掉）')) return;
+  await api(`/api/scene?series=${encodeURIComponent(series())}&id=${CUR}`, { method: 'DELETE' });
+  CUR = null; SEL.clear();
+  await loadScenes();
+  $('editor').innerHTML = '<div class="empty-note">已刪除</div>';
+  ['btnGen', 'btnImg', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = true);
+  status('已刪除', 'var(--ok)');
+};
+
+$('scriptSel').onchange = loadScript;
+$('seriesSel').onchange = async () => { CUR = null; SEL.clear(); await loadScenes(); };
+
+$('btnRenum').onclick = async () => {
+  const body = { series: series(), script: $('scriptSel').value };
+  status('計算新編號中…');
+  try {
+    const pre = await api('/api/renumber', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...body, dry_run: true })
+    });
+    if (!pre.changed) return status('編號已經是正確順序，不需調整', 'var(--ok)');
+    const list = pre.changes.slice(0, 12).map(([o, n]) => `${o} → ${n}`).join('\n');
+    const more = pre.changes.length > 12 ? `\n…以及其他 ${pre.changes.length - 12} 筆` : '';
+    if (!confirm(
+      `依台詞順序重新編號，共 ${pre.total} 格，其中 ${pre.changed} 格會改號：\n\n${list}${more}\n\n` +
+      `對應的圖片檔案也會一起改名。確定執行？`
+    )) return status('已取消');
+    status('重新編號中…');
+    const d = await api('/api/renumber', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    CUR = null; SEL.clear();
+    await loadScenes();
+    status(`✓ 已重新編號，${d.changed} 格調整`, 'var(--ok)');
+  } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
+};
+
+(function initDivider() {
+  const divider = $('divider'), left = $('left'), main = $('main');
+  const saved = localStorage.getItem('leftWidth');
+  if (saved) left.style.width = saved;
+  let d = false;
+  divider.addEventListener('mousedown', e => { d = true; document.body.classList.add('col-resizing'); e.preventDefault(); });
+  window.addEventListener('mousemove', e => {
+    if (!d) return;
+    const rect = main.getBoundingClientRect();
+    left.style.width = Math.max(240, Math.min(rect.width - 320, e.clientX - rect.left)) + 'px';
+  });
+  window.addEventListener('mouseup', () => {
+    if (!d) return;
+    d = false; document.body.classList.remove('col-resizing');
+    localStorage.setItem('leftWidth', left.style.width);
+  });
+})();
+
+boot().catch(e => status('載入失敗：' + e.message, 'var(--warn)'));
+</script>
+</body>
+</html>

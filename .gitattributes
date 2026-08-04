@@ -1,0 +1,8 @@
+# 文字檔一律以 LF 存進版本庫，工作區依平台自動轉換
+* text=auto eol=lf
+
+# 批次檔在 Windows 需要 CRLF 才穩
+*.bat text eol=crlf
+
+# 二進位
+*.png binary

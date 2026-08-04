@@ -1,0 +1,123 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "_meta": { "title": "載入擴散模型 (Flux 2 Klein)" },
+    "inputs": {
+      "unet_name": "flux-2-klein-base-4b.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "_meta": { "title": "載入 CLIP (Qwen3-4B / flux2)" },
+    "inputs": {
+      "clip_name": "qwen_3_4b.safetensors",
+      "type": "flux2",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "_meta": { "title": "載入 VAE" },
+    "inputs": { "vae_name": "flux2-vae.safetensors" }
+  },
+
+  "10": {
+    "class_type": "LoadImage",
+    "_meta": { "title": "★輸入：角色參考圖" },
+    "inputs": { "image": "input_character.png" }
+  },
+  "11": {
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": { "title": "參考圖縮放至 1MP" },
+    "inputs": {
+      "image": ["10", 0],
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "resolution_steps": 1
+    }
+  },
+  "12": {
+    "class_type": "VAEEncode",
+    "_meta": { "title": "參考圖編碼為 latent" },
+    "inputs": { "pixels": ["11", 0], "vae": ["3", 0] }
+  },
+
+  "20": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "★正向提示詞" },
+    "inputs": {
+      "text": "PLACEHOLDER_POSITIVE",
+      "clip": ["2", 0]
+    }
+  },
+  "22": {
+    "class_type": "ReferenceLatent",
+    "_meta": { "title": "把參考圖掛進正向條件" },
+    "inputs": {
+      "conditioning": ["20", 0],
+      "latent": ["12", 0]
+    }
+  },
+  "21": {
+    "class_type": "CLIPTextEncode",
+    "_meta": { "title": "★負向提示詞（不掛參考圖）" },
+    "inputs": {
+      "text": "PLACEHOLDER_NEGATIVE",
+      "clip": ["2", 0]
+    }
+  },
+
+  "40": {
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": { "title": "★輸出尺寸" },
+    "inputs": { "width": 1600, "height": 900, "batch_size": 1 }
+  },
+  "41": {
+    "class_type": "Flux2Scheduler",
+    "_meta": { "title": "Flux2 排程（尺寸須與 40 一致）" },
+    "inputs": { "steps": 20, "width": 1600, "height": 900 }
+  },
+  "42": {
+    "class_type": "KSamplerSelect",
+    "_meta": { "title": "取樣器" },
+    "inputs": { "sampler_name": "euler" }
+  },
+  "43": {
+    "class_type": "RandomNoise",
+    "_meta": { "title": "★隨機種子" },
+    "inputs": { "noise_seed": 0 }
+  },
+  "44": {
+    "class_type": "CFGGuider",
+    "_meta": { "title": "CFG 引導" },
+    "inputs": {
+      "model": ["1", 0],
+      "positive": ["22", 0],
+      "negative": ["21", 0],
+      "cfg": 5
+    }
+  },
+  "45": {
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": { "title": "取樣" },
+    "inputs": {
+      "noise": ["43", 0],
+      "guider": ["44", 0],
+      "sampler": ["42", 0],
+      "sigmas": ["41", 0],
+      "latent_image": ["40", 0]
+    }
+  },
+
+  "50": {
+    "class_type": "VAEDecode",
+    "_meta": { "title": "VAE 解碼" },
+    "inputs": { "samples": ["45", 0], "vae": ["3", 0] }
+  },
+  "51": {
+    "class_type": "SaveImage",
+    "_meta": { "title": "儲存圖片" },
+    "inputs": { "images": ["50", 0], "filename_prefix": "storyboard_char" }
+  }
+}

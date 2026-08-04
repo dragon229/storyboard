@@ -1,0 +1,2054 @@
+[
+ {
+  "id": "s01",
+  "unit": "u01",
+  "source": "有一個人，一年花兩百萬美金，只為了買一樣東西。不是車，也不是房，是時間。而他買到的，是每年少老三個月。",
+  "rhetorical_function": "拋出鉤子",
+  "emotional_shift": "懸念",
+  "emotion_en": "a held breath before the answer",
+  "is_speculation": false,
+  "depiction_mode": "細部放大",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "特寫",
+   "angle": "俯角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "more than a hundred loose pills of many different shapes and colours laid out in tight neat rows on a dark matte tabletop, filling the frame edge to edge, a single small glass of water at one corner, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, high-angle, centered symmetrical framing, more than a hundred loose pills of many different shapes and colours laid out in tight neat rows on a dark matte tabletop, filling the frame edge to edge, a single small glass of water at one corner, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a held breath before the answer, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "id": "s02",
+  "unit": "u02",
+  "source": "而在美國，有人早就幫你的「一年生命」算好了價錢：大概四十九萬美金。",
+  "rhetorical_function": "拋出鉤子",
+  "emotional_shift": null,
+  "emotion_en": "the strange calm of an official number",
+  "is_speculation": false,
+  "depiction_mode": "尺度對照",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "directionality": null
+  },
+  "staging": "a plain human silhouette standing on the left half of the frame, and on the right half a stack of banknote bundles built up to exactly the same height as the silhouette, both on a bare pale floor, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, a plain human silhouette standing on the left half of the frame, and on the right half a stack of banknote bundles built up to exactly the same height as the silhouette, both on a bare pale floor, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the strange calm of an official number, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   3
+  ]
+ },
+ {
+  "id": "s03",
+  "unit": "u03",
+  "source": "所以今天，我們來認真算一件事：錢，到底能不能買到時間？如果能，一年，要多少錢？",
+  "rhetorical_function": "拋出鉤子",
+  "emotional_shift": "懸念",
+  "emotion_en": "quiet unresolved curiosity",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "directionality": null
+  },
+  "staging": "a large old balance scale standing alone on an empty pale floor, an hourglass resting in the left pan and a heap of gold coins in the right pan, the beam perfectly level, deep shadow behind, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, centered symmetrical framing, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, a large old balance scale standing alone on an empty pale floor, an hourglass resting in the left pan and a heap of gold coins in the right pan, the beam perfectly level, deep shadow behind, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, quiet unresolved curiosity, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   4,
+   5
+  ]
+ },
+ {
+  "id": "s04",
+  "unit": "u04",
+  "source": "你上禮拜，叫了幾次外送？想一下。那個外送費，三十塊、五十塊，你為什麼願意付？",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "light everyday curiosity",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a delivery rider in a plain helmet and jacket standing at an apartment doorway on the right third, holding out a paper takeaway bag toward the viewer, warm hallway light spilling from the open door, a bicycle leaning against the wall behind him",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the right third, a delivery rider in a plain helmet and jacket standing at an apartment doorway on the right third, holding out a paper takeaway bag toward the viewer, warm hallway light spilling from the open door, a bicycle leaning against the wall behind him, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, light everyday curiosity, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   7,
+   8,
+   9
+  ]
+ },
+ {
+  "id": "s05",
+  "unit": "u04",
+  "source": "食物你家巷口就有，走過去五分鐘的事。你付那筆錢，買的其實不是那份餐。你買的是那五分鐘，還有你那天不想出門的那一點懶。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "easy inquisitive warmth",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image standing just inside a doorway on a narrow neighbourhood lane at dusk, a small noodle shop with a warm orange glowing awning only a few steps away down the lane on the right, low brick houses on both sides, a deep blue evening sky above, the character looking down the lane without stepping out, one hand still on the door frame",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, the character from the reference image standing just inside a doorway on a narrow neighbourhood lane at dusk, a small noodle shop with a warm orange glowing awning only a few steps away down the lane on the right, low brick houses on both sides, a deep blue evening sky above, the character looking down the lane without stepping out, one hand still on the door frame, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, easy inquisitive warmth, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   10,
+   11,
+   12
+  ]
+ },
+ {
+  "id": "s06",
+  "unit": "u05",
+  "source": "換句話說，你花錢，把時間買回來了。你可能從來沒這樣想過。這件事我們每天都在做，卻幾乎沒人把它講白。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a quiet click of recognition",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "特寫",
+   "angle": "水平",
+   "composition": "置中",
+   "directionality": "由上而下",
+   "layout": null,
+   "info_hierarchy": null,
+   "contrast_balance": null
+  },
+  "staging": "a single gold coin dropping into the top opening of a large hourglass and turning into a bright stream of golden sand pouring down into the lower bulb, the hourglass filling the frame against a plain dark background, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, eye-level, centered symmetrical framing, arrows and motion flowing downward, a single gold coin dropping into the top opening of a large hourglass and turning into a bright stream of golden sand pouring down into the lower bulb, the hourglass filling the frame against a plain dark background, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a quiet click of recognition, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   13,
+   14,
+   15
+  ]
+ },
+ {
+  "id": "s07",
+  "unit": "u05",
+  "source": "你會多花錢搭計程車，不是因為你等不了公車，是你拿那筆錢，換掉了站在站牌前乾等的時間。多付點錢插隊、或者請個人來打掃，形式不一樣，骨子裡是同一件事：拿錢，去換時間。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "the ordinary made visible",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves by a clean vertical line: on the left a lone bus stop pole with an empty bench under a grey overcast sky, on the right a bright yellow taxi with its door open at the kerb under the same sky, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, the frame split into two equal halves by a clean vertical line: on the left a lone bus stop pole with an empty bench under a grey overcast sky, on the right a bright yellow taxi with its door open at the kerb under the same sky, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the ordinary made visible, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   16,
+   17
+  ]
+ },
+ {
+  "id": "s08",
+  "unit": "u06",
+  "source": "但上面那些，都只是「省」下一點點時間。如果，錢可以直接買到時間呢？我是說直接。不是幫你省十分鐘，是直接讓你這條命，多出來十年。做得到嗎？如果做得到，一年，要多少錢？",
+  "rhetorical_function": "推進",
+  "emotional_shift": "懸念",
+  "emotion_en": "an idea opening wider than expected",
+  "is_speculation": true,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "one long horizontal bar lying across the middle of an empty pale field, solid and warm in colour, with a clearly separate paler extra segment attached to its right end continuing beyond where the solid bar stops, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, one long horizontal bar lying across the middle of an empty pale field, solid and warm in colour, with a clearly separate paler extra segment attached to its right end continuing beyond where the solid bar stops, no people visible, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, an idea opening wider than expected, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   18,
+   19,
+   20,
+   21,
+   22,
+   23
+  ]
+ },
+ {
+  "id": "s09",
+  "unit": "u07",
+  "source": "先講一句你從小聽到大的話：「時間就是金錢」。這句話，多半是老師、爸媽拿來叫你別混、快去讀書的。聽起來像雞湯。",
+  "rhetorical_function": "點出直覺",
+  "emotional_shift": null,
+  "emotion_en": "the flatness of advice heard too often",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "仰角",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a teacher seen from behind standing on the left third of the frame in front of a large blank green chalkboard, one arm raised tapping the empty board with a piece of chalk, rows of empty wooden desks in the foreground, flat classroom light",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, low-angle, rule-of-thirds composition with the subject on the left third, a teacher seen from behind standing on the left third of the frame in front of a large blank green chalkboard, one arm raised tapping the empty board with a piece of chalk, rows of empty wooden desks in the foreground, flat classroom light, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the flatness of advice heard too often, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   24,
+   25,
+   26
+  ]
+ },
+ {
+  "id": "s10",
+  "unit": "u08",
+  "source": "富蘭克林在一七四八年，寫給一個年輕生意人的信裡，就講過這句話。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "the weight of an old document",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "an eighteenth century man in a long coat and small round spectacles seated at a wooden writing desk on the right third, bent over a sheet of paper with a quill in hand, a candle and an inkwell beside him, a tall shuttered window behind casting a pale rectangle of daylight across the desk",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the right third, an eighteenth century man in a long coat and small round spectacles seated at a wooden writing desk on the right third, bent over a sheet of paper with a quill in hand, a candle and an inkwell beside him, a tall shuttered window behind casting a pale rectangle of daylight across the desk, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the weight of an old document, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   27
+  ]
+ },
+ {
+  "id": "s11",
+  "unit": "u09",
+  "source": "他要講的不是「時間好寶貴喔要珍惜」，他算的是一筆帳。假設你一天做工能賺十塊錢，結果你今天閒晃掉了半天。你以為你只是「沒賺到」那半天的五塊嗎？不。富蘭克林說，你是實實在在「虧掉」了那五塊。這個概念，後來經濟學給了它一個名字，叫機會成本。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "an uncomfortable subtraction",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a horizontal row of ten identical gold coins on a plain pale surface, the left five standing solid and bright, the right five drawn only as hollow empty outlines with nothing inside them, a soft shadow under the solid ones and no shadow under the hollow ones, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, a horizontal row of ten identical gold coins on a plain pale surface, the left five standing solid and bright, the right five drawn only as hollow empty outlines with nothing inside them, a soft shadow under the solid ones and no shadow under the hollow ones, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, an uncomfortable subtraction, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   28,
+   29,
+   30
+  ]
+ },
+ {
+  "id": "s12",
+  "unit": "u10",
+  "source": "你身邊一定有這種人：時薪不低，卻為了省十塊錢停車費，甘願繞路多開二十分鐘。你笑他傻，但我們每天都在幹一樣的事，只是很少把帳算出來。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "the small absurdity of a familiar habit",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "遠景",
+   "angle": "鳥瞰",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a wide overhead view of a nearly empty rooftop car park with pale painted bays and low concrete walls, a single small car seen from directly above circling around and around the same block of bays, the character from the reference image sitting in the driver seat visible through the open sunroof looking up, one free parking bay marked out clearly at the far edge of the lot, warm afternoon light and long shadows across the concrete",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "wide establishing shot, the environment dominates and the subject stands small in the middle distance, bird's-eye view, centered symmetrical framing, a wide overhead view of a nearly empty rooftop car park with pale painted bays and low concrete walls, a single small car seen from directly above circling around and around the same block of bays, the character from the reference image sitting in the driver seat visible through the open sunroof looking up, one free parking bay marked out clearly at the far edge of the lot, warm afternoon light and long shadows across the concrete, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the small absurdity of a familiar habit, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   35,
+   36
+  ]
+ },
+ {
+  "id": "s13",
+  "unit": "u11",
+  "source": "而這句「時間就是金錢」，偷偷幫我們把一件事定了調：它把「時間」跟「錢」，放到了同一個天平上。既然在同一個天平上，它們之間，就有一個換算的比例。那我們要問的，其實就只剩一個問題了。這個匯率，到底是多少？",
+  "rhetorical_function": "推進",
+  "emotional_shift": null,
+  "emotion_en": "a question narrowing to a single point",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "directionality": null
+  },
+  "staging": "the same balance scale seen closer, an hourglass in the left pan and gold coins in the right pan, and stretched between the two pans a narrow arched bridge of pale stone that stops short in the middle with a clean gap where its keystone should be, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, centered symmetrical framing, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, the same balance scale seen closer, an hourglass in the left pan and gold coins in the right pan, and stretched between the two pans a narrow arched bridge of pale stone that stops short in the middle with a clean gap where its keystone should be, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a question narrowing to a single point, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   37,
+   38,
+   39,
+   40
+  ]
+ },
+ {
+  "id": "s14",
+  "unit": "u12",
+  "source": "不過「拿錢換時間」其實有兩種，差得很遠，混在一起算會出事。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "a fork appearing in a straight road",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "均等比較",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "one thick pale road coming in from the left edge and splitting cleanly into two roads of equal width that diverge toward the upper right and lower right corners, drawn flat on an empty field, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, both elements the same size and weight so neither dominates, arrows and motion flowing from left to right, one thick pale road coming in from the left edge and splitting cleanly into two roads of equal width that diverge toward the upper right and lower right corners, drawn flat on an empty field, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a fork appearing in a straight road, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   41
+  ]
+ },
+ {
+  "id": "s15",
+  "unit": "u13",
+  "source": "第一種，我叫它「省時間」。就是剛剛那些，外送、計程車、代排隊。你花錢，把本來要耗在無聊雜事上的時間省下來。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "something small reclaimed",
+  "is_speculation": false,
+  "depiction_mode": "細部放大",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "特寫",
+   "angle": "俯角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a hand lifting one short bright segment out of a long grey bar that lies across a plain surface, the removed segment held slightly above the bar leaving a clean empty notch behind, filling the frame, only the hand and forearm visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, high-angle, centered symmetrical framing, a hand lifting one short bright segment out of a long grey bar that lies across a plain surface, the removed segment held slightly above the bar leaving a clean empty notch behind, filling the frame, only the hand and forearm visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, something small reclaimed, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   42,
+   43,
+   44
+  ]
+ },
+ {
+  "id": "s16",
+  "unit": "u14",
+  "source": "而另外一種，是完全不同的一回事。「買壽命」。不是省下零碎的十分鐘二十分鐘，是直接往你生命的總長度上面，加年份。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "a line reaching past its own end",
+  "is_speculation": true,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a long solid warm bar running from the left edge toward the right, ending with a clean blunt cut, and beyond that cut three further pale hollow segments of the same height continuing on toward the right edge, an empty field above and below, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, rule-of-thirds composition with the subject on the left third, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, a long solid warm bar running from the left edge toward the right, ending with a clean blunt cut, and beyond that cut three further pale hollow segments of the same height continuing on toward the right edge, an empty field above and below, no people visible, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a line reaching past its own end, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   45,
+   46,
+   47
+  ]
+ },
+ {
+  "id": "s17",
+  "unit": "u15",
+  "source": "先講第一種，「省時間」。這件事有研究撐腰。二〇一七年，美國國家科學院的期刊上，登過一個規模不小的研究，跨了美國、加拿大、丹麥、荷蘭，問了超過六千個人。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "the quiet authority of many voices",
+  "is_speculation": false,
+  "depiction_mode": "尺度對照",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "鳥瞰",
+   "composition": "置中",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "a dense grid of hundreds of tiny identical human figures seen from directly above filling the whole frame, divided into four large rectangular blocks of four distinct flat colours, thin pale gaps between the blocks, no other elements",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "bird's-eye view, centered symmetrical framing, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, a dense grid of hundreds of tiny identical human figures seen from directly above filling the whole frame, divided into four large rectangular blocks of four distinct flat colours, thin pale gaps between the blocks, no other elements, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the quiet authority of many voices, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   48,
+   49,
+   50
+  ]
+ },
+ {
+  "id": "s18",
+  "unit": "u16",
+  "source": "它的結論很乾脆：那些願意花錢去買時間的人，比方花錢請人打掃、把雜事外包出去，他們比那些把同一筆錢拿去買物質、買東西的人，更快樂。而且他們不只是問問卷。他們做了對照實驗，結果很明顯，人在花錢買了時間之後，那個開心的程度，比買到東西的時候還高。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "a clean difference you can see",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves: on the left a person sitting back in an armchair with their shoulders low and a wide easy smile, an empty tidy room around them; on the right the same kind of person standing stiffly beside a large unopened cardboard box with a small flat closed-mouth expression, both halves lit identically",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, the frame split into two equal halves: on the left a person sitting back in an armchair with their shoulders low and a wide easy smile, an empty tidy room around them; on the right the same kind of person standing stiffly beside a large unopened cardboard box with a small flat closed-mouth expression, both halves lit identically, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a clean difference you can see, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   51,
+   52,
+   53,
+   54
+  ]
+ },
+ {
+  "id": "s19",
+  "unit": "u17",
+  "source": "所以「買時間會讓人更快樂」，這件事是被驗證過的。那你猜結果怎樣？幾乎沒有人這樣花錢。而且最詭異的是，連完全付得起的人，也不花。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "the small jolt of being wrong",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "左右分欄",
+   "info_hierarchy": "主體突出",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "a wide open doorway standing alone in a pale wall with warm light pouring out of it, and a crowd of people gathered in a loose arc a few steps in front of it, all facing the doorway, none of them stepping through, cool flat light on their side",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, two elements placed side by side, one on the left half and one on the right half, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, one side visually dominating the other in size and weight, a wide open doorway standing alone in a pale wall with warm light pouring out of it, and a crowd of people gathered in a loose arc a few steps in front of it, all facing the doorway, none of them stepping through, cool flat light on their side, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the small jolt of being wrong, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   55,
+   56,
+   57,
+   58
+  ]
+ },
+ {
+  "id": "s20",
+  "unit": "u18",
+  "source": "研究裡最卡的就是這個。明明買得起，明明科學都告訴你這樣會更快樂，可是大多數人，就是掏不下去這筆錢。卡在哪？其實，擋在你跟這筆錢中間的坎，不只一道。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "obstacles counted out one by one",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "three low solid walls of the same height standing evenly spaced across an empty pale field, seen from the side so they line up one behind another between the left and right edges, each casting a short shadow, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, three low solid walls of the same height standing evenly spaced across an empty pale field, seen from the side so they line up one behind another between the left and right edges, each casting a short shadow, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, obstacles counted out one by one, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   59,
+   60,
+   61,
+   62
+  ]
+ },
+ {
+  "id": "s21",
+  "unit": "u19",
+  "source": "第一道，是罪惡感。你想想看，花錢請一個人來，洗你自己的碗、掃你自己的地。你心裡是不是會冒出一個聲音，說：這樣會不會太懶了、這種小事自己做就好了幹嘛花錢。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a discomfort with no good reason",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image standing awkwardly on the left third of a bright modern living room with pale wooden floor, a large window with warm daylight on the right, arms held stiffly at his sides and shoulders slightly raised, watching a cleaner in a plain apron mopping the floor a few steps away in front of him, the character's mouth a small flat uneasy line",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, the character from the reference image standing awkwardly on the left third of a bright modern living room with pale wooden floor, a large window with warm daylight on the right, arms held stiffly at his sides and shoulders slightly raised, watching a cleaner in a plain apron mopping the floor a few steps away in front of him, the character's mouth a small flat uneasy line, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a discomfort with no good reason, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   63,
+   64
+  ]
+ },
+ {
+  "id": "s22",
+  "unit": "u19",
+  "source": "於是你寧可自己彎腰花兩個鐘頭刷馬桶，也不肯花兩百塊，把這兩個鐘頭買回來。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a stubbornness that costs more than it saves",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "俯角",
+   "composition": "對角",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a person kneeling and bent low over a toilet bowl in a small tiled bathroom, scrubbing with a brush, seen from above at a steep angle along a diagonal, and on the closed lid of the cistern beside them a small folded stack of banknotes sitting completely untouched, cold overhead light",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, high-angle, diagonal composition with the action direction aligned to the diagonal, a person kneeling and bent low over a toilet bowl in a small tiled bathroom, scrubbing with a brush, seen from above at a steep angle along a diagonal, and on the closed lid of the cistern beside them a small folded stack of banknotes sitting completely untouched, cold overhead light, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a stubbornness that costs more than it saves, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   67
+  ]
+ },
+ {
+  "id": "s23",
+  "unit": "u20",
+  "source": "還有一道坎，是個錯覺。我們幾乎每個人，都以為以後會比現在閒。所以這種花錢買時間的事，總想著「等我沒那麼忙再說」。可是研究發現，人一直在低估自己未來有多忙。結果那個「比較閒的以後」，永遠不會來。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a destination that keeps moving away",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "遠景",
+   "angle": "水平",
+   "composition": "透視",
+   "layout": "流程帶",
+   "directionality": "由左至右",
+   "info_hierarchy": null,
+   "contrast_balance": null
+  },
+  "staging": "a lone figure walking away from the viewer down a long straight road that narrows toward a distant horizon, and standing far ahead on that road a wide open gateway that is drawn much smaller and paler than the perspective would allow, so it reads as further away than the road can reach, flat overcast sky",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "wide establishing shot, the environment dominates and the subject stands small in the middle distance, eye-level, single-point perspective composition with strong leading lines converging toward a distant vanishing point, elements arranged left to right as a horizontal progression, arrows and motion flowing from left to right, a lone figure walking away from the viewer down a long straight road that narrows toward a distant horizon, and standing far ahead on that road a wide open gateway that is drawn much smaller and paler than the perspective would allow, so it reads as further away than the road can reach, flat overcast sky, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a destination that keeps moving away, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   68,
+   69,
+   70,
+   71
+  ]
+ },
+ {
+  "id": "s24",
+  "unit": "u21",
+  "source": "最後一道，最微妙。錢，你摸得到、數得出來，帳戶裡少一百就是實實在在少一百；可是時間，你摸不到，省下來的那兩個鐘頭長什麼樣子，你根本感覺不到。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "the pull of what can be held",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "two open hands side by side against a plain dark background, the left hand cupping a tight solid stack of gold coins with hard clean edges, the right hand holding only a loose scatter of pale translucent sand grains already slipping between the fingers and falling away",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, two open hands side by side against a plain dark background, the left hand cupping a tight solid stack of gold coins with hard clean edges, the right hand holding only a loose scatter of pale translucent sand grains already slipping between the fingers and falling away, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the pull of what can be held, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   73,
+   74
+  ]
+ },
+ {
+  "id": "s25",
+  "unit": "u22",
+  "source": "可是你退一步看，這整件事矛盾到不行。時間，是你人生裡唯一一個花掉就永遠回不來的東西。錢花光了還能再賺，時間花光了，就真的沒了。結果我們為了這三道坎，拚了命去省那個再賺就有的錢，把唯一回不來的時間，大把大把地，花在刷馬桶上。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "guarding the wrong thing all along",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "contrast_balance": "失衡",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null
+  },
+  "staging": "a person crouched protectively over a small pile of gold coins on the left third of a bare floor, both arms curled around it, while directly behind them a very large hourglass stands with its sand already almost entirely run through into the lower bulb, the person facing away from it, cool flat light",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, one side visually dominating the other in size and weight, a person crouched protectively over a small pile of gold coins on the left third of a bare floor, both arms curled around it, while directly behind them a very large hourglass stands with its sand already almost entirely run through into the lower bulb, the person facing away from it, cool flat light, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, guarding the wrong thing all along, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   76,
+   77,
+   78,
+   79
+  ]
+ },
+ {
+  "id": "s26",
+  "unit": "u23",
+  "source": "所以問題從來就不是你買不起時間。是這幾道心裡的坎，一直不放你過。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "the obstacle was never the price",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a single small human figure standing at the left, the three low walls lined up in front of it across the middle of the frame, and beyond the last wall a warm glowing open doorway at the right, everything else an empty pale field",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, a single small human figure standing at the left, the three low walls lined up in front of it across the middle of the frame, and beyond the last wall a warm glowing open doorway at the right, everything else an empty pale field, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the obstacle was never the price, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   80,
+   81
+  ]
+ },
+ {
+  "id": "s27",
+  "unit": "u24",
+  "source": "好，那換有錢人來看看。有錢人，總該不缺時間了吧。錢對他不是問題，雜事全部外包，行程有秘書排，你想像中他應該過得很從容、很自由。",
+  "rhetorical_function": "點出直覺",
+  "emotional_shift": null,
+  "emotion_en": "the ease we assume money buys",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a person in a well cut dark suit leaning far back in a large leather office chair on the right third, hands laced behind their head, feet up on the corner of a completely empty polished desk, a wall of tall windows with soft daylight behind them, nothing else on the desk at all",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the right third, a person in a well cut dark suit leaning far back in a large leather office chair on the right third, hands laced behind their head, feet up on the corner of a completely empty polished desk, a wall of tall windows with soft daylight behind them, nothing else on the desk at all, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the ease we assume money buys, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   82,
+   83,
+   84
+  ]
+ },
+ {
+  "id": "s28",
+  "unit": "u25",
+  "source": "事實剛好調過來。有另外一組研究，發現一件非常反直覺的事：一個人的收入越高、越有錢，他反而越覺得自己時間不夠用、時間壓力越大。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "the exact opposite of what was promised",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the same suited person in the same office, now standing hunched forward over the desk with both palms flat on it, jaw tight, the desk surface completely covered in overlapping paper sheets and the same wall of windows behind now showing a hard bright sky, the leather chair pushed away empty behind them",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, the same suited person in the same office, now standing hunched forward over the desk with both palms flat on it, jaw tight, the desk surface completely covered in overlapping paper sheets and the same wall of windows behind now showing a hard bright sky, the leather chair pushed away empty behind them, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the exact opposite of what was promised, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   85,
+   86
+  ]
+ },
+ {
+  "id": "s29",
+  "unit": "u26",
+  "source": "而且研究做得更絕，他們甚至不用真的讓你變有錢，他們只要想個辦法，讓你「意識到你的時間很值錢」就夠了。比方，在實驗開始前，先請你算一下自己的時薪是多少。就這麼一個小動作，你接下來，就會變得更沒耐性。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "a small act that changes everything after it",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "俯角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image seen from slightly above at a plain wooden desk in a quiet room with a warm desk lamp on the left and a pale wall behind, cropped at the chest, looking down at a small blank notepad directly in front of him with a pencil held over it, his other hand resting flat beside the pad, brow slightly drawn",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, high-angle, centered symmetrical framing, the character from the reference image seen from slightly above at a plain wooden desk in a quiet room with a warm desk lamp on the left and a pale wall behind, cropped at the chest, looking down at a small blank notepad directly in front of him with a pencil held over it, his other hand resting flat beside the pad, brow slightly drawn, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a small act that changes everything after it, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   87,
+   88
+  ]
+ },
+ {
+  "id": "s30",
+  "unit": "u27",
+  "source": "為什麼會這樣？因為當你知道自己時薪很高，你的每一個鐘頭，等於都被貼上了一張很貴的價格標籤。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "everything suddenly carries a price",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "環形",
+   "info_hierarchy": "主體突出",
+   "directionality": "發散",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a large plain clock face with no markings at all filling most of the frame, and a small blank rectangular paper price tag hanging on a short string from each of the twelve hour positions around its rim, all the tags identical and blank, plain dark background",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged in a circular loop, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows radiating outward from a single point, a large plain clock face with no markings at all filling most of the frame, and a small blank rectangular paper price tag hanging on a short string from each of the twelve hour positions around its rim, all the tags identical and blank, plain dark background, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, everything suddenly carries a price, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   90,
+   91
+  ]
+ },
+ {
+  "id": "s31",
+  "unit": "u27",
+  "source": "你去排一個小時的隊，你腦子裡跑的，不再是「排隊好無聊」。而是「我這一個小時，值三千塊。我剛剛，等於把三千塊，丟進水裡了」。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "watching value disappear",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "特寫",
+   "angle": "俯角",
+   "composition": "置中",
+   "directionality": "由上而下",
+   "layout": null,
+   "info_hierarchy": null,
+   "contrast_balance": null
+  },
+  "staging": "a close view looking straight down at dark still water, a handful of gold coins already sinking below the surface and fading into the dark, a few concentric ripples spreading outward from the point where they went in, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, high-angle, centered symmetrical framing, arrows and motion flowing downward, a close view looking straight down at dark still water, a handful of gold coins already sinking below the surface and fading into the dark, a few concentric ripples spreading outward from the point where they went in, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, watching value disappear, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   92,
+   93,
+   94
+  ]
+ },
+ {
+  "id": "s32",
+  "unit": "u28",
+  "source": "於是越有錢的人，越是一分鐘都捨不得浪費，把行程塞得滿滿滿。時間對他來說不是變多了，是變得越來越貴、越掐越緊。他被自己的時薪，綁架了。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "held tight by the thing you own",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a person standing upright at the centre of the frame with the two long hands of an enormous clock face behind them wrapped forward around their chest and arms like restraints, pinning them in place, the clock face plain and unmarked, cool flat light, the person's expression tight",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, centered symmetrical framing, a person standing upright at the centre of the frame with the two long hands of an enormous clock face behind them wrapped forward around their chest and arms like restraints, pinning them in place, the clock face plain and unmarked, cool flat light, the person's expression tight, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, held tight by the thing you own, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   95,
+   96,
+   97
+  ]
+ },
+ {
+  "id": "s33",
+  "unit": "u29",
+  "source": "這也剛好解釋了一個怪現象。過去這幾十年，大家的收入其實是往上走的。工時呢？平均來說甚至還縮短了。閒暇時間，照理說是增加的。照這樣算下來，我們每一個人，應該都過得越來越悠閒才對。",
+  "rhetorical_function": "建立前提",
+  "emotional_shift": null,
+  "emotion_en": "two lines that should add up",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "均等比較",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "two thick smooth curves drawn across an empty pale field from the left edge to the right edge, the upper one in a warm colour rising steadily as it goes right, the lower one in a cool colour descending steadily as it goes right, no grid and no other elements",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, both elements the same size and weight so neither dominates, arrows and motion flowing from left to right, two thick smooth curves drawn across an empty pale field from the left edge to the right edge, the upper one in a warm colour rising steadily as it goes right, the lower one in a cool colour descending steadily as it goes right, no grid and no other elements, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, two lines that should add up, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   98,
+   99,
+   100,
+   101,
+   102,
+   103
+  ]
+ },
+ {
+  "id": "s34",
+  "unit": "u30",
+  "source": "結果呢？每一個人都在喊忙、喊累、喊沒時間。不是你的時間真的變少了。是錢，把你的時間標了價。標上去之後，你看每一分鐘，都像在盯著計程車的跳表。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "a meter running on everything",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the inside of a taxi at night seen from the back seat, the small glowing meter unit mounted on the dashboard sitting on the left third and dominating the foreground with its blank glowing panel, the driver's shoulder dark and out of focus beyond it, blurred city lights sliding past the windscreen",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, eye-level, rule-of-thirds composition with the subject on the left third, the inside of a taxi at night seen from the back seat, the small glowing meter unit mounted on the dashboard sitting on the left third and dominating the foreground with its blank glowing panel, the driver's shoulder dark and out of focus beyond it, blurred city lights sliding past the windscreen, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a meter running on everything, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   105,
+   106,
+   107,
+   108
+  ]
+ },
+ {
+  "id": "s35",
+  "unit": "u31",
+  "source": "剛剛，是你的時間被標了價。那你的命呢？一年，到底值多少錢？",
+  "rhetorical_function": "推進",
+  "emotional_shift": "懸念",
+  "emotion_en": "a question no one wants to answer",
+  "is_speculation": true,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "仰角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a plain human silhouette standing alone at the centre of an empty pale floor, and hanging in the air directly above its head on a single thin string a large blank rectangular price tag, tilted slightly, casting a small shadow down onto the silhouette",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, low-angle, centered symmetrical framing, a plain human silhouette standing alone at the centre of an empty pale floor, and hanging in the air directly above its head on a single thin string a large blank rectangular price tag, tilted slightly, casting a small shadow down onto the silhouette, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a question no one wants to answer, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   109,
+   110,
+   111
+  ]
+ },
+ {
+  "id": "s36",
+  "unit": "u32",
+  "source": "生命怎麼可以標價？那是無價的東西，怎麼換算成錢？把命標上一個價格，這不是很沒人性嗎？",
+  "rhetorical_function": "點出直覺",
+  "emotional_shift": null,
+  "emotion_en": "an instinctive refusal",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image cropped at the chest against a plain warm cream wall softly lit from the left, one open palm raised in front of him pushing away a blank paper price tag that hangs on a string just in front of his face, his head turned slightly aside and his mouth a small flat line",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, eye-level, centered symmetrical framing, the character from the reference image cropped at the chest against a plain warm cream wall softly lit from the left, one open palm raised in front of him pushing away a blank paper price tag that hangs on a string just in front of his face, his head turned slightly aside and his mouth a small flat line, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, an instinctive refusal, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   112,
+   113,
+   114
+  ]
+ },
+ {
+  "id": "s37",
+  "unit": "u33",
+  "source": "但這個價格，早就存在了。而且是白紙黑字、官方認證、每天都在用的數字。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "it was already decided without you",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "俯角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a thick official document lying open on a dark desk seen from directly above, its pages printed with a clean empty ruled grid of blank cells and no writing at all, an embossed circular seal pressed into the corner of the page, a desk lamp throwing a hard pool of light across it, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, high-angle, centered symmetrical framing, a thick official document lying open on a dark desk seen from directly above, its pages printed with a clean empty ruled grid of blank cells and no writing at all, an embossed circular seal pressed into the corner of the page, a desk lamp throwing a hard pool of light across it, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, it was already decided without you, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   115,
+   116
+  ]
+ },
+ {
+  "id": "s38",
+  "unit": "u34",
+  "source": "以美國政府的估算為例，一條人命的價值，大概是一千三百一十萬美金。換算成一年的生命，中間值大概落在一年四十九萬美金上下；低的算法二十幾萬，高的算法七十幾萬。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "a number that dwarfs the thing it measures",
+  "is_speculation": false,
+  "depiction_mode": "尺度對照",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "遠景",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "directionality": null
+  },
+  "staging": "a single small plain human silhouette standing at the left on a bare pale floor, and beside it on the right an enormous mountain of stacked banknote bundles rising far above the silhouette's head almost to the top of the frame, flat even light, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "wide establishing shot, the environment dominates and the subject stands small in the middle distance, eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, a single small plain human silhouette standing at the left on a bare pale floor, and beside it on the right an enormous mountain of stacked banknote bundles rising far above the silhouette's head almost to the top of the frame, flat even light, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a number that dwarfs the thing it measures, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   117,
+   118
+  ]
+ },
+ {
+  "id": "s39",
+  "unit": "u35",
+  "source": "這種數字，到底是怎麼算出來的？總不能真的挨家挨戶去問「你的命賣不賣、開多少」吧。",
+  "rhetorical_function": "點出直覺",
+  "emotional_shift": null,
+  "emotion_en": "an absurd way to ask an impossible question",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a surveyor with a clipboard standing on a suburban front doorstep on the left third, pen poised over a blank sheet, facing a resident standing in their half open doorway on the right with both eyebrows raised and one hand still on the door, a trimmed hedge and a mailbox beside the path, flat daylight",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, a surveyor with a clipboard standing on a suburban front doorstep on the left third, pen poised over a blank sheet, facing a resident standing in their half open doorway on the right with both eyebrows raised and one hand still on the door, a trimmed hedge and a mailbox beside the path, flat daylight, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, an absurd way to ask an impossible question, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   119,
+   120
+  ]
+ },
+ {
+  "id": "s40",
+  "unit": "u36",
+  "source": "它是怎麼算的？它去看人們「實際上」願意用命，換多少錢。舉個最簡單的例子。有一種工作，比另一種工作，每年多了萬分之一的死亡風險。假設在市場上，這種比較危險的工作，每年要多付一千三百塊美金，才請得到人來做。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a bargain made without words",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves by a clean vertical line: on the left a worker in a plain uniform standing on flat ground with a small stack of coins at their feet, on the right the same worker standing on a narrow steel beam high in the air with a taller stack of coins at their feet, both halves lit identically",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, the frame split into two equal halves by a clean vertical line: on the left a worker in a plain uniform standing on flat ground with a small stack of coins at their feet, on the right the same worker standing on a narrow steel beam high in the air with a taller stack of coins at their feet, both halves lit identically, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a bargain made without words, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   121,
+   122,
+   123,
+   124,
+   125
+  ]
+ },
+ {
+  "id": "s41",
+  "unit": "u36",
+  "source": "那反推回去：一萬個人，每人多冒萬分之一的死亡風險，加起來剛好等於「一條命」的風險，而他們總共，多拿了一千三百萬。那這一千三百萬，就被當成了一條命的市場價格。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a life assembled out of fractions",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "環形",
+   "info_hierarchy": "主體突出",
+   "directionality": "匯聚",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a very large field of hundreds of tiny pale human figures spread evenly across the frame, each carrying one small red dot, and all the red dots converging inward along fine lines to form a single solid red human silhouette standing at the centre, plain background",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged in a circular loop, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows converging toward a single point, a very large field of hundreds of tiny pale human figures spread evenly across the frame, each carrying one small red dot, and all the red dots converging inward along fine lines to form a single solid red human silhouette standing at the centre, plain background, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a life assembled out of fractions, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   126,
+   127
+  ]
+ },
+ {
+  "id": "s42",
+  "unit": "u37",
+  "source": "所以它根本沒問你「你的命值多少」。它是去看你「為了多賺一點錢，願意多冒多少去死的風險」，再把價格反推出來。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "the answer read backwards",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a thick arrow starting at a small red dot on the right side of an empty pale field and curving back leftward to end at a large blank rectangular price tag on the left, the arrowhead clearly pointing left at the tag, nothing else in the frame",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, a thick arrow starting at a small red dot on the right side of an empty pale field and curving back leftward to end at a large blank rectangular price tag on the left, the arrowhead clearly pointing left at the tag, nothing else in the frame, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the answer read backwards, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   128,
+   129
+  ]
+ },
+ {
+  "id": "s43",
+  "unit": "u38",
+  "source": "比方說，政府要不要蓋一條很貴的護欄。他們怎麼決定？其實就是一道很冷靜的算術：這條護欄大概要花多少錢，又大概能救下幾條人命。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "an ordinary object holding a calculation",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "遠景",
+   "angle": "水平",
+   "composition": "對角",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a long steel crash barrier running diagonally from the lower left to the upper right along the edge of a curving mountain road, a steep drop and layered hills beyond it, an empty road surface in the foreground, cool overcast daylight, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "wide establishing shot, the environment dominates and the subject stands small in the middle distance, eye-level, diagonal composition with the action direction aligned to the diagonal, a long steel crash barrier running diagonally from the lower left to the upper right along the edge of a curving mountain road, a steep drop and layered hills beyond it, an empty road surface in the foreground, cool overcast daylight, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, an ordinary object holding a calculation, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   130,
+   131,
+   132
+  ]
+ },
+ {
+  "id": "s44",
+  "unit": "u39",
+  "source": "換到醫療也一樣。一款超貴的新藥，健保到底要不要給付？他們會去算：這個藥能讓病人多活多久、活得多好。這個「一年生命」的價錢，一旦超過某一條線，健保就會說：太貴了，不划算。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "a line drawn somewhere in silence",
+  "is_speculation": false,
+  "depiction_mode": "尺度對照",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "特寫",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "directionality": null
+  },
+  "staging": "a single small white capsule lying on a bare pale surface at the left of the frame, and directly beside it on the right a tall stack of banknote bundles rising many times higher than the capsule, both sharply lit from the left, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, a single small white capsule lying on a bare pale surface at the left of the frame, and directly beside it on the right a tall stack of banknote bundles rising many times higher than the capsule, both sharply lit from the left, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a line drawn somewhere in silence, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   135,
+   136,
+   137,
+   138
+  ]
+ },
+ {
+  "id": "s45",
+  "unit": "u40",
+  "source": "不管是護欄還是新藥，只要你想回答「值不值得」，你就非得先幫「一條命、一年的壽命」，標出一個價格不可。你嘴上再怎麼喊生命無價，你的手，最後還是得在那張表格上，填一個具體的數字進去。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "the hand that must write it down",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "俯角",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image seen from above at a dark wooden desk in a dim office with a single warm lamp on the right and a tall window showing a grey afternoon sky behind, cropped at the chest, a pen held in his hand hovering above one empty ruled cell of an official blank grid form, his hand stopped and not yet touching the paper",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, high-angle, rule-of-thirds composition with the subject on the left third, the character from the reference image seen from above at a dark wooden desk in a dim office with a single warm lamp on the right and a tall window showing a grey afternoon sky behind, cropped at the chest, a pen held in his hand hovering above one empty ruled cell of an official blank grid form, his hand stopped and not yet touching the paper, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the hand that must write it down, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   140,
+   141
+  ]
+ },
+ {
+  "id": "s46",
+  "unit": "u41",
+  "source": "冷血嗎？非常冷血。但這裡有個更難堪的真相：你不標，並不會讓生命變得比較神聖。你不標，只是把這個決定，藏進你看不見的暗處，讓它在那裡被隨便決定掉。至少把數字攤到桌面上，大家還能站在同一把尺上，公開地吵一架。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "refusing to look does not undo it",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "框中框",
+   "contrast_balance": "失衡",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null
+  },
+  "staging": "a heavy desk drawer pulled half open in a dark room, a single blank ruled form lying inside it deep in shadow, the rest of the room black, one narrow blade of light falling across the drawer's edge and stopping short of the paper, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, frame-within-frame composition, one side visually dominating the other in size and weight, a heavy desk drawer pulled half open in a dark room, a single blank ruled form lying inside it deep in shadow, the rest of the room black, one narrow blade of light falling across the drawer's edge and stopping short of the paper, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, refusing to look does not undo it, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   143,
+   144,
+   145,
+   146
+  ]
+ },
+ {
+  "id": "s47",
+  "unit": "u42",
+  "source": "同樣是一年的生命，窮人的，跟富人的，標一樣的價嗎？",
+  "rhetorical_function": "推進",
+  "emotional_shift": "懸念",
+  "emotion_en": "a question with an uncomfortable answer coming",
+  "is_speculation": true,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "two identical plain human silhouettes of exactly the same size standing side by side on a bare pale floor, one on the left third and one on the right third, a blank rectangular price tag hanging on a string above each of them, both tags the same size, perfectly symmetrical",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, two identical plain human silhouettes of exactly the same size standing side by side on a bare pale floor, one on the left third and one on the right third, a blank rectangular price tag hanging on a string above each of them, both tags the same size, perfectly symmetrical, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a question with an uncomfortable answer coming, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   147
+  ]
+ },
+ {
+  "id": "s48",
+  "unit": "u43",
+  "source": "不一定。有些算法，會因為「一個高收入的人如果死了，他損失掉的產值、賺不到的錢比較多」，於是判定，他這一年的命，值更多錢。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "the scale tips where it should not",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "主體突出",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the same two identical human silhouettes standing side by side on the same bare pale floor, but now the blank price tag hanging above the right one is several times larger than the tag above the left one and hangs lower, its shadow falling across the right silhouette",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, one side visually dominating the other in size and weight, the same two identical human silhouettes standing side by side on the same bare pale floor, but now the blank price tag hanging above the right one is several times larger than the tag above the left one and hangs lower, its shadow falling across the right silhouette, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the scale tips where it should not, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   149
+  ]
+ },
+ {
+  "id": "s49",
+  "unit": "u44",
+  "source": "停下來，想一秒鐘。錢能不能直接買到時間，這件事到現在都還沒發生。可是錢，已經先一步，替我們決定好了：誰的時間，比較值錢。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "a verdict handed down before the trial",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "仰角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a single large gold coin standing upright on its edge on a raised judge's bench at the centre of an empty pale hall, seen from slightly below so it looms, two small plain human silhouettes standing far below in front of the bench, cool light from high above",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, low-angle, centered symmetrical framing, a single large gold coin standing upright on its edge on a raised judge's bench at the centre of an empty pale hall, seen from slightly below so it looms, two small plain human silhouettes standing far below in front of the bench, cool light from high above, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a verdict handed down before the trial, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   150,
+   151,
+   152
+  ]
+ },
+ {
+  "id": "s50",
+  "unit": "u45",
+  "source": "好。那現在假設，你就是很有錢。你不管公不公平，也不想理那些統計數字，你就想用最直接的方式：砸錢，買壽命。買個十年，你開個價。買得到嗎？",
+  "rhetorical_function": "推進",
+  "emotional_shift": "懸念",
+  "emotion_en": "pushing money across an empty counter",
+  "is_speculation": true,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image standing on the left third at a long pale stone counter in a wide empty hall with tall arched windows on the right letting in cool blue daylight, pushing a large full cloth money bag across the polished counter toward the far side with both hands, the space beyond the counter completely empty, his head tilted up expectantly",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, the character from the reference image standing on the left third at a long pale stone counter in a wide empty hall with tall arched windows on the right letting in cool blue daylight, pushing a large full cloth money bag across the polished counter toward the far side with both hands, the space beyond the counter completely empty, his head tilted up expectantly, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, pushing money across an empty counter, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   154,
+   155,
+   156,
+   157
+  ]
+ },
+ {
+  "id": "s51",
+  "unit": "u46",
+  "source": "買得到一點點，但少得可憐。現在真的有一個人，在做這件事，而且做得非常認真。一個美國創業家，叫 Bryan Johnson。他請了一整組團隊，三十幾個醫生盯著他身上每一個數據。全身定期掃描，連吃進去多少卡路里，都算得清清楚楚。",
+  "rhetorical_function": "敘事",
+  "emotional_shift": null,
+  "emotion_en": "a body turned into a project",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "全身",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a man standing still at the centre of a bright white clinical room with his arms held slightly out from his sides, surrounded in a close ring by six figures in white coats each leaning in with a different measuring instrument, a large scanning ring standing behind him, glowing blank display panels on the wall, cold even light",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge, eye-level, centered symmetrical framing, a man standing still at the centre of a bright white clinical room with his arms held slightly out from his sides, surrounded in a close ring by six figures in white coats each leaning in with a different measuring instrument, a large scanning ring standing behind him, glowing blank display panels on the wall, cold even light, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a body turned into a project, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   158,
+   159,
+   160
+  ]
+ },
+ {
+  "id": "s52",
+  "unit": "u46",
+  "source": "藥呢，他一天吞一百多顆。他年輕的時候把公司賣掉，賺了一大筆，然後把整個人生目標，換成了一件事：不要老，不要死。他一年花多少錢在這上面？大概兩百萬美金。",
+  "rhetorical_function": "敘事",
+  "emotional_shift": null,
+  "emotion_en": "the daily weight of one obsession",
+  "is_speculation": false,
+  "depiction_mode": "細部放大",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "特寫",
+   "angle": "俯角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a pair of cupped hands seen from directly above, overflowing with more than a hundred pills of many shapes and colours, several spilling over the edges of the palms and scattering onto the pale surface below, filling the frame, only the hands and forearms visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, high-angle, centered symmetrical framing, a pair of cupped hands seen from directly above, overflowing with more than a hundred pills of many shapes and colours, several spilling over the edges of the palms and scattering onto the pale surface below, filling the frame, only the hands and forearms visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the daily weight of one obsession, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   161,
+   162,
+   163,
+   164,
+   165
+  ]
+ },
+ {
+  "id": "s53",
+  "unit": "u47",
+  "source": "這麼搞，換來什麼結果？他自己宣稱，他現在每過十二個月，身體只老九個月。",
+  "rhetorical_function": "佐證",
+  "emotional_shift": null,
+  "emotion_en": "a very small difference bought very dearly",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "上下堆疊",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "two horizontal bars stacked one above the other on an empty pale field, both starting flush at the same point on the left, the upper bar divided into twelve equal solid segments and the lower bar divided into nine equal solid segments of the same width so it ends noticeably short, the small remaining gap left empty",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements stacked vertically, the upper one above the lower one, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, two horizontal bars stacked one above the other on an empty pale field, both starting flush at the same point on the left, the upper bar divided into twelve equal solid segments and the lower bar divided into nine equal solid segments of the same width so it ends noticeably short, the small remaining gap left empty, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a very small difference bought very dearly, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   167,
+   168
+  ]
+ },
+ {
+  "id": "s54",
+  "unit": "u48",
+  "source": "算一下這個匯率。一年，兩百萬美金，換到的，是「老得比別人，慢那麼三個月」。而這，還已經是今天全人類，能拿到最好的匯率之一了。",
+  "rhetorical_function": "推進",
+  "emotional_shift": null,
+  "emotion_en": "the worst exchange rate anyone ever paid",
+  "is_speculation": false,
+  "depiction_mode": "尺度對照",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "directionality": null
+  },
+  "staging": "an enormous mountain of stacked banknote bundles filling the entire left half of the frame and rising to the top edge, and on the right a single very short pale bar segment lying alone on the bare floor, no more than a hand's width long, flat even light, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, an enormous mountain of stacked banknote bundles filling the entire left half of the frame and rising to the top edge, and on the right a single very short pale bar segment lying alone on the bare floor, no more than a hand's width long, flat even light, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the worst exchange rate anyone ever paid, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   169,
+   170,
+   171
+  ]
+ },
+ {
+  "id": "s55",
+  "unit": "u49",
+  "source": "更殘忍的是，這個匯率不是固定的，它是越往後、越貴。前面那些便宜的年份，人類其實早就賺到了。乾淨的自來水、疫苗這一類東西，成本很低，卻一口氣幫全人類的平均壽命，加了幾十年。但那些好摘的果子，摘完了。剩下的，是「老化」本身這一顆最硬的果子。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "everything easy has already been taken",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "全身",
+   "angle": "仰角",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a tall bare tree seen from below against a pale sky, all of its lower branches completely stripped and empty, and a single large dark fruit hanging alone at the very top of the highest branch far out of reach, an empty basket on the ground at the foot of the trunk, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge, low-angle, centered symmetrical framing, a tall bare tree seen from below against a pale sky, all of its lower branches completely stripped and empty, and a single large dark fruit hanging alone at the very top of the highest branch far out of reach, an empty basket on the ground at the foot of the trunk, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, everything easy has already been taken, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   172,
+   173,
+   174,
+   175,
+   176
+  ]
+ },
+ {
+  "id": "s56",
+  "unit": "u49",
+  "source": "你想從八十歲，再往上多買個幾年，那個價格，是用翻倍在往上跳的。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a wall disguised as a staircase",
+  "is_speculation": false,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "對角",
+   "layout": "流程帶",
+   "info_hierarchy": "主體突出",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "a staircase of solid blocks rising from the lower left toward the upper right across an empty pale field, each successive step drawn roughly twice as tall as the one before it so the last step rises far past the top edge of the frame, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, diagonal composition with the action direction aligned to the diagonal, elements arranged left to right as a horizontal progression, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, arrows and motion flowing from left to right, a staircase of solid blocks rising from the lower left toward the upper right across an empty pale field, each successive step drawn roughly twice as tall as the one before it so the last step rises far past the top edge of the frame, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a wall disguised as a staircase, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   177
+  ]
+ },
+ {
+  "id": "s57",
+  "unit": "u50",
+  "source": "所以你是世界首富又怎樣？時間這一關，一樣過不去。你再有錢，也只能買到一點點，而且貴得離譜。賈伯斯有錢吧？站到胰臟癌面前，那些錢，一樣使不上力。那個平常無所不能的錢，一碰到時間，突然就變得很沒力。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "money running out of power",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "全身",
+   "angle": "水平",
+   "composition": "留白",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a lone figure in a plain dark outfit standing small at the lower left of the frame facing an immense featureless pale wall that rises far beyond the top edge and stretches to both sides, banknotes scattered loose across the floor around their feet, one hand resting flat against the wall, vast empty space above",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge, eye-level, large negative space with the subject small in one corner, a lone figure in a plain dark outfit standing small at the lower left of the frame facing an immense featureless pale wall that rises far beyond the top edge and stretches to both sides, banknotes scattered loose across the floor around their feet, one hand resting flat against the wall, vast empty space above, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, money running out of power, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   178,
+   179,
+   180,
+   181,
+   182,
+   183,
+   184
+  ]
+ },
+ {
+  "id": "s58",
+  "unit": "u51",
+  "source": "講到這裡，我想到一部電影，叫《鐘點戰》。它乾脆把我們剛剛講的這一切，一路推到了最極端的盡頭。",
+  "rhetorical_function": "敘事",
+  "emotional_shift": null,
+  "emotion_en": "turning toward a darker version of the same idea",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image sitting on the left third of a warm brown sofa in a dim living room at night, a tall window on the right showing a deep blue night sky and city lights, facing away from the viewer toward a large screen whose blank surface glows a soft cyan and throws cool light across the room and across his shoulder",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the left third, the character from the reference image sitting on the left third of a warm brown sofa in a dim living room at night, a tall window on the right showing a deep blue night sky and city lights, facing away from the viewer toward a large screen whose blank surface glows a soft cyan and throws cool light across the room and across his shoulder, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, turning toward a darker version of the same idea, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   185,
+   186
+  ]
+ },
+ {
+  "id": "s59",
+  "unit": "u52",
+  "source": "在那部電影的世界裡，錢這個東西，被整個廢掉了。人們直接拿「時間」，來當錢用。每個人的手臂上，都有一排會發光的綠色數字，那就是你剩下的壽命，一秒一秒地，一直往下倒數。",
+  "rhetorical_function": "敘事",
+  "emotional_shift": null,
+  "emotion_en": "a countdown you cannot look away from",
+  "is_speculation": true,
+  "depiction_mode": "細部放大",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "特寫",
+   "angle": "水平",
+   "composition": "對角",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a bare forearm running diagonally across the frame in near darkness, a long narrow bar of bright green light glowing just beneath the skin along the inside of the forearm, the bar filled at its left end and fading into unlit empty channel toward the wrist, the green glow spilling faintly onto the surrounding skin, only the forearm visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "extreme close-up, the face fills the frame and is cropped just below the chin, eye-level, diagonal composition with the action direction aligned to the diagonal, a bare forearm running diagonally across the frame in near darkness, a long narrow bar of bright green light glowing just beneath the skin along the inside of the forearm, the bar filled at its left end and fading into unlit empty channel toward the wrist, the green glow spilling faintly onto the surrounding skin, only the forearm visible, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a countdown you cannot look away from, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   187,
+   188,
+   189
+  ]
+ },
+ {
+  "id": "s60",
+  "unit": "u52",
+  "source": "你去買一杯咖啡，店員不是收你錢，是從你手臂上，扣掉幾分鐘。你搭一趟車，扣掉幾個小時。你去上班，領到的薪水，也是一段一段的時間。",
+  "rhetorical_function": "敘事",
+  "emotional_shift": null,
+  "emotion_en": "the ordinary transaction turned monstrous",
+  "is_speculation": true,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a customer and a counter attendant facing each other across a narrow coffee shop counter, split left and right in the frame, the customer's bare forearm laid flat on the counter between them with a green glowing bar visible along it, the attendant's hand hovering just above that forearm, a paper cup standing untouched to one side, dim interior with cool light",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, two-shot with the subjects split left and right on the thirds, a customer and a counter attendant facing each other across a narrow coffee shop counter, split left and right in the frame, the customer's bare forearm laid flat on the counter between them with a green glowing bar visible along it, the attendant's hand hovering just above that forearm, a paper cup standing untouched to one side, dim interior with cool light, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the ordinary transaction turned monstrous, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   190,
+   191,
+   192
+  ]
+ },
+ {
+  "id": "s61",
+  "unit": "u53",
+  "source": "在那個世界，時間跟命的匯率，是一比一的，而且可以像轉帳一樣，直接送給別人。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a life poured from one hand to another",
+  "is_speculation": true,
+  "depiction_mode": "示意圖",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "two bare forearms gripping each other wrist to wrist at the centre of a dark empty field, a green glowing bar along each forearm, and a bright green stream of light flowing along the join from the left forearm into the right one, the left bar visibly shorter than the right, nothing else in the frame",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, arrows and motion flowing from left to right, two bare forearms gripping each other wrist to wrist at the centre of a dark empty field, a green glowing bar along each forearm, and a bright green stream of light flowing along the join from the left forearm into the right one, the left bar visibly shorter than the right, nothing else in the frame, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a life poured from one hand to another, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   194
+  ]
+ },
+ {
+  "id": "s62",
+  "unit": "u54",
+  "source": "於是那個社會，變成什麼樣子？貧富差距，不再是你住的房子比我大、你的車比我好那種事了。它變成一件更赤裸的事：誰，活著；誰，去死。有錢人手臂上的數字，是幾百萬年，等於長生不老。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "inequality stripped to who breathes",
+  "is_speculation": true,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves against a dark background: on the left a bare forearm whose green glowing bar is filled solid from end to end and spilling light past its edges, on the right an identical forearm whose green bar is lit only by one tiny remaining sliver at the very end, both forearms in the same position and lit identically",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, one side visually dominating the other in size and weight, the frame split into two equal halves against a dark background: on the left a bare forearm whose green glowing bar is filled solid from end to end and spilling light past its edges, on the right an identical forearm whose green bar is lit only by one tiny remaining sliver at the very end, both forearms in the same position and lit identically, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, inequality stripped to who breathes, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   195,
+   196,
+   197,
+   198
+  ]
+ },
+ {
+  "id": "s63",
+  "unit": "u54",
+  "source": "而窮人，每天睜開眼睛的唯一目的，就是再多掙那麼幾個小時，好讓自己不要在今天下班回家的半路上，突然倒下。",
+  "rhetorical_function": "推進",
+  "emotional_shift": null,
+  "emotion_en": "running to stay alive one more hour",
+  "is_speculation": true,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "全身",
+   "angle": "水平",
+   "composition": "對角",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "a person in worn work clothes sprinting hard along a narrow empty street at night, body leaning forward along a strong diagonal from the lower left toward the upper right, a faint green glow visible on their forearm, tall dark buildings pressing in on both sides, a single cold street lamp far ahead",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge, eye-level, diagonal composition with the action direction aligned to the diagonal, a person in worn work clothes sprinting hard along a narrow empty street at night, body leaning forward along a strong diagonal from the lower left toward the upper right, a faint green glow visible on their forearm, tall dark buildings pressing in on both sides, a single cold street lamp far ahead, rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, running to stay alive one more hour, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   199
+  ]
+ },
+ {
+  "id": "s64",
+  "unit": "u55",
+  "source": "可是你回頭看看我們前面一路講過來的那些：一年生命被標上了價、越有錢的人反而越被時間追著跑、砸兩百萬只買得到老得慢一點。這部電影，其實沒有憑空捏造任何東西。它只是把這些「現在就正在發生」的事，音量，轉到了最大聲而已。",
+  "rhetorical_function": "收束",
+  "emotional_shift": "恍然",
+  "emotion_en": "the same thing seen at full volume",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "均等比較",
+   "contrast_balance": "對稱",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves: on the left a bare forearm in darkness with a green glowing bar along it, on the right the same forearm in ordinary daylight wearing a plain wristwatch with a blank unmarked face, both arms in exactly the same position and at the same scale",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, both elements the same size and weight so neither dominates, the two sides balanced and symmetrical, an equal comparison, the frame split into two equal halves: on the left a bare forearm in darkness with a green glowing bar along it, on the right the same forearm in ordinary daylight wearing a plain wristwatch with a blank unmarked face, both arms in exactly the same position and at the same scale, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the same thing seen at full volume, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   200,
+   201,
+   202
+  ]
+ },
+ {
+  "id": "s65",
+  "unit": "u56",
+  "source": "好。我們從一筆小小的外送費出發，繞了一大圈，一路講到了手臂上那排會歸零的數字。而我們從頭到尾，其實只在問一件事：錢，能不能買到時間。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "a long road folding back on itself",
+  "is_speculation": false,
+  "depiction_mode": "序列",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": "流程帶",
+   "info_hierarchy": "均等比較",
+   "directionality": "由左至右",
+   "shot_size": null,
+   "contrast_balance": null
+  },
+  "staging": "four objects spaced evenly along a single horizontal line across an empty pale field, from left to right a paper takeaway bag, a small balance scale, a stack of banknote bundles, and a bare forearm with a green glowing bar, each drawn at the same size with a thin connecting line running through them, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, centered symmetrical framing, elements arranged left to right as a horizontal progression, both elements the same size and weight so neither dominates, arrows and motion flowing from left to right, four objects spaced evenly along a single horizontal line across an empty pale field, from left to right a paper takeaway bag, a small balance scale, a stack of banknote bundles, and a bare forearm with a green glowing bar, each drawn at the same size with a thin connecting line running through them, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a long road folding back on itself, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   204,
+   205
+  ]
+ },
+ {
+  "id": "s66",
+  "unit": "u57",
+  "source": "可是，你有沒有發現，我們每一個人，每一天，真正在做的事情，其實是完全反過來的？",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "意外",
+  "emotion_en": "the arrow was pointing the other way",
+  "is_speculation": false,
+  "depiction_mode": "隱喻",
+  "framing": {
+   "vocabulary": "混合",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "置中",
+   "directionality": "由左至右",
+   "layout": null,
+   "info_hierarchy": null,
+   "contrast_balance": null
+  },
+  "staging": "a single thick arrow lying across the centre of an empty pale field, its shaft solid but its arrowhead broken off at the right end and lying separately, reversed, so that it now points back toward the left, a faint pale outline showing where the original head used to be, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, centered symmetrical framing, arrows and motion flowing from left to right, a single thick arrow lying across the centre of an empty pale field, its shaft solid but its arrowhead broken off at the right end and lying separately, reversed, so that it now points back toward the left, a faint pale outline showing where the original head used to be, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, the arrow was pointing the other way, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   206
+  ]
+ },
+ {
+  "id": "s67",
+  "unit": "u58",
+  "source": "你每天去上班的那八個、九個小時，那是什麼？那是你，拿你的時間，去換錢。你根本不是站在買方。你是賣方。我們絕大多數人，一輩子，都站在賣方這一邊。",
+  "rhetorical_function": "推翻",
+  "emotional_shift": "恍然",
+  "emotion_en": "realising which side you were standing on",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image standing behind a long pale market counter on the right third of a wide bright hall with tall windows on the left letting in warm morning daylight, an hourglass set on the counter in front of him, both his hands resting on the counter edge on the seller's side, an empty customer space in the foreground, his head turned down toward the hourglass with a dawning look",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the right third, the character from the reference image standing behind a long pale market counter on the right third of a wide bright hall with tall windows on the left letting in warm morning daylight, an hourglass set on the counter in front of him, both his hands resting on the counter edge on the seller's side, an empty customer space in the foreground, his head turned down toward the hourglass with a dawning look, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, realising which side you were standing on, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   207,
+   208,
+   209,
+   210,
+   211
+  ]
+ },
+ {
+  "id": "s68",
+  "unit": "u59",
+  "source": "而且說真的，我們賣出去的這個價格，未必划算。你一天當中，頭腦最清楚、精神最好的那一大段，被買走了。你換回來的那份薪水，回過頭來，還不見得買得回一段一樣品質的自由時間。",
+  "rhetorical_function": "拆解機制",
+  "emotional_shift": null,
+  "emotion_en": "a trade that quietly loses",
+  "is_speculation": false,
+  "depiction_mode": "並置",
+  "framing": {
+   "vocabulary": "圖解",
+   "angle": "水平",
+   "composition": "雙人",
+   "layout": "左右分欄",
+   "info_hierarchy": "主體突出",
+   "contrast_balance": "失衡",
+   "shot_size": null,
+   "directionality": null
+  },
+  "staging": "the frame split into two equal halves: on the left a long thick bar in a bright warm saturated colour taking up most of that half, on the right a much shorter thin bar in a dull grey colour lying alone with empty space around it, a thin arrow running from the left bar to the right one, no people visible",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "eye-level, two-shot with the subjects split left and right on the thirds, two elements placed side by side, one on the left half and one on the right half, the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back, one side visually dominating the other in size and weight, the frame split into two equal halves: on the left a long thick bar in a bright warm saturated colour taking up most of that half, on the right a much shorter thin bar in a dull grey colour lying alone with empty space around it, a thin arrow running from the left bar to the right one, no people visible, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, a trade that quietly loses, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   212,
+   213,
+   214
+  ]
+ },
+ {
+  "id": "s69",
+  "unit": "u60",
+  "source": "不過，這件事有一個很關鍵的轉折：它一旦被你「看見」，就整個不一樣了。你一旦意識到，喔，原來我一直站在賣方，你就等於，把一樣東西，拿回到自己手上了。那樣東西，叫選擇權。你可以開始問自己一句：我這個匯率，划算嗎？",
+  "rhetorical_function": "收束",
+  "emotional_shift": "恍然",
+  "emotion_en": "everything clicking into place",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "近景",
+   "angle": "水平",
+   "composition": "置中",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image cropped at the chest in the same bright market hall with warm morning daylight coming from the left and the pale counter blurred behind him, holding a small brass key upright in one open palm raised in front of his chest, looking straight at it, the corners of his mouth just beginning to lift",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame, eye-level, centered symmetrical framing, the character from the reference image cropped at the chest in the same bright market hall with warm morning daylight coming from the left and the pale counter blurred behind him, holding a small brass key upright in one open palm raised in front of his chest, looking straight at it, the corners of his mouth just beginning to lift, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, everything clicking into place, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   215,
+   216,
+   217
+  ]
+ },
+ {
+  "id": "s70",
+  "unit": "u61",
+  "source": "而「買回來」這件事，其實沒有你想的那麼遙遠、那麼奢侈。還記得我們最前面講的那個研究嗎？花錢買時間的人，比較快樂。而且那個研究講得很明白：這不是有錢人才有的特權，很多很普通的人，也完全做得到。他們只是，還沒敢去做而已。",
+  "rhetorical_function": "收束",
+  "emotional_shift": null,
+  "emotion_en": "ordinary people already doing it",
+  "is_speculation": false,
+  "depiction_mode": "實景",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "遠景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "three separate ordinary people spread across a sunny neighbourhood street, one handing a small folded bill to a laundry attendant at a shopfront on the left, one stepping into a taxi at the kerb in the middle distance, one sitting on a bench in the right third with empty hands and their face turned up to the warm sunlight, low shopfronts and street trees behind them",
+  "workflow": "text_only",
+  "needs_post_text": false,
+  "prompt": "wide establishing shot, the environment dominates and the subject stands small in the middle distance, eye-level, rule-of-thirds composition with the subject on the right third, three separate ordinary people spread across a sunny neighbourhood street, one handing a small folded bill to a laundry attendant at a shopfront on the left, one stepping into a taxi at the kerb in the middle distance, one sitting on a bench in the right third with empty hands and their face turned up to the warm sunlight, low shopfronts and street trees behind them, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, ordinary people already doing it, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   220,
+   221,
+   222,
+   223,
+   224
+  ]
+ },
+ {
+  "id": "s71",
+  "unit": "u62",
+  "source": "你不用去等一個科幻的未來，不用等哪天科技突破、匯率翻轉。就這個禮拜，你就可以試一件很小很小的事：花一點點錢，替自己換回一小塊時間。然後，把那一小塊時間，拿去做一件你心裡真正想做、卻總是用一句「唉我沒時間」打發掉的事。",
+  "rhetorical_function": "收束",
+  "emotional_shift": "餘韻",
+  "emotion_en": "lingering quiet warmth and a thought left open",
+  "is_speculation": false,
+  "depiction_mode": "主持人出鏡",
+  "framing": {
+   "vocabulary": "實景",
+   "shot_size": "中景",
+   "angle": "水平",
+   "composition": "三分法",
+   "layout": null,
+   "info_hierarchy": null,
+   "directionality": null,
+   "contrast_balance": null
+  },
+  "staging": "the character from the reference image sitting sideways on a wide window seat on the right third of a quiet room, a tall window beside him filled with low warm golden late afternoon sunlight falling across his lap and the pale wooden floor, an open sketchbook resting on his knees and a pencil in his hand, a mug of tea on the sill, his shoulders relaxed and a small easy smile",
+  "workflow": "text_with_character",
+  "needs_post_text": false,
+  "prompt": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge, eye-level, rule-of-thirds composition with the subject on the right third, the character from the reference image sitting sideways on a wide window seat on the right third of a quiet room, a tall window beside him filled with low warm golden late afternoon sunlight falling across his lap and the pale wooden floor, an open sketchbook resting on his knees and a pencil in his hand, a mug of tea on the sill, his shoulders relaxed and a small easy smile, clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes, lingering quiet warmth and a thought left open, no text, no labels, no letters, no numbers, no letterboxing, no black bars, full bleed 16:9 frame",
+  "line_range": [
+   225,
+   226,
+   227
+  ]
+ }
+]

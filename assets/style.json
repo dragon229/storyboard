@@ -1,0 +1,95 @@
+{
+  "_note": "頻道風格常數。改這裡等於改整個頻道的長相。逐字複用，不要每格重寫。",
+
+  "channel": {
+    "tone": "輕鬆好奇——像朋友在聊，不端著",
+    "positioning": "推演的樂趣為核心，不是知識傳遞"
+  },
+
+  "model": {
+    "_verified": "2026-08-03 實測跑通。兩條路徑共用 flux-2-klein-base-4b，因此畫風天然一致，不存在斷裂問題。參考圖經 ReferenceLatent 掛進正向條件，角色一致性極佳（圓頭／翹髮／圓框眼鏡／點狀眼／腮紅／赭紅毛衣全部對上）。",
+    "_critical": "文字描述產不出一致的角色——純文字路徑畫出來的觀察者會走鐘。凡是觀察者出現的格，一律走 text_with_character，沒有例外。",
+    "unet": "flux-2-klein-base-4b.safetensors",
+    "clip": "qwen_3_4b.safetensors",
+    "clip_type": "flux2",
+    "vae": "flux2-vae.safetensors",
+    "workflow_text_only": "comfyUI_workflow/flux2_text_to_image.json",
+    "workflow_with_character": "comfyUI_workflow/flux2_text_image_to_image.json",
+    "character_input_name": "input_character.png",
+    "steps": 20,
+    "cfg": 5,
+    "sampler": "euler",
+    "width": 1600,
+    "height": 900,
+    "variants": 1,
+    "_timing": "約 40 秒／張（純文字）、48 秒／張（帶參考圖）"
+  },
+
+  "style_suffix": "clean flat illustration with simple bold outlines and solid unshaded color blocks, no texture, no grain, no painterly brush strokes",
+
+  "speculation_clause": {
+    "_note": "推演格（is_speculation = true）才加。目的是讓觀眾分辨『這真的發生過』與『這是推測』——否則會把推測記成事實。",
+    "text": "rendered in a slightly desaturated cooler palette, softer contrast, as an imagined scenario rather than a documented scene"
+  },
+
+  "negative": "text, lettering, signage text, labels, numbers, watermark, logo, split panel, split screen, diptych, collage, photo, realistic, 3d render, texture, grain, painterly, letterboxing, black bars, character standing on top of a desk or table, distorted face, deformed background people",
+
+  "global_bans": {
+    "_note": "每一格都要加進 prompt 尾端。文字禁令對本頻道特別重要——示意圖天然想要標籤，而模型寫出來的字是亂碼，比沒標籤更糟。",
+    "text": "no text, no labels, no letters, no numbers",
+    "frame": "no letterboxing, no black bars, full bleed 16:9 frame"
+  },
+
+  "shot_sizes": {
+    "_note": "★實測結論：景別必須用『裁切位置』描述，不能用『佔畫面幾分之幾』——模型讀不懂佔比，一律畫成全身小人。整句寫進 prompt。",
+    "特寫": "extreme close-up, the face fills the frame and is cropped just below the chin",
+    "近景": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame",
+    "中景": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge",
+    "全身": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge",
+    "遠景": "wide establishing shot, the environment dominates and the subject stands small in the middle distance"
+  },
+
+  "angles": {
+    "水平": "eye-level",
+    "俯角": "high-angle",
+    "仰角": "low-angle",
+    "鳥瞰": "bird's-eye view"
+  },
+
+  "compositions": {
+    "置中": "centered symmetrical framing",
+    "三分法": "rule-of-thirds composition with the subject on the {left|right} third",
+    "對角": "diagonal composition with the action direction aligned to the diagonal",
+    "框中框": "frame-within-frame composition",
+    "雙人": "two-shot with the subjects split left and right on the thirds",
+    "留白": "large negative space with the subject small in one corner",
+    "透視": "single-point perspective composition with strong leading lines converging toward a distant vanishing point"
+  },
+
+  "layouts": {
+    "_note": "圖解詞彙。示意圖／並置／序列用這一組，疊加在 compositions 之上。",
+    "置中單體": "a single central element isolated on a plain background",
+    "左右分欄": "two elements placed side by side, one on the left half and one on the right half",
+    "上下堆疊": "elements stacked vertically, the upper one above the lower one",
+    "環形": "elements arranged in a circular loop",
+    "流程帶": "elements arranged left to right as a horizontal progression"
+  },
+
+  "info_hierarchy": {
+    "主體突出": "the main element large, saturated and sharply outlined; secondary elements smaller, desaturated and set back",
+    "均等比較": "both elements the same size and weight so neither dominates"
+  },
+
+  "directionality": {
+    "由左至右": "arrows and motion flowing from left to right",
+    "由上而下": "arrows and motion flowing downward",
+    "由下而上": "arrows and motion flowing upward",
+    "匯聚": "arrows converging toward a single point",
+    "發散": "arrows radiating outward from a single point"
+  },
+
+  "contrast_balance": {
+    "對稱": "the two sides balanced and symmetrical, an equal comparison",
+    "失衡": "one side visually dominating the other in size and weight"
+  }
+}

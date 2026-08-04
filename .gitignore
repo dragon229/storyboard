@@ -1,0 +1,11 @@
+# 生成的圖片（每支影片數十 MB，可用 scripts/render.py 重出）
+output/*/images/
+
+# 分鏡稿 JSON 保留版控——它是判讀的結果，重跑不會一樣
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 編輯器暫存
+*.tmp
