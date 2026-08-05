@@ -1,0 +1,65 @@
+{
+  "_meta_note": "風格轉換（純文字色票版，API 格式）。2026-08-04 實測有效：s01 冷暖 -77 → +52，構圖完整保留，26 秒/張。關鍵結構：denoise 必須 1.0（內容保留靠 TextEncodeQwenImageEditPlus 的 reference latent，不是低 denoise）＋ ModelSamplingAuraFlow(shift=3) ＋ CFGNorm ＋ ImageScaleToTotalPixels 縮到 1MP。低 denoise 會退化成複製機（勿改）。PLACEHOLDER_POSITIVE 填色票指令，例：Change the color palette of Picture 1 to warm sand and amber tones, warm off-white background, muted terracotta accents. Keep all shapes and composition.",
+
+  "37": {
+    "class_type": "UNETLoader",
+    "inputs": {"unet_name": "Qwen-Image-Edit-2511-FP8_e4m3fn.safetensors", "weight_dtype": "default"}
+  },
+  "89": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {"model": ["37", 0], "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors", "strength_model": 1.0}
+  },
+  "66": {
+    "class_type": "ModelSamplingAuraFlow",
+    "inputs": {"model": ["89", 0], "shift": 3.0}
+  },
+  "75": {
+    "class_type": "CFGNorm",
+    "inputs": {"model": ["66", 0], "strength": 1.0}
+  },
+  "38": {
+    "class_type": "CLIPLoader",
+    "inputs": {"clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors", "type": "qwen_image", "device": "default"}
+  },
+  "39": {
+    "class_type": "VAELoader",
+    "inputs": {"vae_name": "qwen_image_vae.safetensors"}
+  },
+  "78": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "content.png", "upload": "image"}
+  },
+  "93": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {"image": ["78", 0], "upscale_method": "lanczos", "megapixels": 1.0, "resolution_steps": 1}
+  },
+  "111": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["93", 0], "prompt": "PLACEHOLDER_POSITIVE"}
+  },
+  "110": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["93", 0], "prompt": ""}
+  },
+  "88": {
+    "class_type": "VAEEncode",
+    "inputs": {"pixels": ["93", 0], "vae": ["39", 0]}
+  },
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["75", 0], "positive": ["111", 0], "negative": ["110", 0],
+      "latent_image": ["88", 0],
+      "seed": 0, "steps": 4, "cfg": 1.0,
+      "sampler_name": "euler", "scheduler": "simple", "denoise": 1.0
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {"samples": ["3", 0], "vae": ["39", 0]}
+  },
+  "60": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["8", 0], "filename_prefix": "restyle"}
+  }
+}

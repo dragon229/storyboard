@@ -1,9 +1,18 @@
-"""分鏡稿 → ComfyUI 出圖。
+"""分鏡稿 → ComfyUI 出圖，兩個階段。
+
+階段 1  生成 content image：依每格 workflow 欄位分流送件 → images/content/<id>.png
+階段 2  統一畫風：呼叫 style-transfer-qwenstyle skill      → images/transfer/<id>.png
 
 用法:
     python -X utf8 scripts/render.py --series <系列名> [--ids s01,s07] [--seed N] [--no-skip]
+    python -X utf8 scripts/render.py --series <系列名> --no-transfer     # 只跑階段 1
+    python -X utf8 scripts/render.py --series <系列名> --transfer-only   # 圖已出好，只轉風格
 
-讀 storyboard/<系列>.json，依每格的 workflow 欄位分流送件，圖存到 images/<系列>/<id>.png。
+**階段 2 預設開啟**（style.json 的 style_ref 留空時會自動略過）。
+兩個階段刻意分開跑完（不逐格交錯）——flux2 與 Qwen-Image-Edit 不能同時待在 VRAM 裡，
+交錯等於每格換兩次模型。
+
+兩份產物並存：content 是原圖（可換風格重轉、轉壞時回頭比對），transfer 是交付品。
 """
 import argparse, json, pathlib, sys, time, urllib.request, urllib.error, uuid
 
@@ -101,6 +110,169 @@ def run_one(shot, style, seed, outdir, filename=None):
     return None, ["逾時 900 秒"]
 
 
+SKILL_DIR = ROOT / ".claude" / "skills" / "style-transfer-qwenstyle"
+VLM_PYTHON = pathlib.Path(r"D:\models\qwen_vl_venv\Scripts\python.exe")
+
+
+def ensure_content_captions(paths):
+    """content caption 是內容保留的主要錨點，缺了會讓輸出退化成 style 圖的複製品。
+
+    caption 必須用 VLM venv 產生（系統 python 的 transformers 太舊載不動 VLM），
+    但真正跑轉換的 qwenstyle_run.py 是系統 python——所以在這裡先一次補齊快取，
+    後面每格才拿得到。回傳 False 代表補不了，呼叫端應中止。
+    """
+    def key(p):
+        """跟 style_caption._cache_key 同規則：能取相對 cwd 就取，否則用絕對路徑。"""
+        p = pathlib.Path(p).resolve()
+        try:
+            return p.relative_to(pathlib.Path.cwd()).as_posix()
+        except ValueError:
+            return str(p)
+
+    cache = SKILL_DIR / "data" / "style_profiles.json"
+    have = set()
+    if cache.exists():
+        have = set(json.loads(cache.read_text(encoding="utf-8")).get("content", {}))
+    missing = [p for p in paths if key(p) not in have]
+    if not missing:
+        return True
+    if not VLM_PYTHON.exists():
+        print(f"\n階段 2 中止：{len(missing)} 格缺 content caption，且找不到 VLM venv")
+        print(f"  預期路徑 {VLM_PYTHON}")
+        print("  （要跳過 caption 請加 --no-transfer-content-prompt，但內容保留會大幅變差）")
+        return False
+
+    import subprocess
+    print(f"補 content caption（{len(missing)} 格，用 VLM venv）…")
+    free_vram()          # VLM 與 ComfyUI 的模型不能同時佔著 16GB
+    r = subprocess.run(
+        [str(VLM_PYTHON), "-X", "utf8", str(SKILL_DIR / "scripts" / "style_caption.py"),
+         "--kind", "content", "--images", *[str(p) for p in missing]],
+        cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if r.returncode != 0:
+        print(f"  ! caption 產生失敗: {(r.stderr or r.stdout or '')[-400:].strip()}")
+        return False
+    print(f"  完成 {len(missing)} 格")
+    return True
+
+
+def free_vram():
+    """請 ComfyUI 卸載模型。階段 1 的 flux2 不放掉，階段 2 的 Qwen 會塞不下 16GB。"""
+    req = urllib.request.Request(
+        HOST + "/free",
+        data=json.dumps({"unload_models": True, "free_memory": True}).encode(),
+        headers={"Content-Type": "application/json"})
+    try:
+        urllib.request.urlopen(req, timeout=30).read()   # 回空 body，不要當 JSON 解
+        print("已請 ComfyUI 釋放 VRAM")
+    except Exception as e:
+        print(f"釋放 VRAM 失敗（不致命，繼續）: {e}")
+
+
+def check_style_caption(ref_path):
+    """階段 2 需要風格參考圖的 caption。沒有快取就得先用 VLM venv 產生——
+    本腳本用系統 python 跑，transformers 版本太舊載不動 VLM，所以先擋下來給明確指示。"""
+    cache = SKILL_DIR / "data" / "style_profiles.json"
+    if cache.exists():
+        d = json.loads(cache.read_text(encoding="utf-8"))
+        for k in d.get("style", {}):
+            if pathlib.Path(k).name == ref_path.name:
+                return d["style"][k]
+    print(f"\n階段 2 中止：{ref_path.name} 還沒有 style caption。")
+    print("  請先用 VLM venv 產生（並人工複核，VLM 會看錯）：")
+    print(f'    D:/models/qwen_vl_venv/Scripts/python.exe -X utf8 \\')
+    print(f'      {SKILL_DIR / "scripts" / "style_caption.py"} \\')
+    print(f'      --kind style --images "{ref_path}"')
+    return None
+
+
+def run_transfer(shots, content_dir, transfer_dir, style, wanted,
+                 force=False, content_prompt=False):
+    """階段 2：呼叫 style-transfer-qwenstyle skill 把 content image 轉成目標畫風。
+
+    讀 images/content/<id>.png，寫 images/transfer/<id>.png。
+
+    逐格用分鏡稿的 use_transfer 欄位控制（沒寫視為 true）。
+    夜戲格轉換後會被打亮成白天，這種格要在分鏡稿裡設 use_transfer: false。
+    """
+    import subprocess
+
+    runner = SKILL_DIR / "scripts" / "qwenstyle_run.py"
+    if not runner.exists():
+        print(f"\n階段 2 中止：找不到 style-transfer-qwenstyle skill（{runner}）")
+        return
+
+    ref = style.get("style_ref")
+    if not ref:
+        print("\n階段 2 略過：assets/style.json 沒有設定 style_ref。")
+        print('  請填入風格參考圖路徑，例如 "style_ref": "assets/style_image/style_ref_3.png"')
+        return
+    ref_path = pathlib.Path(ref)
+    if not ref_path.is_absolute():
+        ref_path = ROOT / ref
+    if not ref_path.exists():
+        print(f"\n階段 2 中止：找不到風格參考圖 {ref_path}")
+        return
+    cap = check_style_caption(ref_path)
+    if cap is None:
+        return
+
+    targets = []
+    for shot in shots:
+        sid = shot["id"]
+        if wanted and sid not in wanted:
+            continue
+        if not shot.get("use_transfer", True):
+            print(f"{sid}  不轉換（use_transfer: false）")
+            continue
+        if not (content_dir / f"{sid}.png").exists():
+            continue
+        if (transfer_dir / f"{sid}.png").exists() and not force:
+            print(f"{sid}  跳過（transfer 已存在）")
+            continue
+        targets.append(sid)
+
+    if not targets:
+        print("\n階段 2：沒有要轉換的格。")
+        return
+
+    print(f"\n=== 階段 2：統一畫風（{len(targets)} 格）===")
+    print(f"  skill      style-transfer-qwenstyle")
+    print(f"  風格參考圖  {ref_path.name}")
+    print(f"  style caption  {cap}")
+    if content_prompt and not ensure_content_captions(
+            [content_dir / f"{sid}.png" for sid in targets]):
+        return
+    free_vram()
+
+    transfer_dir.mkdir(parents=True, exist_ok=True)
+    tmp = transfer_dir / "_tmp"
+    tmp.mkdir(exist_ok=True)
+    ok = fail = 0
+    for sid in targets:
+        cmd = [sys.executable, "-X", "utf8", str(runner),
+               "--content", str(content_dir / f"{sid}.png"),
+               "--styles", str(ref_path),
+               "--tag", sid, "--outdir", str(tmp)]
+        if not content_prompt:
+            cmd.append("--no-content-prompt")
+        r = subprocess.run(cmd, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
+        produced = tmp / f"{sid}_{ref_path.stem}.png"
+        if r.returncode == 0 and produced.exists():
+            produced.replace(transfer_dir / f"{sid}.png")
+            print(f"{sid}  OK  -> transfer/{sid}.png")
+            ok += 1
+        else:
+            print(f"{sid}  失敗: {(r.stderr or r.stdout or '')[-300:].strip()}")
+            fail += 1
+
+    for junk in tmp.iterdir():
+        junk.unlink(missing_ok=True)
+    tmp.rmdir()
+    print(f"\n階段 2 完成 {ok} / 失敗 {fail}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--series", required=True)
@@ -108,7 +280,20 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--no-skip", action="store_true", help="已存在的圖也重出")
     ap.add_argument("--storyboard", help="分鏡稿路徑，預設 storyboard/<系列>.json")
-    ap.add_argument("--outdir", help="圖片輸出目錄，預設 images/<系列>")
+    ap.add_argument("--outdir", help="圖片根目錄，預設 output/<系列>/images"
+                                     "（底下自動分 content/ 與 transfer/）")
+    ap.add_argument("--transfer", action="store_true",
+                    help="（已是預設行為，保留相容）出圖後接階段 2 統一畫風")
+    ap.add_argument("--no-transfer", action="store_true",
+                    help="只跑階段 1，不做統一畫風")
+    ap.add_argument("--transfer-only", action="store_true",
+                    help="跳過階段 1，只跑階段 2（圖已經出好時用）")
+    ap.add_argument("--transfer-redo", action="store_true",
+                    help="階段 2 連已存在的 _transfer.png 也重做")
+    ap.add_argument("--transfer-content-prompt", action="store_true",
+                    help="（已是預設行為，保留相容）階段 2 用 VLM 產生每格 content caption")
+    ap.add_argument("--no-transfer-content-prompt", action="store_true",
+                    help="關掉 content caption。**內容保留會大幅變差**，只在診斷時用")
     args = ap.parse_args()
 
     check_online()
@@ -117,11 +302,21 @@ def main():
         else ROOT / "output" / args.series / f"{args.series}.json"
     shots = json.loads(sb.read_text(encoding="utf-8"))
 
-    outdir = pathlib.Path(args.outdir) if args.outdir \
+    imgroot = pathlib.Path(args.outdir) if args.outdir \
         else ROOT / "output" / args.series / "images"
+    outdir = imgroot / "content"
+    transfer_dir = imgroot / "transfer"
     outdir.mkdir(parents=True, exist_ok=True)
 
     wanted = set(args.ids.split(",")) if args.ids else None
+
+    if args.transfer_only:
+        run_transfer(shots, outdir, transfer_dir, style, wanted,
+                     force=args.transfer_redo,
+                     content_prompt=not args.no_transfer_content_prompt)
+        return
+
+    print("=== 階段 1：生成 content image ===")
     if any(s.get("workflow") == "text_with_character" for s in shots):
         upload_character(style)
 
@@ -152,7 +347,12 @@ def main():
             print(f"{sid}  失敗: {info}")
             failed += 1
 
-    print(f"\n完成 {done} / 失敗 {failed} / 跳過 {skipped}")
+    print(f"\n階段 1 完成 {done} / 失敗 {failed} / 跳過 {skipped}")
+
+    if not args.no_transfer:
+        run_transfer(shots, outdir, transfer_dir, style, wanted,
+                     force=args.transfer_redo,
+                     content_prompt=not args.no_transfer_content_prompt)
 
 
 if __name__ == "__main__":

@@ -41,7 +41,9 @@ storyboard-verify ───────────── ③ 驗證大 skill
 ```
 output/<系列>/
 ├── <系列>.json     分鏡稿
-└── images/         s01.png … sNN.png
+└── images/
+    ├── content/    s01.png … sNN.png（階段 1 原圖）
+    └── transfer/   s01.png … sNN.png（階段 2 統一畫風，交付品）
 ```
 
 **執行順序**：

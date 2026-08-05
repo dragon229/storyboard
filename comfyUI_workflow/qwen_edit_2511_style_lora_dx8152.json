@@ -1,0 +1,91 @@
+{
+  "_meta_note": "風格轉換 R22 配方（雙圖，2026-08-04 實測最佳）。dx8152/Qwen-Image-Edit-2511-Style-Transfer LoRA（2511 原生）@1.0，4 步，content=image1、style=image2。四題材實測暖度收斂到 +56~+90（幅度 34，優於無參考圖版的 41），零物件滲透，31 秒/格。三個關鍵：(1) FluxKontextMultiReferenceLatentMethod(index_timestep_zero) 讓 image2 被當風格來源 (2) **image2 必須用無可辨識物件的純風格板**（assets/style_image/style_ref_abstract.png）——用有物件的 style_ref.png 會在 content 稀疏或偏暗時把窗戶/盆栽/水壺合成進畫面，且文字禁止指令完全擋不住 (3) denoise 必須 1.0。LoRA 掛在 CFGNorm 之後（照官方接線）。",
+
+  "_style_ref_image": "assets/style_image/style_ref_abstract.png（無物件風格板，L215 暖+91 S0.37）",
+  "_prompt_recommended": "style transfer. Change the style of Figure 1 to the style of Figure 2. Use warm sand and amber color palette, bright warm off-white background, terracotta and brass accents, bright high-key warm daylight, luminous and airy, clean flat cel shading, no dark shadows, no haze.",
+
+  "37": {
+    "class_type": "UNETLoader",
+    "inputs": {"unet_name": "Qwen-Image-Edit-2511-FP8_e4m3fn.safetensors", "weight_dtype": "default"}
+  },
+  "89": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {"model": ["37", 0], "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors", "strength_model": 1.0}
+  },
+  "66": {
+    "class_type": "ModelSamplingAuraFlow",
+    "inputs": {"model": ["89", 0], "shift": 3.0}
+  },
+  "75": {
+    "class_type": "CFGNorm",
+    "inputs": {"model": ["66", 0], "strength": 1.0}
+  },
+  "76": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {"model": ["75", 0], "lora_name": "qwen_edit_2511_style_transfer_dx8152.safetensors", "strength_model": 1.0}
+  },
+  "38": {
+    "class_type": "CLIPLoader",
+    "inputs": {"clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors", "type": "qwen_image", "device": "default"}
+  },
+  "39": {
+    "class_type": "VAELoader",
+    "inputs": {"vae_name": "qwen_image_vae.safetensors"}
+  },
+
+  "78": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "content.png", "upload": "image"}
+  },
+  "93": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {"image": ["78", 0], "upscale_method": "lanczos", "megapixels": 1.0, "resolution_steps": 1}
+  },
+  "112": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "style_ref.png", "upload": "image"}
+  },
+  "111": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {"image": ["112", 0], "upscale_method": "lanczos", "megapixels": 1.0, "resolution_steps": 1}
+  },
+
+  "11": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["93", 0], "image2": ["111", 0], "prompt": "PLACEHOLDER_POSITIVE"}
+  },
+  "3n": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["93", 0], "image2": ["111", 0], "prompt": ""}
+  },
+  "84": {
+    "class_type": "FluxKontextMultiReferenceLatentMethod",
+    "inputs": {"conditioning": ["11", 0], "reference_latents_method": "index_timestep_zero"}
+  },
+  "85": {
+    "class_type": "FluxKontextMultiReferenceLatentMethod",
+    "inputs": {"conditioning": ["3n", 0], "reference_latents_method": "index_timestep_zero"}
+  },
+
+  "88": {
+    "class_type": "VAEEncode",
+    "inputs": {"pixels": ["93", 0], "vae": ["39", 0]}
+  },
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["76", 0], "positive": ["84", 0], "negative": ["85", 0],
+      "latent_image": ["88", 0],
+      "seed": 0, "steps": 4, "cfg": 1.0,
+      "sampler_name": "euler", "scheduler": "simple", "denoise": 1.0
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {"samples": ["3", 0], "vae": ["39", 0]}
+  },
+  "60": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["8", 0], "filename_prefix": "styletest"}
+  }
+}

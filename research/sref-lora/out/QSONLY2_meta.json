@@ -1,0 +1,36 @@
+[
+  {
+    "style": "style_ref_6",
+    "target": null,
+    "prompt": "Style Transfer the style of Figure 2 to Figure 1, and keep the content and characteristics of Figure 1.",
+    "L": 44.454316787719726,
+    "WB": -28.558975219726562,
+    "S": 0.8346766892488198,
+    "sharp": 33.18221568952749,
+    "residual": 0.25481304591308784,
+    "dual": true,
+    "secs": 33.421247720718384,
+    "ref": [
+      69.03103752136231,
+      -11.295318603515625,
+      0.6881583863817704
+    ]
+  },
+  {
+    "style": "style_ref_2",
+    "target": null,
+    "prompt": "Style Transfer the style of Figure 2 to Figure 1, and keep the content and characteristics of Figure 1.",
+    "L": 65.75750302124024,
+    "WB": -46.08049011230469,
+    "S": 0.6397202821154514,
+    "sharp": 64.3432788120635,
+    "residual": 0.2200656315500428,
+    "dual": true,
+    "secs": 26.802814722061157,
+    "ref": [
+      179.59884223937988,
+      -1.106964111328125,
+      0.07398454256297485
+    ]
+  }
+]

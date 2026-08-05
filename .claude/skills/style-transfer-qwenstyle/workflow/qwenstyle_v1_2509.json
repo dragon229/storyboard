@@ -1,0 +1,83 @@
+{
+  "_meta_note": "QwenStyle V1 忠實複現（API 格式）。依據官方 Space app.py（https://huggingface.co/spaces/witcherderivia/QwenStyle）逐行對照，而非只看論文文字——Space 較新，且有三處與論文不同（見 _diffs_from_paper）。底模必須是 Qwen-Image-Edit-2509（QwenStyle 訓練基底），加速用 repo 內附的 diffsynth Lightning。尺寸在上傳前由 scripts/qwenstyle_run.py 處理（ComfyUI 節點做不到「最短邊 N 且為 16 倍數」）。",
+
+  "_source": "https://huggingface.co/spaces/witcherderivia/QwenStyle/blob/main/app.py",
+
+  "_diffs_from_paper": [
+    "1. style 圖不是正方形：論文寫 resize 成 min(H,W) 正方，但 Space 把該行註解掉了（#style_ref.resize((minedge, minedge))），改成與 content 同樣的等比例縮放、最短邊=minedge。Space 較新，以 Space 為準。",
+    "2. minedge 是風格強度旋鈕：Space 的說明寫「changing the minedge could lead to different style similarity」，預設 1024，可調 256–2048。",
+    "3. prompt 有兩段可選的 VLM 自動生成內容（content prompt / style prompt），逗號串接在固定句之後。"
+  ],
+
+  "_fixed_prompt": "Style Transfer the style of Figure 2 to Figure 1, and keep the content and characteristics of Figure 1.",
+  "_negative_prompt": " ",
+
+  "37": {
+    "class_type": "UNETLoader",
+    "inputs": {"unet_name": "qwen_image_edit_2509_fp8_e4m3fn.safetensors", "weight_dtype": "default"}
+  },
+  "76": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {"model": ["37", 0], "lora_name": "qwenstyle_v1_2509_diffusers.safetensors", "strength_model": 1.0}
+  },
+  "89": {
+    "class_type": "LoraLoaderModelOnly",
+    "_warning": "不要換成 repo 附的 diffsynth_qwenstyle_2509_lightning_4steps.safetensors。它的 key 是 lora_A.default.weight（diffsynth 格式），ComfyUI 會靜默不載入且不出任何警告，結果是 4 步欠煮的糊圖。實測差異極大。用下面這顆 lightx2v 的 ComfyUI 標準命名版本。",
+    "inputs": {"model": ["76", 0], "lora_name": "Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors", "strength_model": 1.0}
+  },
+  "66": {
+    "class_type": "ModelSamplingAuraFlow",
+    "inputs": {"model": ["89", 0], "shift": 3.0}
+  },
+
+  "38": {
+    "class_type": "CLIPLoader",
+    "inputs": {"clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors", "type": "qwen_image", "device": "default"}
+  },
+  "39": {
+    "class_type": "VAELoader",
+    "inputs": {"vae_name": "qwen_image_vae.safetensors"}
+  },
+
+  "78": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "qs_content.png", "upload": "image"}
+  },
+  "79": {
+    "class_type": "LoadImage",
+    "inputs": {"image": "qs_style.png", "upload": "image"}
+  },
+
+  "11": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["78", 0], "image2": ["79", 0],
+               "prompt": "PLACEHOLDER_POSITIVE"}
+  },
+  "12": {
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "inputs": {"clip": ["38", 0], "vae": ["39", 0], "image1": ["78", 0], "image2": ["79", 0],
+               "prompt": " "}
+  },
+
+  "88": {
+    "class_type": "VAEEncode",
+    "inputs": {"pixels": ["78", 0], "vae": ["39", 0]}
+  },
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["66", 0], "positive": ["11", 0], "negative": ["12", 0],
+      "latent_image": ["88", 0],
+      "seed": 123, "steps": 4, "cfg": 1.0,
+      "sampler_name": "euler", "scheduler": "simple", "denoise": 1.0
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {"samples": ["3", 0], "vae": ["39", 0]}
+  },
+  "60": {
+    "class_type": "SaveImage",
+    "inputs": {"images": ["8", 0], "filename_prefix": "qwenstyle"}
+  }
+}

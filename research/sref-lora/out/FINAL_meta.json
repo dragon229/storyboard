@@ -1,0 +1,19 @@
+[
+  {
+    "style": "style_ref_4",
+    "target": null,
+    "prompt": "Style Transfer the style of Figure 2 to Figure 1, and keep the content and characteristics of Figure 1.",
+    "L": 43.033978347778316,
+    "WB": -24.668975830078125,
+    "S": 0.861816063764512,
+    "sharp": 32.225229185609095,
+    "residual": 0.5472183500128838,
+    "dual": true,
+    "secs": 36.00906467437744,
+    "ref": [
+      65.21165383911132,
+      38.24244689941406,
+      0.517527600575604
+    ]
+  }
+]

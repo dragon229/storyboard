@@ -78,7 +78,8 @@ def sb_path(series: str) -> Path:
 
 
 def img_dir(series: str) -> Path:
-    return OUTPUT_DIR / series / "images"
+    """編輯器操作的是 content image；transfer 是定稿後才跑的第二階段產物。"""
+    return OUTPUT_DIR / series / "images" / "content"
 
 
 def load_scenes(series: str) -> list[dict]:

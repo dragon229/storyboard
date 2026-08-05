@@ -1,6 +1,6 @@
 ---
 name: storyboard
-description: 把科普影片的語音稿轉成分鏡稿並出圖。當使用者說「生成分鏡稿」「把語音稿轉成分鏡」「這篇稿子的分鏡」「storyboard」等需求時使用。六階段：切分→意圖判讀→呈現手法→取景→場面調度→組裝，再交給 storyboard-render 出圖。
+description: 把科普影片的語音稿轉成分鏡稿並出圖。當使用者說「生成分鏡稿」「把語音稿轉成分鏡」「這篇稿子的分鏡」「storyboard」等需求時使用。六階段：切分→意圖判讀→呈現手法→取景→場面調度→組裝，再交給 storyboard-render 出圖並統一畫風。
 ---
 
 # storyboard｜語音稿 → 分鏡稿 → 圖
@@ -22,8 +22,12 @@ description: 把科普影片的語音稿轉成分鏡稿並出圖。當使用者�
 ```
 output/<系列>/
 ├── <系列>.json          分鏡稿（整份一個檔，不拆格）
-└── images/              s01.png … sNN.png
+└── images/
+    ├── content/         s01.png … sNN.png（階段 1 原圖）
+    └── transfer/        s01.png … sNN.png（階段 2 統一畫風，**交付品**）
 ```
+
+兩份都留：content 才能換風格重轉、或在轉壞時回頭比對。
 
 **不要**把分鏡稿和圖片散在專案根目錄的不同地方。一支影片＝一個資料夾。
 
@@ -45,7 +49,7 @@ output/<系列>/
 | 4 | `storyboard-framing` | 逐格 | |
 | 5 | `storyboard-staging` | 逐格 | |
 | 6 | `storyboard-compose` | 逐格 | |
-| 7 | `storyboard-render` | 全局 | 出圖 |
+| 7 | `storyboard-render` | 全局 | 出圖 → 自動接階段 2 統一畫風（`--no-transfer` 可只跑階段 1） |
 
 **第 3 步是整條流程唯一的障壁**——呈現手法要看整份分鏡稿才能管節奏與跨格對照，
 不能逐格邊判邊選。
@@ -93,6 +97,7 @@ output/<系列>/
 | `framing` | framing |
 | `staging` / `needs_post_text` | staging |
 | `prompt` | compose |
+| `use_transfer` | 人工（選填，預設 true；夜戲格要設 false） |
 
 每個步驟只寫自己負責的欄位，寫完立刻存回 `output/<系列>/<系列>.json`，不要累積在記憶裡。
 
@@ -110,6 +115,7 @@ output/<系列>/
 | 「這格鏡頭不對」 | 4 → 5,6,7 |
 | 「畫面內容漏了東西」 | 5 → 6,7 |
 | 「重新出圖」「換 seed」 | 7 |
+| 「統一畫風」「轉風格」 | 7（`--transfer-only`） |
 
 改了 `assets/style.json` 或 `assets/character.json` → 回到 6 重組 prompt。
 
