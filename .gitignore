@@ -13,3 +13,6 @@ __pycache__/
 
 # 編輯器暫存
 *.tmp
+
+# VLM caption 快取，每跑一次轉風格就長大，且內容依本機跑過哪些圖而異
+.claude/skills/style-transfer-qwenstyle/data/style_profiles.json
