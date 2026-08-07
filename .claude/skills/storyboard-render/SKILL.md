@@ -59,8 +59,8 @@ ComfyUI 離線時腳本會直接停下並要求啟動，**不會硬跑**。重�
 
 | `workflow` | 檔案 | 用於 |
 |---|---|---|
-| `text_only` | `comfyUI_workflow/flux2_text_to_image.json` | 觀察者**不**出現的格 |
-| `text_with_character` | `comfyUI_workflow/flux2_text_image_to_image.json` | 觀察者出現的格 |
+| `text_only` | `comfyUI_workflow/flux2_text_to_image.json` | 畫面上**完全沒有人**的格 |
+| `text_with_character` | `comfyUI_workflow/flux2_text_image_to_image.json` | 畫面上**有任何人**的格（含路人、群眾、一隻手） |
 
 **兩條共用 `flux-2-klein-base-4b`**，參考圖經 `ReferenceLatent` 掛進正向條件。
 同模型 → 線條、描邊、上色邏輯天然一致。約 40–50 秒／張。
@@ -70,9 +70,15 @@ ComfyUI 離線時腳本會直接停下並要求啟動，**不會硬跑**。重�
 
 ### 三條實測結論
 
-**1. 文字描述產不出一致的角色。**
+**1. 文字描述產不出一致的人。**
 純文字路徑畫出來的觀察者會走鐘成完全不同的東西。
-**凡是觀察者出現的格，一律走 `text_with_character`，沒有例外。**
+**路人也一樣**——比例、五官簡化程度、線條密度都會跟參考圖路徑畫出來的不同調，
+一支影片裡有人的格分走兩條路徑，人就會有兩種畫法。
+**凡是畫面上有人的格，一律走 `text_with_character`，沒有例外。**
+
+> ⚠ 代價：**掛了參考圖的格，畫面上的人都會長得像觀察者**，連 staging 一個字都沒提他的格
+> 也會憑空長出他的臉。這是已知且接受的行為，用文字排除無效（實測見
+> `storyboard-depiction` 的「決定 workflow」）。看到路人同臉不要重出換 seed，換不掉。
 
 **2. 參考圖的米白素底會滲進輸出。**
 帶角色的格若背景寫得模糊（「同一條街」），整張會褪色發白，跟相鄰的純文字格明顯不同調。

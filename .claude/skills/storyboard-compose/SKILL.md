@@ -49,9 +49,19 @@ python -X utf8 scripts/compose.py --series <系列名>
 ## 條件判斷
 
 - **`is_speculation = true`** → 加推演調性子句。這是讓觀眾分辨真假的唯一機制，不能漏。
-- **畫面無人物** → 加 `no people visible`。
+- **畫面無人物** → 加 `no people visible`。這一格同時必然是 `workflow = text_only`。
 - **`needs_post_text = true`** → prompt 裡明確保留空白區域的描述，且該格不送出圖。
-- **`workflow = text_with_character`** → 場面調度裡必須含角色的 `base_en` 與依景別取段的服裝描述。
+- **`workflow = text_with_character`** → 表示畫面上有人，**不代表那個人是觀察者**。
+  角色描述要不要寫，看的是**觀察者本人在不在畫面上**：
+
+  | 畫面上的人 | staging 要寫 |
+  |---|---|
+  | 觀察者（不論主角或配角） | 角色的 `base_en` ＋ 依景別取段的服裝描述 |
+  | **只有路人／群眾／一隻手** | 照一般人物寫「描述詞＋具體衣物＋顏色」，不寫 `base_en` |
+
+  > ⚠ 掛了參考圖的格，路人的**臉本來就會像觀察者**，這是已接受的代價（實測與理由見
+  > `storyboard-depiction` 的「決定 workflow」）。**不要寫排除句去對抗它，無效。**
+  > 路人與觀察者的區別靠**服裝與動作**，不靠臉。
 
 ---
 
