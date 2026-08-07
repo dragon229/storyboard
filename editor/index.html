@@ -43,6 +43,7 @@
     font-size: 12px; color: var(--dim); display: flex; align-items: center; gap: 10px;
   }
   .body { flex: 1; overflow-y: auto; padding: 10px 14px; }
+  #editor { container-type: inline-size; }   /* 讓 .split 的斷點以編輯區寬度為準 */
 
   /* 左：台詞 */
   .para { margin-bottom: 14px; }
@@ -83,7 +84,23 @@
   .row > * { flex: 1; }
   .check { display: flex; align-items: center; gap: 6px; font-size: 13px; text-transform: none; letter-spacing: 0; }
   .check input { width: auto; }
-  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .grid4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+
+  /* 預覽圖與決策欄位並排：圖固定在左邊一欄，右邊放所有要填的東西。
+     欄寬用 % 而不是 px，因為右側面板寬度是可拖曳的。
+     --previewW 由中間那條 .vdiv 拖曳時改寫，存在 localStorage。 */
+  .split { display: grid; grid-template-columns: minmax(140px, var(--previewW, 30%)) 6px 1fr;
+    gap: 0 8px; align-items: start; }
+  .split > * { min-width: 0; }
+  .split .field:last-child { margin-bottom: 0; }
+  .vdiv { align-self: stretch; min-height: 60px; cursor: col-resize; border-radius: 3px;
+    background: var(--line); transition: background .15s; }
+  .vdiv:hover, body.col-resizing .vdiv { background: var(--accent); }
+  /* 斷點看的是編輯區自身寬度，不是視窗——右側面板寬度可以拖 */
+  @container (max-width: 720px) {
+    .split { grid-template-columns: 1fr; }
+    .vdiv { display: none; }
+  }
   fieldset { border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin-bottom: 12px; }
   legend { font-size: 11px; color: var(--dim); padding: 0 6px; letter-spacing: .5px; }
   .badge {
@@ -92,7 +109,8 @@
   }
 
   #preview { max-width: 100%; border-radius: 6px; border: 1px solid var(--line); display: none; }
-  #cands { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
+  /* 候選縮圖跟著預覽圖擠在左欄，欄位窄時自動減少每列張數 */
+  #cands { display: none; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; margin-top: 6px; }
   #cands.show { display: grid; }
   .cand { position: relative; cursor: pointer; border: 2px solid var(--line); border-radius: 6px; overflow: hidden; }
   .cand:hover { border-color: var(--accent); }
@@ -331,38 +349,45 @@ function openScene(id) {
       </div>
       <textarea id="source" readonly>${esc(s.source)}</textarea></div>
 
-    <div class="field"><label>預覽圖</label>
-      <img id="preview" src="${previewSrc(id)}"
-        onload="onPreviewLoad(this)" onerror="onPreviewFail(this)">
-      <div id="noImg" class="empty-note" style="padding:4px 0"></div>
-      <div id="cands"></div></div>
+    <div class="split">
+      <div class="field"><label>預覽圖</label>
+        <img id="preview" src="${previewSrc(id)}"
+          onload="onPreviewLoad(this)" onerror="onPreviewFail(this)">
+        <div id="noImg" class="empty-note" style="padding:4px 0"></div>
+        <div id="cands"></div></div>
 
-    <div class="field" style="border:1px dashed var(--line);padding:8px 10px;border-radius:6px;background:#191c22">
-      <div class="label-row">
-        <label>貼上 AI 回覆（JSON）→ 自動填入各欄位</label>
-        <button id="btnApply" class="mini">套用</button>
+      <div class="vdiv" title="拖曳調整預覽圖寬度"></div>
+
+      <div>
+        <div class="field" style="border:1px dashed var(--line);padding:8px 10px;border-radius:6px;background:#191c22">
+          <div class="label-row">
+            <label>貼上 AI 回覆（JSON）→ 自動填入各欄位</label>
+            <button id="btnApply" class="mini">套用</button>
+          </div>
+          <textarea id="aiPaste" placeholder="把 Claude 回覆的 JSON 整段貼在這裡，按「套用」會自動填入下方欄位" style="min-height:56px"></textarea></div>
+
+        <div class="row">
+          <div class="field"><label>修辭功能</label>${sel('f_rf', BOOT.rhetorical_functions, s.rhetorical_function, false)}</div>
+          <div class="field"><label>呈現手法</label>${sel('f_dm', BOOT.depiction_modes, s.depiction_mode, false)}</div>
+          <div class="field"><label>論述單元 unit</label><input id="f_unit" value="${esc(s.unit)}"></div>
+        </div>
+
+        <div class="row">
+          <div class="field"><label>情緒偏移（中文，無則留白）</label><input id="f_shift" value="${esc(s.emotional_shift)}"></div>
+          <div class="field"><label>情緒語句 emotion_en</label><input id="f_emo" value="${esc(s.emotion_en)}"></div>
+        </div>
+
+        <div class="row" style="align-items:center;margin-bottom:12px">
+          <label class="check"><input type="checkbox" id="f_spec" ${s.is_speculation ? 'checked' : ''}> 推演格（套用推演調性）</label>
+          <label class="check"><input type="checkbox" id="f_post" ${s.needs_post_text ? 'checked' : ''}> 需後製文字（不出圖）</label>
+          <div class="field" style="margin:0"><label>workflow</label>
+            ${sel('f_wf', ['text_only', 'text_with_character'], s.workflow, false)}</div>
+        </div>
+
+        <fieldset style="margin-bottom:0"><legend>取景設計 framing</legend>
+          <div class="grid4">${framingCells}</div></fieldset>
       </div>
-      <textarea id="aiPaste" placeholder="把 Claude 回覆的 JSON 整段貼在這裡，按「套用」會自動填入下方欄位" style="min-height:56px"></textarea></div>
-
-    <div class="row">
-      <div class="field"><label>修辭功能</label>${sel('f_rf', BOOT.rhetorical_functions, s.rhetorical_function, false)}</div>
-      <div class="field"><label>呈現手法</label>${sel('f_dm', BOOT.depiction_modes, s.depiction_mode, false)}</div>
-      <div class="field"><label>論述單元 unit</label><input id="f_unit" value="${esc(s.unit)}"></div>
     </div>
-
-    <div class="row">
-      <div class="field"><label>情緒偏移（中文，無則留白）</label><input id="f_shift" value="${esc(s.emotional_shift)}"></div>
-      <div class="field"><label>情緒語句 emotion_en</label><input id="f_emo" value="${esc(s.emotion_en)}"></div>
-    </div>
-
-    <div class="row" style="align-items:center;margin-bottom:12px">
-      <label class="check"><input type="checkbox" id="f_spec" ${s.is_speculation ? 'checked' : ''}> 推演格（套用推演調性）</label>
-      <label class="check"><input type="checkbox" id="f_post" ${s.needs_post_text ? 'checked' : ''}> 需後製文字（不出圖）</label>
-      <div class="field" style="margin:0"><label>workflow</label>
-        ${sel('f_wf', ['text_only', 'text_with_character'], s.workflow, false)}</div>
-    </div>
-
-    <fieldset><legend>取景設計 framing</legend><div class="grid4">${framingCells}</div></fieldset>
 
     <div class="field"><label>場面調度 staging（英文，只寫畫框內容）</label>
       <textarea id="staging">${esc(s.staging)}</textarea></div>
@@ -639,6 +664,36 @@ $('btnRenum').onclick = async () => {
     if (!d) return;
     d = false; document.body.classList.remove('col-resizing');
     localStorage.setItem('leftWidth', left.style.width);
+  });
+})();
+
+(function initSplitDivider() {
+  // .split 每次 openScene 都會重繪，所以寬度存在 :root 的 CSS 變數上，
+  // 事件用委派綁在 #editor，重繪後不用重新綁
+  const KEY = 'previewWidth';
+  const root = document.documentElement;
+  const saved = localStorage.getItem(KEY);
+  if (saved) root.style.setProperty('--previewW', saved);
+
+  let split = null;
+  $('editor').addEventListener('mousedown', e => {
+    if (!e.target.classList.contains('vdiv')) return;
+    split = e.target.parentElement;
+    document.body.classList.add('col-resizing');
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', e => {
+    if (!split) return;
+    const r = split.getBoundingClientRect();
+    // 存 % 而不是 px：右側面板本身的寬度也可以拖，比例才跟得上
+    const pct = Math.max(15, Math.min(70, (e.clientX - r.left) / r.width * 100));
+    root.style.setProperty('--previewW', pct.toFixed(1) + '%');
+  });
+  window.addEventListener('mouseup', () => {
+    if (!split) return;
+    split = null;
+    document.body.classList.remove('col-resizing');
+    localStorage.setItem(KEY, root.style.getPropertyValue('--previewW'));
   });
 })();
 
