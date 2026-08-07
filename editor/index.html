@@ -9,6 +9,8 @@
     --bg: #14161a; --panel: #1b1e24; --panel2: #22262e; --line: #2f343d;
     --text: #e6e9ef; --dim: #9aa3b2; --accent: #f0883e; --accent2: #4a9eff;
     --ok: #3fb950; --warn: #d29922;
+    /* 偶數分鏡編號用的青藍。跟 --accent2 分開，免得跟分隔線／重選模式的功能色混淆 */
+    --accent3: #3ec9d9;
   }
   body {
     background: var(--bg); color: var(--text); height: 100vh; overflow: hidden;
@@ -47,9 +49,11 @@
 
   /* 左：台詞 */
   .para { margin-bottom: 14px; }
+  /* flex 而不是把編號絕對定位：絕對定位的編號會壓在台詞文字上面 */
   .unit {
     padding: 5px 9px; border-radius: 5px; cursor: pointer; user-select: none;
-    border-left: 3px solid transparent; position: relative;
+    border-left: 3px solid transparent;
+    display: flex; align-items: flex-start; gap: 8px;
   }
   .unit:hover { background: var(--panel2); }
   .unit.sel { background: rgba(240,136,62,.18); border-left-color: var(--accent); }
@@ -57,10 +61,12 @@
   body.dragging .body { cursor: grabbing; }
   .unit.assigned { color: var(--dim); }
   .unit.assigned::after {
-    content: attr(data-sid); position: absolute; right: 8px; top: 5px;
-    font-size: 10px; color: var(--accent2); background: rgba(74,158,255,.12);
+    content: attr(data-sid); flex: none; margin-left: auto; margin-top: 2px;
+    font-size: 10px; color: var(--accent); background: rgba(240,136,62,.12);
     padding: 1px 6px; border-radius: 3px;
   }
+  /* 偶數格用青藍，跟橘色差約 160°，相鄰兩格不會看成同一格 */
+  .unit.assigned.sid-even::after { color: var(--accent3); background: rgba(62,201,217,.12); }
   .unit.sel.assigned { color: var(--text); }
 
   /* 右：編輯器 */
@@ -264,7 +270,9 @@ function renderUnits() {
   $('units').innerHTML = Object.values(paras).map(list =>
     `<div class="para">` + list.map(u => {
       const sid = map[u.uid];
-      return `<div class="unit ${SEL.has(u.uid) ? 'sel' : ''} ${sid ? 'assigned' : ''}"
+      // 相鄰分鏡的編號交錯橘／藍，一眼看得出邊界在哪
+      const parity = sid ? (parseInt(sid.replace(/\D/g, ''), 10) % 2 ? 'sid-odd' : 'sid-even') : '';
+      return `<div class="unit ${SEL.has(u.uid) ? 'sel' : ''} ${sid ? 'assigned' : ''} ${parity}"
         data-uid="${u.uid}" ${sid ? `data-sid="${sid}"` : ''}>${esc(u.text)}</div>`;
     }).join('') + `</div>`
   ).join('');
