@@ -4,6 +4,9 @@ output/
 # 實驗紀錄與對照圖，量大且是一次性的，只留在本機
 research/
 
+# 分鏡問題記錄，工作中的筆記，消化完就刪
+feedback/
+
 # Python
 __pycache__/
 *.py[cod]

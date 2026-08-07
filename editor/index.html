@@ -67,6 +67,8 @@
   }
   /* 偶數格用青藍，跟橘色差約 160°，相鄰兩格不會看成同一格 */
   .unit.assigned.sid-even::after { color: var(--accent3); background: rgba(62,201,217,.12); }
+  /* 標過問題的格：只加旗子，顏色仍由奇偶決定，兩個資訊互不干擾 */
+  .unit.assigned.has-issue::after { content: attr(data-sid) " ⚑"; }
   .unit.sel.assigned { color: var(--text); }
 
   /* 右：編輯器 */
@@ -128,6 +130,27 @@
   .empty-note { color: var(--dim); text-align: center; padding: 40px 20px; font-size: 13px; }
   .tag { font-size: 11px; padding: 1px 6px; border-radius: 3px; background: var(--panel2); color: var(--dim); }
 
+  /* 標記問題 */
+  button.flagged { border-color: var(--warn); color: var(--warn); }
+  .mask {
+    position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    width: min(560px, 92vw); max-height: 86vh; overflow-y: auto; padding: 16px 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  }
+  .modal h3 { font-size: 14px; margin-bottom: 4px; }
+  .modal .sub { font-size: 12px; color: var(--dim); margin-bottom: 14px; }
+  .modal-foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .modal-foot .spacer { flex: 1; }
+  #issueNote { min-height: 120px; }
+  #issueSrc {
+    font-size: 12px; color: var(--dim); background: #191c22; border: 1px solid var(--line);
+    border-radius: 5px; padding: 6px 8px; margin-bottom: 12px; max-height: 84px; overflow-y: auto;
+  }
+
   /* content / transfer 切換開關 */
   .switch { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dim); cursor: pointer; user-select: none; }
   .switch input { display: none; }
@@ -178,6 +201,7 @@
         <span>show transfer</span>
         <input type="checkbox" id="swTransfer"><i class="track"></i>
       </label>
+      <button id="btnIssue" disabled title="記下這一格哪裡不對，之後拿去迭代 skill">標記問題</button>
       <button id="btnGen" disabled>生成提示詞</button>
       <button id="btnImg" disabled>生成圖片</button>
       <button id="btnTransfer" disabled title="階段 2：把這一格的 content 圖轉成目標畫風">風格轉換</button>
@@ -186,7 +210,39 @@
       <button class="primary" id="btnSave" disabled>儲存</button>
     </div>
     <div class="body" id="editor">
-      <div class="empty-note">從左邊選取台詞後按「建立分鏡」，或點上方的分鏡編號來編輯</div>
+      <div class="empty-note">從左邊選取台詞後按「建立分鏡」，或點左邊已標編號的台詞來編輯</div>
+    </div>
+  </div>
+</div>
+
+<div class="mask" id="issueMask" style="display:none">
+  <div class="modal">
+    <h3>標記問題 <span id="issueSid" class="tag"></span></h3>
+    <div class="sub" id="issueMeta"></div>
+    <div id="issueSrc"></div>
+
+    <div class="field"><label>問題分類</label>
+      <select id="issueCat">
+        <option value="">—</option>
+        <option value="content">content 圖不對</option>
+        <option value="transfer">transfer 畫風不對</option>
+        <option value="framing">取景 framing</option>
+        <option value="staging">場面調度 staging</option>
+        <option value="depiction_mode">呈現手法 depiction_mode</option>
+        <option value="prompt">提示詞組裝</option>
+        <option value="other">其他</option>
+      </select></div>
+
+    <div class="field" style="margin-bottom:0"><label>問題描述</label>
+      <textarea id="issueNote" placeholder="這一格哪裡不對？例如：鏡頭選了遠景但主體完全看不出來，不理解為什麼不用中景"></textarea></div>
+
+    <div id="issueErr" style="display:none;color:var(--warn);font-size:12px;margin-top:10px"></div>
+
+    <div class="modal-foot">
+      <span class="sub" style="margin:0">清空文字後儲存 ＝ 刪除這一格的記錄</span>
+      <div class="spacer"></div>
+      <button id="issueCancel">取消</button>
+      <button class="primary" id="issueSave">儲存</button>
     </div>
   </div>
 </div>
@@ -194,6 +250,7 @@
 <script>
 const $ = id => document.getElementById(id);
 let UNITS = [], SCENES = [], CUR = null, SEL = new Set(), BOOT = null, reselectMode = false;
+let ISSUES = {};   // { <分鏡 id>: {category, note, updated_at, scene} }
 
 const status = (m, c) => { $('status').textContent = m; $('status').style.color = c || 'var(--dim)'; };
 const series = () => $('newSeries').value.trim() || $('seriesSel').value;
@@ -251,10 +308,17 @@ async function loadScript() {
 
 async function loadScenes() {
   const s = $('seriesSel').value;
-  if (!s) { SCENES = []; renderUnits(); return; }
+  if (!s) { SCENES = []; ISSUES = {}; renderUnits(); return; }
   SCENES = (await api('/api/scenes?series=' + encodeURIComponent(s)
     + '&script=' + encodeURIComponent($('scriptSel').value))).scenes;
+  await loadIssues();
   renderUnits();
+}
+
+async function loadIssues() {
+  try {
+    ISSUES = (await api('/api/feedback?series=' + encodeURIComponent(series()))).issues || {};
+  } catch { ISSUES = {}; }   // 還沒有任何記錄不是錯誤
 }
 
 function uidToScene() {
@@ -272,7 +336,8 @@ function renderUnits() {
       const sid = map[u.uid];
       // 相鄰分鏡的編號交錯橘／藍，一眼看得出邊界在哪
       const parity = sid ? (parseInt(sid.replace(/\D/g, ''), 10) % 2 ? 'sid-odd' : 'sid-even') : '';
-      return `<div class="unit ${SEL.has(u.uid) ? 'sel' : ''} ${sid ? 'assigned' : ''} ${parity}"
+      const flag = sid && ISSUES[sid] ? 'has-issue' : '';
+      return `<div class="unit ${SEL.has(u.uid) ? 'sel' : ''} ${sid ? 'assigned' : ''} ${parity} ${flag}"
         data-uid="${u.uid}" ${sid ? `data-sid="${sid}"` : ''}>${esc(u.text)}</div>`;
     }).join('') + `</div>`
   ).join('');
@@ -342,7 +407,8 @@ function openScene(id) {
   SEL = new Set(s.line_range || []);
   renderUnits();
   $('editTitle').textContent = '編輯 ' + id;
-  ['btnGen', 'btnImg', 'btnTransfer', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
+  ['btnIssue', 'btnGen', 'btnImg', 'btnTransfer', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
+  syncIssueBtn();
 
   const fr = s.framing || {};
   const framingCells = BOOT.framing_fields.map(f =>
@@ -558,6 +624,65 @@ $('btnImg').onclick = async () => {
   $('btnImg').disabled = false; $('btnTransfer').disabled = false;
 };
 
+// ── 標記問題 ──────────────────────────────────────────────────────────────
+
+function syncIssueBtn() {
+  const it = CUR && ISSUES[CUR];
+  $('btnIssue').textContent = it ? '已標記 ⚑' : '標記問題';
+  $('btnIssue').classList.toggle('flagged', !!it);
+}
+
+function closeIssue() { $('issueMask').style.display = 'none'; }
+
+function issueErr(msg) {
+  const el = $('issueErr');
+  el.textContent = msg ? '✗ ' + msg : '';
+  el.style.display = msg ? 'block' : 'none';
+  if (msg) status('✗ ' + msg, 'var(--warn)');
+}
+
+$('btnIssue').onclick = () => {
+  if (!CUR) return;
+  const it = ISSUES[CUR] || {};
+  const sc = SCENES.find(x => x.id === CUR) || {};
+  $('issueSid').textContent = CUR;
+  $('issueMeta').textContent = it.updated_at ? '上次記錄 ' + it.updated_at : '這一格還沒有記錄';
+  $('issueSrc').textContent = sc.source || '';
+  $('issueCat').value = it.category || '';
+  $('issueNote').value = it.note || '';
+  issueErr('');
+  $('issueMask').style.display = 'flex';
+  $('issueNote').focus();
+};
+
+$('issueCancel').onclick = closeIssue;
+// 點遮罩空白處關閉，但點在 modal 內不關
+$('issueMask').onmousedown = e => { if (e.target === $('issueMask')) closeIssue(); };
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('issueMask').style.display !== 'none') closeIssue();
+});
+
+$('issueSave').onclick = async () => {
+  const note = $('issueNote').value.trim();
+  const had = !!ISSUES[CUR];
+  if (!note && !had) return issueErr('沒有輸入任何內容');
+  if (!note && had && !confirm(`清空文字等於刪除 ${CUR} 的記錄，確定？`)) return;
+  try {
+    const d = await api('/api/feedback', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ series: series(), id: CUR, note, category: $('issueCat').value })
+    });
+    await loadIssues();
+    renderUnits(); syncIssueBtn(); closeIssue();
+    status(d.deleted ? `已刪除 ${CUR} 的問題記錄` : `已記下 ${CUR} 的問題`, 'var(--ok)');
+  } catch (e) {
+    // 錯誤要顯示在彈窗裡。只寫最底下的狀態列，看起來就像按了沒反應
+    issueErr(e.message.includes('Not Found')
+      ? '後端沒有這個 API，server 需要重新啟動'
+      : '儲存失敗：' + e.message);
+  }
+};
+
 $('btnTransfer').onclick = async () => {
   status('風格轉換中…（含 caption，約 1–3 分鐘）');
   $('btnTransfer').disabled = true; $('btnImg').disabled = true;
@@ -625,7 +750,9 @@ $('btnDel').onclick = async () => {
   CUR = null; SEL.clear();
   await loadScenes();
   $('editor').innerHTML = '<div class="empty-note">已刪除</div>';
-  ['btnGen', 'btnImg', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = true);
+  ['btnIssue', 'btnGen', 'btnImg', 'btnTransfer', 'btnBatch', 'btnDel', 'btnSave']
+    .forEach(b => $(b).disabled = true);
+  syncIssueBtn();
   status('已刪除', 'var(--ok)');
 };
 
@@ -645,7 +772,7 @@ $('btnRenum').onclick = async () => {
     const more = pre.changes.length > 12 ? `\n…以及其他 ${pre.changes.length - 12} 筆` : '';
     if (!confirm(
       `依台詞順序重新編號，共 ${pre.total} 格，其中 ${pre.changed} 格會改號：\n\n${list}${more}\n\n` +
-      `對應的圖片檔案也會一起改名。確定執行？`
+      `對應的圖片檔案與問題記錄也會一起改名。確定執行？`
     )) return status('已取消');
     status('重新編號中…');
     const d = await api('/api/renumber', {

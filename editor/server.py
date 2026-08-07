@@ -15,6 +15,7 @@ import re
 import shutil
 import sys
 import time
+from datetime import datetime
 from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
 SOURCE_DIR = ROOT / "source"
 OUTPUT_DIR = ROOT / "output"
+FEEDBACK_DIR = ROOT / "feedback"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 import compose as C          # noqa: E402
@@ -99,6 +101,42 @@ def save_scenes(series: str, scenes: list[dict]) -> None:
     p = sb_path(series)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(scenes, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+# ── 問題記錄 ──────────────────────────────────────────────────────────────
+#
+# 標記「這一格哪裡不對」，之後拿整份檔去迭代 skill。一格一筆，覆蓋式。
+# 不進版控（見 .gitignore）——這是工作中的筆記，消化完就刪。
+
+# 快照時丟掉的欄位：編輯器內部狀態，對優化沒有意義
+SNAPSHOT_SKIP = {"line_range", "prompt_manual"}
+
+
+def fb_path(series: str) -> Path:
+    return FEEDBACK_DIR / f"{series}.json"
+
+
+def load_feedback(series: str) -> dict:
+    p = fb_path(series)
+    if not p.exists():
+        return {"series": series, "issues": {}}
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"series": series, "issues": {}}
+    d.setdefault("series", series)
+    d.setdefault("issues", {})
+    return d
+
+
+def save_feedback(series: str, data: dict) -> None:
+    p = fb_path(series)
+    # 沒有任何記錄就別留一個空殼檔案
+    if not data.get("issues"):
+        p.unlink(missing_ok=True)
+        return
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def next_scene_id(scenes: list[dict]) -> str:
@@ -253,7 +291,47 @@ def delete_scene(series: str, id: str):
     save_scenes(series, kept)
     for f in img_dir(series).glob(f"{id}.png"):
         f.unlink()
+    # 分鏡沒了，留著的記錄會變成指不到任何東西的孤兒
+    fb = load_feedback(series)
+    if fb["issues"].pop(id, None) is not None:
+        save_feedback(series, fb)
     return {"ok": True}
+
+
+@app.get("/api/feedback")
+def get_feedback(series: str):
+    """整份回傳。前端要拿它標左側台詞，逐格問後端沒有意義。"""
+    return load_feedback(series)
+
+
+class FeedbackReq(BaseModel):
+    series: str
+    id: str
+    note: str
+    category: str | None = None
+
+
+@app.post("/api/feedback")
+def save_one_feedback(req: FeedbackReq):
+    data = load_feedback(req.series)
+    note = req.note.strip()
+    if not note:
+        # 清空文字送出＝刪除這一格的記錄，這是唯一的刪除入口
+        removed = data["issues"].pop(req.id, None) is not None
+        save_feedback(req.series, data)
+        return {"ok": True, "deleted": removed}
+
+    scene = next((s for s in load_scenes(req.series) if s.get("id") == req.id), None)
+    if scene is None:
+        raise HTTPException(404, "找不到場景")
+    data["issues"][req.id] = {
+        "category": req.category or None,
+        "note": note,
+        "updated_at": datetime.now().isoformat(timespec="seconds"),
+        "scene": {k: v for k, v in scene.items() if k not in SNAPSHOT_SKIP},
+    }
+    save_feedback(req.series, data)
+    return {"ok": True, "deleted": False}
 
 
 # ── 組裝 prompt ───────────────────────────────────────────────────────────
@@ -473,6 +551,16 @@ def renumber(req: RenumberReq):
     for s in ordered:
         s["id"] = id_map[s["id"]]
     save_scenes(req.series, ordered)
+
+    # 問題記錄以分鏡 id 為 key，不一起改就會整批錯位——記錄還在，但指到別格去
+    fb = load_feedback(req.series)
+    if fb["issues"]:
+        fb["issues"] = {id_map.get(k, k): v for k, v in fb["issues"].items()}
+        for new_id, item in fb["issues"].items():
+            if isinstance(item.get("scene"), dict):
+                item["scene"]["id"] = new_id
+        save_feedback(req.series, fb)
+
     return {"ok": True, "total": len(plan), "changed": len(changes), "changes": changes}
 
 
