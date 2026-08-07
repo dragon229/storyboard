@@ -91,16 +91,6 @@
     background: rgba(210,153,34,.16); color: var(--warn); border: 1px solid var(--warn);
   }
 
-  #sceneList { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 14px;
-    background: var(--panel); border-bottom: 1px solid var(--line); max-height: 92px; overflow-y: auto; }
-  .chip {
-    padding: 3px 9px; border-radius: 12px; font-size: 12px; cursor: pointer;
-    background: var(--panel2); border: 1px solid var(--line);
-  }
-  .chip:hover { border-color: var(--accent); }
-  .chip.active { background: var(--accent); color: #1a1000; border-color: var(--accent); font-weight: 600; }
-  .chip.empty { border-style: dashed; color: var(--dim); }
-
   #preview { max-width: 100%; border-radius: 6px; border: 1px solid var(--line); display: none; }
   #cands { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
   #cands.show { display: grid; }
@@ -157,7 +147,6 @@
   <div id="divider" title="拖曳調整左右欄寬度"></div>
 
   <div id="right">
-    <div id="sceneList"></div>
     <div class="head">
       <span id="editTitle">分鏡編輯</span>
       <div class="spacer"></div>
@@ -238,10 +227,10 @@ async function loadScript() {
 
 async function loadScenes() {
   const s = $('seriesSel').value;
-  if (!s) { SCENES = []; renderChips(); return; }
+  if (!s) { SCENES = []; renderUnits(); return; }
   SCENES = (await api('/api/scenes?series=' + encodeURIComponent(s)
     + '&script=' + encodeURIComponent($('scriptSel').value))).scenes;
-  renderChips(); renderUnits();
+  renderUnits();
 }
 
 function uidToScene() {
@@ -308,14 +297,6 @@ document.addEventListener('mouseup', () => {
   if (!dragMoved && dragStartSid) openScene(dragStartSid);
 });
 
-function renderChips() {
-  $('sceneList').innerHTML = SCENES.map(s =>
-    `<div class="chip ${CUR === s.id ? 'active' : ''} ${s.prompt ? '' : 'empty'}" data-id="${s.id}">
-      ${s.id}${s.depiction_mode ? ' · ' + s.depiction_mode : ''}</div>`).join('')
-    || '<span style="color:var(--dim);font-size:12px">尚無分鏡</span>';
-  $('sceneList').querySelectorAll('.chip').forEach(c => c.onclick = () => openScene(c.dataset.id));
-}
-
 const FRAMING_LABEL = {
   vocabulary: '詞彙組', shot_size: '景別', angle: '視角', composition: '構圖',
   layout: '版面', info_hierarchy: '資訊層次', directionality: '方向性', contrast_balance: '對比配置',
@@ -333,7 +314,7 @@ function openScene(id) {
   CUR = id;
   reselectMode = false; document.body.classList.remove('reselect');
   SEL = new Set(s.line_range || []);
-  renderChips(); renderUnits();
+  renderUnits();
   $('editTitle').textContent = '編輯 ' + id;
   ['btnGen', 'btnImg', 'btnTransfer', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
 
@@ -343,18 +324,18 @@ function openScene(id) {
       ${sel('fr_' + f, BOOT.framing_options[f] || [], fr[f])}</div>`).join('');
 
   $('editor').innerHTML = `
-    <div class="field"><label>預覽圖</label>
-      <img id="preview" src="${previewSrc(id)}"
-        onload="onPreviewLoad(this)" onerror="onPreviewFail(this)">
-      <div id="noImg" class="empty-note" style="padding:4px 0"></div>
-      <div id="cands"></div></div>
-
     <div class="field">
       <div class="label-row">
         <label>涵蓋的語音稿原文（source）</label>
         <button id="btnReselect" class="mini">🔗 重新選取台詞</button>
       </div>
       <textarea id="source" readonly>${esc(s.source)}</textarea></div>
+
+    <div class="field"><label>預覽圖</label>
+      <img id="preview" src="${previewSrc(id)}"
+        onload="onPreviewLoad(this)" onerror="onPreviewFail(this)">
+      <div id="noImg" class="empty-note" style="padding:4px 0"></div>
+      <div id="cands"></div></div>
 
     <div class="field" style="border:1px dashed var(--line);padding:8px 10px;border-radius:6px;background:#191c22">
       <div class="label-row">
@@ -482,7 +463,7 @@ $('btnSave').onclick = async () => {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ series: series(), scene: sc })
   });
-  await loadScenes(); renderChips();
+  await loadScenes();
   if (reselectMode) setReselect(false);
   status('已儲存 ' + CUR, 'var(--ok)');
 };
