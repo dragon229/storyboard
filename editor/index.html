@@ -88,6 +88,9 @@
   #prompt { min-height: 130px; font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
   #staging { min-height: 90px; font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
   #source { min-height: 60px; background: #191c22; color: var(--dim); font-size: 12px; }
+  /* 畫面命題：下游三步的地基，所以放在 source 正下方、給它一條強調邊 */
+  #f_focus { min-height: 44px; font-size: 13px; border-left: 3px solid var(--accent); }
+  #f_focus.bad { border-left-color: var(--warn); }
   .row { display: flex; gap: 10px; }
   .row > * { flex: 1; }
   .check { display: flex; align-items: center; gap: 6px; font-size: 13px; text-transform: none; letter-spacing: 0; }
@@ -423,6 +426,13 @@ function openScene(id) {
       </div>
       <textarea id="source" readonly>${esc(s.source)}</textarea></div>
 
+    <div class="field">
+      <div class="label-row">
+        <label>畫面命題 focus（觀眾看完這一格會知道：＿＿。）</label>
+        <span id="focusHint" class="badge" style="display:none">要寫成完整中文句子</span>
+      </div>
+      <textarea id="f_focus" placeholder="一句完整的中文句子，結尾是句號或問號。不進 prompt，是 depiction／framing／staging 的依據。">${esc(s.focus)}</textarea></div>
+
     <div class="split">
       <div class="field"><label>預覽圖</label>
         <img id="preview" src="${previewSrc(id)}"
@@ -482,6 +492,9 @@ function openScene(id) {
   [...BOOT.framing_fields.map(f => 'fr_' + f), 'f_spec', 'f_emo', 'staging']
     .forEach(k => { const el = $(k); if (el) el.addEventListener('change', () => recompose(false)); });
   $('staging').addEventListener('blur', () => recompose(false));
+  // focus 不進 prompt（見 storyboard-compose），所以改了不重組，只做 E1 格式提示
+  $('f_focus').addEventListener('input', checkFocus);
+  checkFocus();
   $('prompt').addEventListener('input', () => setManual(true));
   // 呈現手法改成「主持人出鏡」時自動切 workflow
   $('f_dm').addEventListener('change', () => {
@@ -491,6 +504,17 @@ function openScene(id) {
   api(`/api/tmp-images?series=${encodeURIComponent(series())}&id=${id}`)
     .then(d => { if (d.variants && d.variants.length) renderCands(d.variants); })
     .catch(() => {});
+}
+
+// E1：命題必須是完整中文句子（結尾句號或問號），名詞片語不算。空白不算錯——還沒填而已。
+function checkFocus() {
+  const el = $('f_focus');
+  if (!el) return;
+  const v = el.value.trim();
+  const bad = v !== '' && !/[。？]$/.test(v);
+  el.classList.toggle('bad', bad);
+  const h = $('focusHint');
+  if (h) h.style.display = bad ? 'inline-block' : 'none';
 }
 
 let manual = false;
@@ -506,6 +530,7 @@ function collect() {
   const framing = {};
   BOOT.framing_fields.forEach(f => { framing[f] = $('fr_' + f).value || null; });
   return Object.assign({}, s, {
+    focus: $('f_focus').value.trim() || null,
     unit: $('f_unit').value,
     rhetorical_function: $('f_rf').value,
     depiction_mode: $('f_dm').value,
@@ -591,6 +616,8 @@ function applyAiReply() {
   try { o = JSON.parse(m[0]); }
   catch (e) { return status('JSON 解析失敗：' + e.message, 'var(--warn)'); }
   const set = (id, v) => { if (v !== undefined && $(id)) $(id).value = v ?? ''; };
+  set('f_focus', o.focus);
+  checkFocus();
   set('f_rf', o.rhetorical_function);
   set('f_dm', o.depiction_mode);
   set('f_unit', o.unit);

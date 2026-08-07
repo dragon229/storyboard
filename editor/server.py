@@ -150,6 +150,7 @@ def blank_scene(sid: str, src: str, uids: list[int]) -> dict:
         "id": sid,
         "unit": "",
         "source": src,
+        "focus": None,
         "rhetorical_function": "建立前提",
         "emotional_shift": None,
         "emotion_en": "light everyday curiosity",
@@ -603,6 +604,16 @@ def gen_instruction(req: InstrReq):
   顏色／形狀／大小／密度／箭頭方向等視覺編碼承載。
 
 【要產出的欄位】
+0. focus：**畫面命題，先寫這一欄，它是後面每一欄的地基。**
+   填進這個空格：「觀眾看完這一格會知道：＿＿＿＿。」
+   ・F1 必須是**完整的中文句子**（結尾是句號或問號），名詞片語不算。
+     ✗「計程車、掃地、代排隊」 ✓「錢換掉了站在站牌前乾等的那段時間。」
+   ・F2 命題的**主詞就是畫面的主體**。主詞是「你／他／人的處境或心理」→
+     畫面必須有一個人，不可以只畫物件；主詞是「錢／時間／某個概念」→ 才可以純物件。
+   ・F3 命題**不是 source 的摘要**，是這一格相對於鄰格「新增」的那件事。
+     寫摘要的話相鄰幾格會壓出同一句話。
+   focus 不會進 prompt，它是 depiction／framing／staging 三步的判斷依據——
+   底下 5、6、7 三欄都要對著它寫，不是對著 source 挑名詞。
 1. rhetorical_function：{'／'.join(C.RHETORICAL_FUNCTIONS)} 擇一。
    問「這段對觀眾的認知做了什麼」，看上下文而非字面內容。
 2. emotional_shift：相對於基調的情緒偏移（中文，大多數格沒有偏移就填 null）。
@@ -619,6 +630,12 @@ def gen_instruction(req: InstrReq):
    實景類手法用 shot_size／angle／composition；圖解類再加 layout 等；混合則都填。
    ★景別是用「裁切位置」定義的，直接選鍵名即可。
 7. staging：英文，**只寫畫框內容**（主體、動作、空間關係、道具的物理狀態）。
+   ★起點是 focus，不是 source：先問「要讓觀眾讀回那一句命題，畫面得有什麼」，
+     再寫下去。寫完把命題蓋住只讀 staging，讀不回那句話就是失焦，重寫。
+   ・命題是**對帳型**（同一筆錢／同一段時間的兩種用法之間的得失）→ 帳的兩邊都要畫。
+   ・命題是**量的問句**（多少／幾／幾倍）→ 畫面要留明確的未知位（空容器／凹槽／空白泡泡）。
+   ・命題有**兩個對立子句**（以為 X 其實 Y）→ X 與 Y 兩邊都要在畫面上。
+   ・畫面裡每一個人都要寫「描述詞＋具體衣物＋顏色」，只寫 a person 會畫出單色人形。
    不要寫風格、不要寫景別視角構圖的詞、不要寫情緒語句。
    ・受景別限制：特寫格不要描述全身姿態或鞋子，否則模型會退回全身景。
    ・不要出現任何數量詞（「一百多顆」會讓模型畫一千顆）；改寫具體排列。
@@ -629,7 +646,7 @@ def gen_instruction(req: InstrReq):
 9. needs_post_text：真的非要專有名詞（人名、年份、學術詞）才填 true，該格不出圖。
 
 【輸出格式】只輸出一個 JSON 物件，不要 markdown 圍欄、不要任何解釋：
-{{"rhetorical_function":"…","emotional_shift":null,"emotion_en":"…","is_speculation":false,\
+{{"focus":"…（完整中文句子，結尾句號或問號）","rhetorical_function":"…","emotional_shift":null,"emotion_en":"…","is_speculation":false,\
 "depiction_mode":"…","framing":{{"vocabulary":"…","shot_size":"…","angle":"…","composition":"…",\
 "layout":null,"info_hierarchy":null,"directionality":null,"contrast_balance":null}},\
 "staging":"…","workflow":"text_only","needs_post_text":false}}"""
