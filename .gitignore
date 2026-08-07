@@ -1,6 +1,9 @@
 # 產物一律不版控（分鏡稿 JSON 與圖片）
 output/
 
+# 實驗紀錄與對照圖，量大且是一次性的，只留在本機
+research/
+
 # Python
 __pycache__/
 *.py[cod]
