@@ -1,0 +1,51 @@
+{
+  "4": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": { "ckpt_name": "sd3.5_large_fp8_scaled.safetensors" },
+    "_meta": { "title": "SD3.5 Large fp8（all-in-one，自帶 clip_g/clip_l/t5 與 VAE）" }
+  },
+  "13": {
+    "class_type": "ModelSamplingSD3",
+    "inputs": { "shift": 3.0, "model": ["4", 0] },
+    "_meta": { "title": "SD3 shift" }
+  },
+  "20": {
+    "class_type": "CLIPTextEncode",
+    "inputs": { "text": "", "clip": ["4", 1] },
+    "_meta": { "title": "正向（腳本改寫）" }
+  },
+  "21": {
+    "class_type": "CLIPTextEncode",
+    "inputs": { "text": "", "clip": ["4", 1] },
+    "_meta": { "title": "負向（腳本改寫）" }
+  },
+  "42": {
+    "class_type": "EmptySD3LatentImage",
+    "inputs": { "width": 1344, "height": 768, "batch_size": 1 },
+    "_meta": { "title": "尺寸（腳本改寫 40=width 41=height 的對應值）" }
+  },
+  "43": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 0,
+      "steps": 28,
+      "cfg": 4.5,
+      "sampler_name": "euler",
+      "scheduler": "sgm_uniform",
+      "denoise": 1.0,
+      "model": ["13", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["42", 0]
+    },
+    "_meta": { "title": "取樣（腳本改寫 seed）" }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": { "samples": ["43", 0], "vae": ["4", 2] }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": { "filename_prefix": "sd35", "images": ["8", 0] }
+  }
+}
