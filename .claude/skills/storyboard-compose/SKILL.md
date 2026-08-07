@@ -6,8 +6,10 @@ disable-model-invocation: true
 
 # storyboard-compose｜組裝
 
-**輸入**：`staging` ＋ `framing` ＋ `emotional_shift` ＋ `is_speculation` ＋ `assets/style.json`
+**輸入**：`focus` ＋ `staging` ＋ `framing` ＋ `emotional_shift` ＋ `is_speculation` ＋ `assets/style.json`
 **輸出**：`prompt`
+
+`focus`（畫面命題）**不進 prompt**——它是自檢清單 E1–E6 的比對基準。
 
 薄，但不是純字串拼接——有幾條條件判斷。
 
@@ -101,6 +103,18 @@ python -X utf8 scripts/compose.py --series <系列名>
 | C1 | 結尾有沒有情緒語句？ |
 | C2 | 原文提到的關鍵物件／動作，prompt 有沒有涵蓋？ |
 | C3 | prompt 有沒有出現原文未提及、憑空加入的人物或元素？ |
+| **E1** | **`focus` 填了嗎？是一句完整的中文句子（結尾是句號或問號）嗎？** 名詞片語不算，退回 `storyboard-intent` |
+| **E2** | 命題的**主詞**是不是畫面的主體？主詞是「你／他／人」時，prompt 裡**有沒有一個人**？（見 staging「起點是命題」） |
+| **E3** | 命題的動詞是**對帳型**（同一筆錢／同一段時間的兩種用法之間的得失差：換／虧／賠／划不划算）時，畫面有沒有把**帳的兩邊**都畫出來？只畫單邊、或只把受詞畫成靜物，不算 |
+| **E4** | 命題是**量的問句**（多少／幾／幾倍）時，畫面留了明確的未知位（空容器／凹槽／空白泡泡）嗎？有沒有誤填 `directionality` 把未知變成已完成？（「能不能」這類是非問句不適用） |
+| **E5** | 命題有**兩個對立子句**（以為 X 其實 Y）時，X 與 Y 兩邊都在畫面上嗎？ |
+| **E6** | **回讀測試**：把命題蓋住，只讀 prompt，能不能讀回那一句命題？讀不回來就是失焦，重寫 staging |
+| **E7** | 畫面裡**每一個人**都寫了「描述詞＋具體衣物＋顏色」嗎？只寫 `a person` 會畫出沒穿衣服的單色人形（路人也要寫，見 staging） |
+| **E8** | 有沒有用 `glowing` / `luminous` 描述色塊？會畫成光暈，跟 `solid unshaded color blocks` 打架 |
+
+> E1–E6 是 2026-08-07 逐格稽核打出來的。`if_test` 前 24 格有 12 格畫錯重點，
+> **12 格全部過不了 E2–E5 其中至少一條**，而通過的 12 格一條都沒踩。
+> E6 是唯一能抓到「每個元素都對、合起來卻不是那句話」的檢查——單看元素清單抓不到。
 
 ---
 
