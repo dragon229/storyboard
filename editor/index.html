@@ -167,6 +167,7 @@
       </label>
       <button id="btnGen" disabled>生成提示詞</button>
       <button id="btnImg" disabled>生成圖片</button>
+      <button id="btnTransfer" disabled title="階段 2：把這一格的 content 圖轉成目標畫風">風格轉換</button>
       <button id="btnBatch" disabled>批次生成 8 張</button>
       <button id="btnDel" disabled>刪除</button>
       <button class="primary" id="btnSave" disabled>儲存</button>
@@ -334,7 +335,7 @@ function openScene(id) {
   SEL = new Set(s.line_range || []);
   renderChips(); renderUnits();
   $('editTitle').textContent = '編輯 ' + id;
-  ['btnGen', 'btnImg', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
+  ['btnGen', 'btnImg', 'btnTransfer', 'btnBatch', 'btnDel', 'btnSave'].forEach(b => $(b).disabled = false);
 
   const fr = s.framing || {};
   const framingCells = BOOT.framing_fields.map(f =>
@@ -529,7 +530,7 @@ function applyAiReply() {
 
 $('btnImg').onclick = async () => {
   status('生成圖片中…（約 40–50 秒）');
-  $('btnImg').disabled = true;
+  $('btnImg').disabled = true; $('btnTransfer').disabled = true;
   try {
     const d = await api('/api/generate-image', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -540,12 +541,32 @@ $('btnImg').onclick = async () => {
     // 生成出來的是 content 圖，把開關切回去才看得到
     if (d.ok) { $('swTransfer').checked = false; $('preview').src = previewSrc(); }
   } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
-  $('btnImg').disabled = false;
+  $('btnImg').disabled = false; $('btnTransfer').disabled = false;
+};
+
+$('btnTransfer').onclick = async () => {
+  status('風格轉換中…（含 caption，約 1–3 分鐘）');
+  $('btnTransfer').disabled = true; $('btnImg').disabled = true;
+  try {
+    const d = await api('/api/transfer-image', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ series: series(), id: CUR })
+    });
+    if (d.log) console.log('[transfer]\n' + d.log);
+    if (d.ok) {
+      // 轉出來的是 transfer 圖，把開關打開才看得到
+      $('swTransfer').checked = true; $('preview').src = previewSrc();
+      status(`✓ 風格轉換完成（${d.secs}s）`, 'var(--ok)');
+    } else {
+      status('✗ ' + (d.note || '風格轉換失敗'), 'var(--warn)');
+    }
+  } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
+  $('btnTransfer').disabled = false; $('btnImg').disabled = false;
 };
 
 $('btnBatch').onclick = async () => {
   status('批次生成 8 張中…（約 6 分鐘）');
-  $('btnBatch').disabled = true; $('btnImg').disabled = true;
+  $('btnBatch').disabled = true; $('btnImg').disabled = true; $('btnTransfer').disabled = true;
   try {
     const d = await api('/api/batch-generate', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -554,7 +575,7 @@ $('btnBatch').onclick = async () => {
     if (d.ok) { renderCands(d.variants); status(`✓ 已生成 ${d.count} 張候選，點縮圖選一張`, 'var(--ok)'); }
     else status('✗ ' + (d.note || '批次生成失敗'), 'var(--warn)');
   } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
-  $('btnBatch').disabled = false; $('btnImg').disabled = false;
+  $('btnBatch').disabled = false; $('btnImg').disabled = false; $('btnTransfer').disabled = false;
 };
 
 function renderCands(variants) {

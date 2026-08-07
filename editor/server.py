@@ -9,10 +9,13 @@
 """
 from __future__ import annotations
 
+import io
 import json
 import re
 import shutil
 import sys
+import time
+from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Any
 
@@ -335,6 +338,45 @@ def batch_generate(req: BatchReq):
             errs.append(f"{letter}: {info}")
     return {"ok": bool(made), "count": len(made), "variants": made,
             "note": "" if made else ("批次生成未產出任何圖：" + "；".join(errs))}
+
+
+class TransferReq(BaseModel):
+    series: str
+    id: str
+    content_prompt: bool = True
+
+
+@app.post("/api/transfer-image")
+def transfer_image(req: TransferReq):
+    """階段 2：把這一格的 content 圖轉成目標畫風，寫進 images/transfer/。
+
+    對應 render.py 的 --transfer-only，但只做單格且一律重做——在編輯器裡按下去
+    就是要重轉，跳過已存在的檔案沒有意義。
+    """
+    scene = next((s for s in load_scenes(req.series) if s.get("id") == req.id), None)
+    if scene is None:
+        raise HTTPException(404, "找不到場景")
+    content_dir = img_dir(req.series)
+    if not (content_dir / f"{req.id}.png").exists():
+        raise HTTPException(400, "這一格還沒有 content 圖，請先生成圖片")
+    try:
+        R.check_online()
+    except SystemExit as e:
+        raise HTTPException(503, str(e)) from e
+
+    transfer_dir = img_dir(req.series, "transfer")
+    dest = transfer_dir / f"{req.id}.png"
+    before = dest.stat().st_mtime if dest.exists() else 0
+    t0 = time.time()
+    # run_transfer 只用 print 回報進度，攔下來當成前端的訊息
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        R.run_transfer([scene], content_dir, transfer_dir, C.load_style(), {req.id},
+                       force=True, content_prompt=req.content_prompt)
+    log = buf.getvalue().strip()
+    ok = dest.exists() and dest.stat().st_mtime > before
+    return {"ok": ok, "secs": round(time.time() - t0, 1),
+            "log": log[-1200:], "note": "" if ok else (log[-300:] or "風格轉換沒有產出")}
 
 
 @app.get("/api/tmp-images")
