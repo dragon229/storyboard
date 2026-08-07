@@ -122,10 +122,16 @@ def ensure_content_captions(paths):
     後面每格才拿得到。回傳 False 代表補不了，呼叫端應中止。
     """
     def key(p):
-        """跟 style_caption._cache_key 同規則：能取相對 cwd 就取，否則用絕對路徑。"""
+        """跟 style_caption._cache_key 同規則，但基準固定在 ROOT。
+
+        原本用 cwd，於是「誰的 cwd」決定了 key——編輯器 server 從別的目錄啟動時，
+        這裡算出的 key 跟 qwenstyle_run 查的 key 不同，快取永遠 miss，
+        子行程只好自己載 VLM，用系統 python 直接 ImportError。
+        兩邊都釘死在 ROOT（子行程也帶 cwd=ROOT）才會對得上。
+        """
         p = pathlib.Path(p).resolve()
         try:
-            return p.relative_to(pathlib.Path.cwd()).as_posix()
+            return p.relative_to(ROOT).as_posix()
         except ValueError:
             return str(p)
 
@@ -151,6 +157,15 @@ def ensure_content_captions(paths):
         cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         print(f"  ! caption 產生失敗: {(r.stderr or r.stdout or '')[-400:].strip()}")
+        return False
+    # 補完再驗一次。key 對不上時子行程會自己去載 VLM，用系統 python 撞
+    # ImportError（transformers 太舊），錯誤訊息完全看不出真正原因——在這裡擋掉
+    have = set(json.loads(cache.read_text(encoding="utf-8")).get("content", {})) \
+        if cache.exists() else set()
+    still = [p for p in missing if key(p) not in have]
+    if still:
+        print(f"\n階段 2 中止：補完後仍有 {len(still)} 格查不到 caption，快取 key 對不上。")
+        print(f"  期望的 key 例如 {key(still[0])}")
         return False
     print(f"  完成 {len(missing)} 格")
     return True
@@ -256,7 +271,9 @@ def run_transfer(shots, content_dir, transfer_dir, style, wanted,
                "--tag", sid, "--outdir", str(tmp)]
         if not content_prompt:
             cmd.append("--no-content-prompt")
-        r = subprocess.run(cmd, capture_output=True, text=True,
+        # cwd 必須是 ROOT：style_caption 的快取 key 以 cwd 為基準算相對路徑，
+        # 換一個 cwd 就查不到剛補好的 caption
+        r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
         produced = tmp / f"{sid}_{ref_path.stem}.png"
         if r.returncode == 0 and produced.exists():

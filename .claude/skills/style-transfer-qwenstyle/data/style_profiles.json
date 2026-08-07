@@ -82,7 +82,9 @@
     "output/if_test/images/content/s68.png": "hourglass, coins, scale",
     "output/if_test/images/content/s69.png": "hands, light, cube",
     "output/if_test/images/content/s70.png": "vacuum, carpet, couch",
-    "output/if_test/images/content/s71.png": "Boy, drawing, mug"
+    "output/if_test/images/content/s71.png": "Boy, drawing, mug",
+    "output/if_test_v2/images/content/s01.png": "man, chair, servers",
+    "output/if_test_v2/images/content/s02.png": "stack, books, shelf"
   },
   "style": {
     "assets/style_image/style_ref_1.png": "Anime cel shading, neon glow, bold outlines, high contrast.",
