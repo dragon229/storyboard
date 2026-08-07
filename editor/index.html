@@ -113,6 +113,21 @@
   }
   .empty-note { color: var(--dim); text-align: center; padding: 40px 20px; font-size: 13px; }
   .tag { font-size: 11px; padding: 1px 6px; border-radius: 3px; background: var(--panel2); color: var(--dim); }
+
+  /* content / transfer 切換開關 */
+  .switch { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dim); cursor: pointer; user-select: none; }
+  .switch input { display: none; }
+  .switch .track {
+    width: 30px; height: 16px; border-radius: 9px; position: relative; transition: .15s;
+    background: var(--panel2); border: 1px solid var(--line);
+  }
+  .switch .track::after {
+    content: ''; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--dim); transition: .15s;
+  }
+  .switch input:checked + .track { background: var(--accent2); border-color: var(--accent2); }
+  .switch input:checked + .track::after { left: 16px; background: #04121f; }
+  .switch:has(input:checked) span { color: var(--accent2); }
 </style>
 </head>
 <body>
@@ -146,6 +161,10 @@
     <div class="head">
       <span id="editTitle">分鏡編輯</span>
       <div class="spacer"></div>
+      <label class="switch" title="開＝顯示風格轉換後的 transfer 圖，關＝顯示 content 圖">
+        <span>show transfer</span>
+        <input type="checkbox" id="swTransfer"><i class="track"></i>
+      </label>
       <button id="btnGen" disabled>生成提示詞</button>
       <button id="btnImg" disabled>生成圖片</button>
       <button id="btnBatch" disabled>批次生成 8 張</button>
@@ -165,6 +184,20 @@ let UNITS = [], SCENES = [], CUR = null, SEL = new Set(), BOOT = null, reselectM
 const status = (m, c) => { $('status').textContent = m; $('status').style.color = c || 'var(--dim)'; };
 const series = () => $('newSeries').value.trim() || $('seriesSel').value;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// 預覽圖：開關開＝看第二階段的 transfer 圖，關＝看 content 圖
+const stage = () => $('swTransfer').checked ? 'transfer' : 'content';
+const previewSrc = id =>
+  `/api/image?series=${encodeURIComponent(series())}&id=${id || CUR}&stage=${stage()}&t=${Date.now()}`;
+
+function onPreviewLoad(el) { el.style.display = 'block'; $('noImg').textContent = ''; }
+function onPreviewFail(el) {
+  el.style.display = 'none';
+  $('noImg').textContent = stage() === 'transfer'
+    ? '這一格還沒有 transfer 圖（風格轉換是定稿後才跑的第二階段）' : '';
+}
+
+$('swTransfer').onchange = () => { if (CUR) $('preview').src = previewSrc(); };
 
 function syncSelToSource() {
   const el = $('source');
@@ -310,8 +343,9 @@ function openScene(id) {
 
   $('editor').innerHTML = `
     <div class="field"><label>預覽圖</label>
-      <img id="preview" src="/api/image?series=${encodeURIComponent(series())}&id=${id}&t=${Date.now()}"
-        onload="this.style.display='block'" onerror="this.style.display='none'">
+      <img id="preview" src="${previewSrc(id)}"
+        onload="onPreviewLoad(this)" onerror="onPreviewFail(this)">
+      <div id="noImg" class="empty-note" style="padding:4px 0"></div>
       <div id="cands"></div></div>
 
     <div class="field">
@@ -503,7 +537,8 @@ $('btnImg').onclick = async () => {
     });
     status(d.ok ? `✓ 圖片完成（${d.secs}s, seed=${d.seed}）` : ('✗ ' + (d.note || '生成失敗')),
       d.ok ? 'var(--ok)' : 'var(--warn)');
-    if (d.ok) $('preview').src = `/api/image?series=${encodeURIComponent(series())}&id=${CUR}&t=${Date.now()}`;
+    // 生成出來的是 content 圖，把開關切回去才看得到
+    if (d.ok) { $('swTransfer').checked = false; $('preview').src = previewSrc(); }
   } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
   $('btnImg').disabled = false;
 };
@@ -543,7 +578,8 @@ async function pickCand(v) {
       body: JSON.stringify({ series: series(), id: CUR, variant: v })
     });
     renderCands([]);
-    $('preview').src = `/api/image?series=${encodeURIComponent(series())}&id=${CUR}&t=${Date.now()}`;
+    $('swTransfer').checked = false;
+    $('preview').src = previewSrc();
     status(`✓ 已採用候選圖 ${v}`, 'var(--ok)');
   } catch (e) { status('失敗：' + e.message, 'var(--warn)'); }
 }

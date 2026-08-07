@@ -77,9 +77,9 @@ def sb_path(series: str) -> Path:
     return OUTPUT_DIR / series / f"{series}.json"
 
 
-def img_dir(series: str) -> Path:
-    """編輯器操作的是 content image；transfer 是定稿後才跑的第二階段產物。"""
-    return OUTPUT_DIR / series / "images" / "content"
+def img_dir(series: str, stage: str = "content") -> Path:
+    """編輯器操作的是 content image；transfer 是定稿後才跑的第二階段產物，唯讀預覽。"""
+    return OUTPUT_DIR / series / "images" / ("transfer" if stage == "transfer" else "content")
 
 
 def load_scenes(series: str) -> list[dict]:
@@ -365,9 +365,10 @@ def pick_image(req: PickReq):
 
 
 @app.get("/api/image")
-def get_image(series: str, id: str, variant: str | None = None):
+def get_image(series: str, id: str, variant: str | None = None, stage: str = "content"):
+    # 候選圖只存在於 content/tmp，stage 不影響
     p = (img_dir(series) / "tmp" / f"{id}_{variant}.png") if variant \
-        else (img_dir(series) / f"{id}.png")
+        else (img_dir(series, stage) / f"{id}.png")
     if p.exists():
         return FileResponse(p)
     raise HTTPException(404, "還沒有圖片")
