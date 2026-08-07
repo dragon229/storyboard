@@ -34,7 +34,10 @@ FRAMING_TABLES = {
     "contrast_balance": "contrast_balance",
 }
 
-FRAMING_FIELDS = ["vocabulary", *FRAMING_TABLES]
+# subject 不是對照表，是逐格自由填的英文主體短語（例 "a bare forearm"）。
+# 特寫／近景的景別句含 {subject} 佔位，沒填會被 validate_framing 擋下——
+# 這是刻意的：舊版把主體寫死成「臉」，導致非臉主體的特寫格憑空多出一張臉。
+FRAMING_FIELDS = ["vocabulary", *FRAMING_TABLES, "subject"]
 
 
 def load_style() -> dict:
@@ -64,6 +67,12 @@ def validate_framing(framing: dict, style: dict) -> list[str]:
     voc = framing.get("vocabulary")
     if voc not in (None, "") and voc not in VOCABULARIES:
         errs.append(f"framing.vocabulary='{voc}' 不是 {VOCABULARIES}")
+    size = framing.get("shot_size")
+    if size and "{subject}" in style["shot_sizes"].get(size, "") \
+            and not (framing.get("subject") or "").strip():
+        errs.append(
+            f"framing.shot_size='{size}' 的景別句需要 framing.subject（英文主體短語，"
+            f'例 "a bare forearm"）。不填就會退回舊行為：模型自己補一張臉當主體。')
     return errs
 
 
@@ -75,6 +84,9 @@ def framing_clause(framing: dict, staging: str, style: dict) -> str:
         if key in (None, ""):
             continue
         txt = style[table][key]
+        if "{subject}" in txt:
+            txt = txt.replace("{subject}", (framing.get("subject") or "").strip()
+                              or "the main subject")
         if "{left|right}" in txt:
             # 讓構圖的左右跟場面調度講的一致
             side = "right" if " right third" in (staging or "") else "left"

@@ -14,7 +14,7 @@
 
 兩份產物並存：content 是原圖（可換風格重轉、轉壞時回頭比對），transfer 是交付品。
 """
-import argparse, json, pathlib, sys, time, urllib.request, urllib.error, uuid
+import argparse, hashlib, json, pathlib, sys, time, urllib.request, urllib.error, uuid
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HOST = "http://127.0.0.1:8188"
@@ -338,7 +338,11 @@ def main():
             skipped += 1
             continue
 
-        seed = args.seed if args.seed else abs(hash(sid)) % (2 ** 31)
+        # ⚠ 不要改回 `abs(hash(sid))`。Python 的 str.__hash__ 每個 process 重新加鹽
+        # （PYTHONHASHSEED 隨機），同一格每次跑都是不同 seed —— 出了問題無法原樣重現，
+        # 改 prompt 之後也分不清是改動生效還是 seed 運氣。用穩定雜湊。
+        seed = args.seed if args.seed else \
+            int(hashlib.sha1(sid.encode()).hexdigest()[:8], 16) % (2 ** 31)
         dest, info = run_one(shot, style, seed, outdir)
         if dest:
             print(f"{sid}  OK  {info:.1f}s  seed={seed}  -> {dest.name}")

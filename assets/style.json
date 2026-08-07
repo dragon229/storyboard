@@ -36,9 +36,11 @@
     "frame": "no letterboxing, no black bars, full bleed 16:9 frame"
   },
   "shot_sizes": {
-    "_note": "★實測結論：景別必須用『裁切位置』描述，不能用『佔畫面幾分之幾』——模型讀不懂佔比，一律畫成全身小人。整句寫進 prompt。",
-    "特寫": "extreme close-up, the face fills the frame and is cropped just below the chin",
-    "近景": "close-up, the subject is cropped at the chest, the top reaching near the upper edge of the frame",
+    "_note": "★實測結論一：景別必須用『裁切位置』描述，不能用『佔畫面幾分之幾』——模型讀不懂佔比，一律畫成全身小人。整句寫進 prompt。",
+    "_note_subject": "★實測結論二（2026-08-06）：特寫／近景**絕對不可以把主體寫死成『臉』**。舊版寫 'the face fills the frame and is cropped just below the chin'，但本頻道的特寫格幾乎都不是拍臉（手、前臂、單一物件）。結果是 prompt 內部矛盾——同時要求『臉填滿畫框』與『兩隻手掌填滿畫框』——模型兩個都畫一半，於是憑空多出一張臉佔住畫面中央，真正的主體被擠到旁邊。6 格特寫有 5 格這樣壞掉。換成 {subject} 佔位後，s59／s62／s24 三格同 seed 對照，臉全部消失、主體填滿畫框，三格三勝。所以這兩條含 {subject}，由 framing.subject 填入英文主體短語，compose.py 會擋下沒填的格。",
+    "特寫": "extreme close-up, {subject} fills the entire frame from edge to edge and is cropped by all four frame edges",
+    "近景": "close-up, {subject} fills most of the frame and is cropped by the left and right frame edges",
+    "_note_pose": "★中景／全身是人體語彙。中景**只畫得下上半身能表達的姿態**——躺、跪、盤腿、斜靠、走動這類全身姿態寫進中景格，模型會直接退回全身景（實測：s05／s26／s27／s28／s32／s39／s67／s70 全部如此，且拿掉『腳踝／膝蓋』這類詞也救不回來，因為問題出在姿態本身而不是個別觸發詞）。選景別時見 storyboard-framing 的『景別與姿態相容』。",
     "中景": "medium shot, the subject is cropped at the waist by the bottom edge of the frame, the top near the upper edge",
     "全身": "full shot, the whole body from head to feet, the head near the upper edge and the feet near the lower edge",
     "遠景": "wide establishing shot, the environment dominates and the subject stands small in the middle distance"
