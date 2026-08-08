@@ -7,6 +7,19 @@ research/
 # 分鏡問題記錄，工作中的筆記，消化完就刪
 feedback/
 
+# 語音稿是每支影片的輸入，屬於內容不屬於工具
+source/
+
+# scripts/ 白名單：只版控 /storyboard 主流程實際會跑到的那幾支。
+# 其餘（對照實驗、資產建置的替代做法、一次性腳本、探索用的 shell）留在本機。
+# 新增主流程腳本時記得補一行 !，否則會被這條吃掉。
+scripts/*
+!scripts/render.py
+!scripts/compose.py
+!scripts/palette.py
+!scripts/character_palette.py
+!scripts/.gitignore
+
 # Python
 __pycache__/
 *.py[cod]
@@ -16,3 +29,17 @@ __pycache__/
 
 # VLM caption 快取，每跑一次轉風格就長大，且內容依本機跑過哪些圖而異
 .claude/skills/style-transfer-qwenstyle/data/style_profiles.json
+
+# 風格參考圖的挑選過程：候選版與參考素材，量大且挑完就沒用了。
+# 只有選定的 assets/style_image/style_ref_*.png 留在版控——style.json 直接指向它。
+assets/style_image/candidates/
+assets/style_image/candidates2/
+assets/style_image/references/
+
+# 色卡的比色縮圖，由 scripts/palette_preview.py 從同名 .json 重畫，沒有程式讀它
+assets/palette/*.png
+
+# 各色卡版本的角色參考圖，由 scripts/character_palette.py 從
+# assets/character_ref.png + assets/palette/*.json 重算。兩個輸入都在版控裡，
+# 所以這裡整個是產物；一組色卡三張、七組就二十一張 PNG，不值得版控。
+assets/character_ref/
