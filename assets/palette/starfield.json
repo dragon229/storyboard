@@ -1,0 +1,45 @@
+{
+  "name": "星空",
+  "slug": "starfield",
+  "_note": "深底淺線稿。深底有個技術上的副作用：模型愛加的漸層與 vignette 在暗色上幾乎看不出來，跨格的一致性反而比淺底好守。代價是特寫格的臉部資訊量被壓縮，得靠星金色的角色衣服把人拉出來。",
+  "temperament": "沉靜、遼闊。適合尺度對照、時間跨度大的題材。",
+  "roles": {
+    "現實底": {
+      "hex": "#1B2140",
+      "en": "a flat deep midnight blue background (#1B2140)",
+      "name_en": "deep midnight blue"
+    },
+    "推演底": {
+      "hex": "#2A2350",
+      "en": "a flat deep violet-indigo background (#2A2350)",
+      "name_en": "deep violet-indigo"
+    },
+    "圖解底": {
+      "hex": "#0C0F26",
+      "en": "a flat near-black navy background (#0C0F26)",
+      "name_en": "near-black navy"
+    },
+    "線稿": {
+      "hex": "#E6E9F5",
+      "en": "outlines drawn in pale silver white (#E6E9F5)",
+      "name_en": "pale silver white"
+    },
+    "角色": {
+      "hex": "#E9B14C",
+      "en": "the host wears a solid warm gold sweater (#E9B14C)",
+      "name_en": "warm gold"
+    },
+    "高亮": {
+      "hex": "#7DD3F0",
+      "en": "a single accent element in bright sky cyan (#7DD3F0)",
+      "name_en": "bright sky cyan"
+    },
+    "反白線稿": {
+      "hex": "#E6E9F5",
+      "en": "outlines drawn in pale silver white (#E6E9F5)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "pale silver white"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

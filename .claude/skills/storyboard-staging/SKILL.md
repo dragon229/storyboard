@@ -70,25 +70,77 @@ P2 說「主詞是人就要有人」，但只寫 `a person` **不夠**。
 
 回頭看基線裡本來就通過的實景格，服裝**每一格都寫了**，只是規則沒被寫下來：
 
-> `a lean silver-haired man in a pale blue medical gown`（s01）
-> `a delivery rider in a teal jacket`（s04）
-> `an older woman in a green cardigan`（s09）
-> `a man in an eighteenth century coat with long grey hair`（s10）
-> `a woman in a soft yellow shirt`（s18）
+> `a lean silver-haired man in a loose medical gown`（s01）
+> `a courier in a padded high-collar jacket`（s04）
+> `an older woman in a loose knit cardigan`（s09）
+> `a man in an eighteenth century tailcoat with long hair tied back`（s10）
+> `a woman in a soft-collared button shirt`（s18）
 
-**規則：畫面裡任何一個人，都要寫「一個描述詞 + 一件具體衣物 + 顏色」。**
+**規則：畫面裡任何一個人，都要寫「一個描述詞 + 一件具體衣物 + 該衣物的款式或材質」。**
 路人也要。這跟主持角色的「costume 必須整句用上」是同一個機制——
 **只給人形不給衣著，模型會自己補，而它補的結果不穩定。**
+
+（原本這條寫的是「+ 顏色」。接色卡之後改成款式／材質——理由見下方
+「顏色不寫在 staging」。基線那五句也是照此改寫過的，不是原文。）
 
 （主持角色另有依景別取段的規則，見下方「主持角色的寫法」。）
 
 ### ★不要用 `glowing` 描述平塗風格裡的色塊（2026-08-07 實測）
 
-`glowing saturated orange bar` → 模型畫成**紅色 + 外圍光暈**，
+`glowing saturated bar` → 模型畫成**強色 + 外圍光暈**，
 跟 `style_suffix` 的 `clean flat illustration ... solid unshaded color blocks` 直接打架。
 
-要「這一塊很醒目」寫 `bright saturated orange` 就夠，不要加 `glowing` / `luminous` / `radiant`。
-真的需要發光感（螢幕、綠色刻度）再用，且要接受它會破壞 flat。
+要「這一塊很醒目」寫 `marked as the single accent element` 就夠，
+不要加 `glowing` / `luminous` / `radiant`，也不要指定顏色（見下方「顏色不寫在 staging」）。
+真的需要發光感（螢幕、刻度）再用，且要接受它會破壞 flat。
+
+---
+
+### ★顏色不寫在 staging（2026-08-07，接色卡之後立的硬規則）
+
+**staging 不可以出現任何色相詞。** 顏色由色卡層供應，見 `assets/palette/README.md`。
+
+| | 可以寫 | 不可以寫 |
+|---|---|---|
+| **明度** | `pale` `dark` `light` `deep` | |
+| **彩度** | `muted` `desaturated` `saturated` `vivid` | |
+| **材質質感** | `matte` `glossy` `metallic` `woven` `wooden` `brushed steel` | |
+| **色相** | | `teal` `orange` `mint` `terracotta` `mustard` `navy` `gold` `pink` `grey` … 一律不寫 |
+
+灰色也算色相詞——它會把該物件釘死成中性色，色卡就沒得配。寫 `a desaturated
+lidded container`，不要寫 `a dull grey lidded container`。
+
+#### 為什麼（if_test_2 whimsy 22 格實測）
+
+色卡句排在 prompt 尾端，講的是整張圖的規範；staging 的顏色詞緊貼在具體物件上。
+**具體的贏。** 22 格裡 7 格底色完全失守，每一格都是 staging 明寫了背景色：
+
+> `set against a flat deep teal background` → 出來就是深青綠，色卡的淡紫叫不動（色差 227）
+
+更糟的是兩者都畫得出來的時候，模型**不選一個，而是各畫一半**——s14 整張切成
+上下兩層色帶，上半是色卡的深紫，下半是 staging 的深青綠。這跟特寫格「臉填滿畫框」
+與「手填滿畫框」互撞的機制是同一個。
+
+#### 那「這一塊要醒目」怎麼寫
+
+色卡有一個**高亮**角色鍵，一格最多一個。要指定哪個元素是高亮，寫
+
+> `marked as the single accent element`
+
+接在那個元素後面。**不要寫它是什麼顏色**——高亮色由色卡決定，換一組色卡就換一個色。
+
+> ✗ `a large bright saturated orange hourglass standing tall on a low plinth`
+> ✓ `a large hourglass standing tall on a low plinth, marked as the single accent element`
+
+#### 那「兩個人怎麼分辨」怎麼寫
+
+原本靠顏色分（`a delivery rider in a teal jacket` vs `a woman in a green cardigan`）。
+改成靠**款式、材質、明度**分：
+
+> ✓ `a courier in a padded high-collar jacket` / `an older woman in a loose knit cardigan`
+> ✓ 一個 `pale` 一個 `dark`，一個 `matte` 一個 `glossy`
+
+款式差異比顏色差異穩——顏色會被色卡改寫，剪裁不會。
 
 ---
 
@@ -138,7 +190,7 @@ P2 說「主詞是人就要有人」，但只寫 `a person` **不夠**。
 > 所以「只有路人」的格也是 `text_with_character`。
 >
 > **這一節只適用於觀察者本人在畫面上的格。**
-> 只有路人的格，照上面第 80 行的一般人物規則寫「描述詞＋具體衣物＋顏色」就好，
+> 只有路人的格，照上面的一般人物規則寫「描述詞＋具體衣物＋款式或材質」就好，
 > 不寫 `base_en`、不寫他的服裝。
 >
 > ⚠ 但要知道：**掛了參考圖的格，路人的臉本來就會長得像觀察者**，這是已接受的代價
@@ -147,24 +199,33 @@ P2 說「主詞是人就要有人」，但只寫 `a person` **不夠**。
 >
 > 背景要寫具體那條（見下）**兩種格都適用**——素底滲色是參考圖本身造成的，跟畫的是誰無關。
 
-- **外觀**：`base_en` 逐字照抄，不要改寫。鎖定特徵（圓頭、一撮翹髮、圓框眼鏡、點狀眼、腮紅、赭紅主色）不可調整。
+- **外觀**：`base_en` 逐字照抄，不要改寫。鎖定特徵（圓頭、一撮翹髮、圓框眼鏡、點狀眼）不可調整。腮紅已於 2026-08-07 移除。
+  主色**不在這裡定**，由色卡的『角色』鍵決定，`character.json` 已經把色相全部拿掉了。
 - **服裝**：依 `era`（現代／科幻／遠古）選對應那組，再依景別取段。
 - **姿態動作**：這一格新寫的部分。
 
 ### ★掛參考圖的格（`workflow = text_with_character`），背景必須寫具體（實測）
 
-參考圖 `character_ref.png` 是米白素底，**這個素底會滲進輸出**，讓整張圖褪色發白。
+參考圖是素底，**這個素底會滲進輸出**，讓整張圖褪色發白。
 
 背景寫得夠具體就撐得住；寫成模糊指涉就會被素底吃掉：
 
 > ✗ `standing on that same empty street`
-> → 整張褪成米白，跟沒有角色的格擺在一起明顯不同調
+> → 整張褪成素底色，跟沒有角色的格擺在一起明顯不同調
 >
-> ✓ `standing on an empty city street at dawn, rows of low shopfronts receding into the distance on both sides, warm orange sky above the vanishing point`
+> ✓ `standing on an empty city street at dawn, rows of low shopfronts receding into the distance on both sides, a wide open sky above the vanishing point`
 > → 飽和度與相鄰的純文字格一致
 
-**規則：掛參考圖的格（畫面上有人的格全部算），背景至少要寫出「場所 + 兩個具體元素 + 色調方向」。**
+**規則：掛參考圖的格（畫面上有人的格全部算），背景至少要寫出「場所 + 兩個具體元素 + 光線狀態」。**
 不可以用「同一個地方」「前述場景」這類指涉——模型看不到前一格，只看得到參考圖的素底。
+
+光線狀態指的是**明暗與方向**（`flat overcast light` / `low raking light from the left` /
+`bright even daylight`），**不是色溫也不是顏色**——原本這條寫「色調方向」，
+接色卡之後改掉，理由見上面「顏色不寫在 staging」。
+
+跑 `render.py --palette <slug>` 時，參考圖會自動換成該色卡、該底色的版本
+（`assets/character_ref/<slug>_<real|spec|diagram>.png`），滲進來的素底就是這一格
+該有的底色。沒指定色卡時仍是原本的米白素底。
 
 **定位是體驗者**：他被丟進推演出來的世界裡，親自遭遇後果。寫他在**經歷什麼**，
 不是寫他在**說明什麼**。
@@ -242,7 +303,7 @@ P2 說「主詞是人就要有人」，但只寫 `a person` **不夠**。
 > ✗ `a balance scale holding a plain pale bar against a modest heap of coins`
 > → 兩個秤盤**全空**，硬幣堆掉到天平底座下面
 >
-> ✓ `a balance scale with a plain pale bar lying in its left pan and a small mound of gold
+> ✓ `a balance scale with a plain pale bar lying in its left pan and a small mound of
 >    coins in its right pan`
 > → 硬幣進到正確的盤裡，左右對比出來了
 
@@ -272,7 +333,7 @@ s48 修正版成功），寫不出來就用位置。
 
 - 元素是**有語義的實體**（硬幣、人、藥丸、裝置）→ 可以用數詞，上限 3
 - 元素是**抽象幾何**（方塊、長條、箭頭、圓點）→ **不要用數詞**，改用質性差異詞：
-  `a single small red dot` vs `a cluster of the same small red dots`（s40 → 成功）
+  `a single small dot` vs `a cluster of the same small dots`（s40 → 成功）
 
 ### G5 抽象無語義物件要先給它語義
 
@@ -281,7 +342,7 @@ s48 修正版成功），寫不出來就用位置。
 
 同一格裡若同時有「有語義的物件」與「純粹的抽象形狀」，抽象形狀會被吃掉。對策：
 
-- 給抽象形狀一個**具體的物**（一條命 → 一支沙漏／一段發光的綠色刻度；不要用「a pale bar」）
+- 給抽象形狀一個**具體的物**（一條命 → 一支沙漏／一段刻度尺；不要用「a pale bar」）
 - 或把有語義的物件也抽象化，讓整格是同一個抽象層級
 
 同樣適用於 `a blank card` / `a plain shape` / `an empty tag` 這類「刻意留白以避開文字禁令」
@@ -301,11 +362,12 @@ s48 修正版成功），寫不出來就用位置。
 原文說「很多、擠滿、密密麻麻、成千上萬」時，**不要真的畫一大堆**。畫面越密，個體越模糊，
 規模感反而下降。
 
-正確做法：**選 2–3 個代表性個體，每個給明確的差異特徵**（不同顏色、不同狀態、不同朝向），
+正確做法：**選 2–3 個代表性個體，每個給明確的差異特徵**（不同外形、不同狀態、不同朝向——
+不可以用不同顏色，見「顏色不寫在 staging」），
 規模感交給情緒語句傳達。
 
 > 「街上塞滿了各種奇怪的裝置」→ 不畫滿街，畫「三台外型各異的裝置並排，
-> 各有不同的旋鈕與指示燈」
+> 各有不同的旋鈕與面板形狀」
 
 注意這裡的「三台裝置」是**有語義的實體**，可以用數詞（見 G4）。換成「三個色塊」就不行。
 
@@ -337,7 +399,7 @@ s48 修正版成功），寫不出來就用位置。
 畫面不能出現任何文字。所以：
 
 - **不要寫任何會產生文字的東西**：招牌上的字、螢幕上的字、書封上的字、標籤、數字。
-- 需要「這是一本書」→ 寫書的形狀與顏色，不寫書名。
+- 需要「這是一本書」→ 寫書的形狀與厚薄，不寫書名。
 - 需要「螢幕上顯示著東西」→ 寫發光的幾何色塊，不寫內容。
 
 ### ★三個「自己長出文字」的物件（實測，寫 blank 也擋不住）
@@ -350,7 +412,7 @@ s48 修正版成功），寫不出來就用位置。
 | **鈔票／紙鈔** | s20 `banded currency` → 鈔票上長出偽文字紋路；s42 秤盤裡的鈔票同樣 | 寫 `plain paper notes`（實測乾淨），或改用硬幣 |
 | **硬幣正面** | s25 金幣上長出 `$` 符號 | 寫成 `a solid gold disc with a plain rim, no marking on its face` |
 
-計算機按鍵、儀表刻度、收銀機面板同理——能不寫就不寫，非寫不可就只寫外形與顏色。
+計算機按鍵、儀表刻度、收銀機面板同理——能不寫就不寫，非寫不可就只寫外形。
 
 **真的需要專有名詞**（人名、年份、學術詞）時：
 1. `needs_post_text` 標 `true`

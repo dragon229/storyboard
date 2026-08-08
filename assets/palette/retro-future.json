@@ -1,0 +1,45 @@
+{
+  "name": "過去未來",
+  "slug": "retro-future",
+  "_note": "七〇年代太空時代的配色——焦橘、芥末、奶油、赤陶。它同時讀起來像過去也像未來，因為那是『上一代人想像的未來』。這集在講買時間，這個時間錯位本身就是內容的一部分。",
+  "temperament": "懷舊而不老派。適合談趨勢、預測、以及預測失準的題材。",
+  "roles": {
+    "現實底": {
+      "hex": "#EFDFC2",
+      "en": "a flat warm oat cream background (#EFDFC2)",
+      "name_en": "warm oat cream"
+    },
+    "推演底": {
+      "hex": "#A9B7C6",
+      "en": "a flat dusty chrome blue-grey background (#A9B7C6)",
+      "name_en": "dusty chrome blue-grey"
+    },
+    "圖解底": {
+      "hex": "#7A3B2E",
+      "en": "a flat deep terracotta brown background (#7A3B2E)",
+      "name_en": "deep terracotta brown"
+    },
+    "線稿": {
+      "hex": "#2B211A",
+      "en": "outlines drawn in a dark cocoa brown (#2B211A)",
+      "name_en": "dark cocoa brown"
+    },
+    "角色": {
+      "hex": "#D9762B",
+      "en": "the host wears a solid burnt amber sweater (#D9762B)",
+      "name_en": "burnt amber"
+    },
+    "高亮": {
+      "hex": "#2E8B8B",
+      "en": "a single accent element in muted teal (#2E8B8B)",
+      "name_en": "muted teal"
+    },
+    "反白線稿": {
+      "hex": "#EFDFC2",
+      "en": "outlines drawn in warm oat cream (#EFDFC2)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "warm oat cream"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

@@ -16,6 +16,10 @@
 """
 import argparse, hashlib, json, pathlib, sys, time, urllib.request, urllib.error, uuid
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import compose as C     # noqa: E402  色卡要在出圖前把 prompt 重組一次
+import palette as P     # noqa: E402
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HOST = "http://127.0.0.1:8188"
 CLIENT_ID = str(uuid.uuid4())
@@ -39,10 +43,10 @@ def check_online():
         sys.exit("ComfyUI 未在 127.0.0.1:8188 回應。請先啟動 ComfyUI，不要硬跑。")
 
 
-def upload_character(style):
-    """把 assets/character_ref.png 上傳為 ComfyUI input，供參考圖 workflow 使用。"""
-    name = style["model"]["character_input_name"]
-    src = ROOT / "assets" / "character_ref.png"
+def upload_character(style, src=None, name=None):
+    """把角色參考圖上傳為 ComfyUI input，供參考圖 workflow 使用。"""
+    name = name or style["model"]["character_input_name"]
+    src = src or ROOT / "assets" / "character_ref.png"
     body, boundary = [], "----storyboard" + uuid.uuid4().hex
     bb = boundary.encode()
     body.append(b"--" + bb)
@@ -61,10 +65,30 @@ def upload_character(style):
         HOST + "/upload/image", data=data,
         headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
     urllib.request.urlopen(req, timeout=60).read()
-    print(f"已上傳角色參考圖 -> {name}")
+    print(f"已上傳角色參考圖 {pathlib.Path(src).name} -> {name}")
 
 
-def build(shot, style, seed):
+def character_inputs(pal):
+    """指定色卡時，準備三張對應該色卡的參考圖，回傳 {底色角色鍵: ComfyUI input 名稱}。
+
+    參考圖的顏色會經 ReferenceLatent 一起帶進輸出（實測：線稿與毛衣色完全由它決定），
+    所以色卡換了，參考圖也要跟著換，否則畫面上有人的格永遠守不住色卡。
+    素底同理——圖解格配米白素底的參考圖會被拉淡，所以三種底各一張。
+    """
+    if not pal:
+        return None
+    import character_palette as CP
+    out = {}
+    for tag, role in CP.BG_ROLES.items():
+        src = CP.OUT_DIR / f"{pal['slug']}_{tag}.png"
+        if not src.exists():
+            sys.exit(f"找不到 {src}。請先跑：\n"
+                     f"  python -X utf8 scripts/character_palette.py --slug {pal['slug']}")
+        out[role] = f"input_character_{tag}.png"
+    return out
+
+
+def build(shot, style, seed, char_inputs=None):
     m = style["model"]
     key = "workflow_with_character" if shot.get("workflow") == "text_with_character" \
         else "workflow_text_only"
@@ -80,12 +104,14 @@ def build(shot, style, seed):
     wf["44"]["inputs"]["cfg"] = m["cfg"]
     wf["42"]["inputs"]["sampler_name"] = m["sampler"]
     if key == "workflow_with_character":
-        wf["10"]["inputs"]["image"] = m["character_input_name"]
+        # 用色卡時依這一格的底色挑參考圖，規則跟色卡選底色完全同一條
+        wf["10"]["inputs"]["image"] = m["character_input_name"] if not char_inputs \
+            else char_inputs[P.background_role(shot)]
     return wf
 
 
-def run_one(shot, style, seed, outdir, filename=None):
-    wf = build(shot, style, seed)
+def run_one(shot, style, seed, outdir, filename=None, char_inputs=None):
+    wf = build(shot, style, seed, char_inputs)
     pid = _post_json("/prompt", {"prompt": wf, "client_id": CLIENT_ID})["prompt_id"]
 
     t0 = time.time()
@@ -311,6 +337,8 @@ def main():
                     help="（已是預設行為，保留相容）階段 2 用 VLM 產生每格 content caption")
     ap.add_argument("--no-transfer-content-prompt", action="store_true",
                     help="關掉 content caption。**內容保留會大幅變差**，只在診斷時用")
+    ap.add_argument("--palette", help="指定色卡 slug（assets/palette/*.json），"
+                                      "例 whimsy。出到 content_<slug>/，不覆蓋原本的 content/")
     args = ap.parse_args()
 
     check_online()
@@ -319,10 +347,25 @@ def main():
         else ROOT / "output" / args.series / f"{args.series}.json"
     shots = json.loads(sb.read_text(encoding="utf-8"))
 
+    # 色卡版另開一個資料夾。同一份分鏡稿要能出好幾組色卡並排比較，
+    # 蓋掉 content/ 就沒得比了。分鏡稿本身不改，prompt 只在記憶體裡重組。
+    pal = C.load_palette(style, args.palette)
+    suffix = f"_{pal['slug']}" if pal else ""
+    if pal:
+        for s in shots:
+            if s.get("prompt_manual"):
+                # 手改過的 prompt 不重組（重組等於把人工修改丟掉），只把色卡句補在後面
+                cl = P.clause(s, pal)
+                if cl and s.get("prompt"):
+                    s["prompt"] = s["prompt"] + ", " + cl
+            else:
+                s["prompt"] = C.compose_prompt(s, style, pal)
+        print(f"套用色卡「{pal['name']}」（{pal['slug']}）：{len(shots)} 格 prompt 已重組")
+
     imgroot = pathlib.Path(args.outdir) if args.outdir \
         else ROOT / "output" / args.series / "images"
-    outdir = imgroot / "content"
-    transfer_dir = imgroot / "transfer"
+    outdir = imgroot / ("content" + suffix)
+    transfer_dir = imgroot / ("transfer" + suffix)
     outdir.mkdir(parents=True, exist_ok=True)
 
     wanted = set(args.ids.split(",")) if args.ids else None
@@ -334,8 +377,15 @@ def main():
         return
 
     print("=== 階段 1：生成 content image ===")
+    char_inputs = character_inputs(pal)
     if any(s.get("workflow") == "text_with_character" for s in shots):
-        upload_character(style)
+        if char_inputs:
+            import character_palette as CP
+            for tag, role in CP.BG_ROLES.items():
+                upload_character(style, CP.OUT_DIR / f"{pal['slug']}_{tag}.png",
+                                 char_inputs[role])
+        else:
+            upload_character(style)
 
     done = failed = skipped = 0
     for shot in shots:
@@ -360,7 +410,7 @@ def main():
         # 改 prompt 之後也分不清是改動生效還是 seed 運氣。用穩定雜湊。
         seed = args.seed if args.seed else \
             int(hashlib.sha1(sid.encode()).hexdigest()[:8], 16) % (2 ** 31)
-        dest, info = run_one(shot, style, seed, outdir)
+        dest, info = run_one(shot, style, seed, outdir, char_inputs=char_inputs)
         if dest:
             print(f"{sid}  OK  {info:.1f}s  seed={seed}  -> {dest.name}")
             done += 1

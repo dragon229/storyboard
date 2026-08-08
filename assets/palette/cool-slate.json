@@ -1,0 +1,45 @@
+{
+  "name": "冷灰藍",
+  "slug": "cool-slate",
+  "_note": "s50 那種調性。理性、資料感，數據推演的格會很穩。缺點是跟『輕鬆好奇、不端著』的頻道定位相衝——整支片看下來會偏冷淡。",
+  "temperament": "冷靜、分析。適合資料密度高、少人物的內容。",
+  "roles": {
+    "現實底": {
+      "hex": "#DDE7EC",
+      "en": "a flat pale cool grey-blue background (#DDE7EC)",
+      "name_en": "pale cool grey-blue"
+    },
+    "推演底": {
+      "hex": "#BCC9D3",
+      "en": "a flat muted steel-grey background (#BCC9D3)",
+      "name_en": "muted steel grey"
+    },
+    "圖解底": {
+      "hex": "#1E3A4C",
+      "en": "a flat deep navy slate background (#1E3A4C)",
+      "name_en": "deep navy slate"
+    },
+    "線稿": {
+      "hex": "#23323C",
+      "en": "outlines drawn in a dark blue-charcoal (#23323C)",
+      "name_en": "dark blue-charcoal"
+    },
+    "角色": {
+      "hex": "#3E6B8A",
+      "en": "the host wears a solid dusty blue sweater (#3E6B8A)",
+      "name_en": "dusty blue"
+    },
+    "高亮": {
+      "hex": "#F2A03D",
+      "en": "a single accent element in warm amber (#F2A03D)",
+      "name_en": "warm amber"
+    },
+    "反白線稿": {
+      "hex": "#DDE7EC",
+      "en": "outlines drawn in pale cool grey-blue (#DDE7EC)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "pale cool grey-blue"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

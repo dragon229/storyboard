@@ -3,12 +3,17 @@
 編輯器與批次流程共用這一份，避免兩邊各寫一套而漂掉。
 
 組裝順序（見 .claude/skills/storyboard-compose/SKILL.md）：
-    [取景句], [場面調度], [推演調性?], [風格尾綴], [情緒語句], [全域禁止]
+    [取景句], [場面調度], [推演調性?], [風格尾綴], [色卡?], [情緒語句], [全域禁止]
+
+色卡是可選的：不給就跟以前一模一樣。給了就緊接在風格尾綴後面——
+兩者都在講「整張圖長什麼樣」，擺在一起比夾在場面調度中間穩定。
 """
 from __future__ import annotations
 
 import json
 import pathlib
+
+import palette as P
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -95,8 +100,14 @@ def framing_clause(framing: dict, staging: str, style: dict) -> str:
     return ", ".join(parts)
 
 
-def compose_prompt(shot: dict, style: dict) -> str:
-    """依規範組出最終 prompt。"""
+def load_palette(style: dict, slug: str | None = None) -> dict | None:
+    """取這次要用的色卡。slug 優先，其次 style.json 的 palette 欄位，都沒有就 None。"""
+    slug = slug or style.get("palette")
+    return P.load(slug) if slug else None
+
+
+def compose_prompt(shot: dict, style: dict, pal: dict | None = None) -> str:
+    """依規範組出最終 prompt。pal 給了才加色卡句。"""
     seg = []
     clause = framing_clause(shot.get("framing") or {}, shot.get("staging", ""), style)
     if clause:
@@ -106,6 +117,10 @@ def compose_prompt(shot: dict, style: dict) -> str:
     if shot.get("is_speculation"):
         seg.append(style["speculation_clause"]["text"])
     seg.append(style["style_suffix"])
+    if pal:
+        pc = P.clause(shot, pal)
+        if pc:
+            seg.append(pc)
     if shot.get("emotion_en"):
         seg.append(shot["emotion_en"])
     seg.append(style["global_bans"]["text"])
@@ -113,14 +128,15 @@ def compose_prompt(shot: dict, style: dict) -> str:
     return ", ".join(seg)
 
 
-def recompose(shots: list[dict], style: dict | None = None, force: bool = False) -> int:
+def recompose(shots: list[dict], style: dict | None = None, force: bool = False,
+              pal: dict | None = None) -> int:
     """重算整份分鏡稿的 prompt。預設跳過 prompt_manual=True 的格。回傳更新格數。"""
     style = style or load_style()
     n = 0
     for s in shots:
         if s.get("prompt_manual") and not force:
             continue
-        new = compose_prompt(s, style)
+        new = compose_prompt(s, style, pal)
         if new != s.get("prompt"):
             s["prompt"] = new
             n += 1

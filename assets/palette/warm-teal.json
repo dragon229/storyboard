@@ -1,0 +1,45 @@
+{
+  "name": "暖米青",
+  "slug": "warm-teal",
+  "_note": "把 if_test_2 已經畫對的部分抽出來立成規則——s30／s60 的暖底加赭紅毛衣是全 60 格最好看的，s45 的深青底孤立看也對，缺的只是同族。暖與青是補色，切到圖解格時觀眾感覺換了語言而不是換了頻道。",
+  "temperament": "親切、生活感。適合『像朋友在聊』的推演型頻道。",
+  "roles": {
+    "現實底": {
+      "hex": "#F6E6C6",
+      "en": "a flat warm cream background (#F6E6C6)",
+      "name_en": "warm cream"
+    },
+    "推演底": {
+      "hex": "#C9D6DC",
+      "en": "a flat cool pale blue-grey background (#C9D6DC)",
+      "name_en": "cool pale blue-grey"
+    },
+    "圖解底": {
+      "hex": "#0F666C",
+      "en": "a flat deep teal background (#0F666C)",
+      "name_en": "deep teal"
+    },
+    "線稿": {
+      "hex": "#2E241F",
+      "en": "outlines drawn in a dark warm brown-black (#2E241F)",
+      "name_en": "dark warm brown-black"
+    },
+    "角色": {
+      "hex": "#C4553F",
+      "en": "the host wears a solid brick-red sweater (#C4553F)",
+      "name_en": "brick red"
+    },
+    "高亮": {
+      "hex": "#E8622A",
+      "en": "a single accent element in bright orange (#E8622A)",
+      "name_en": "bright orange"
+    },
+    "反白線稿": {
+      "hex": "#F6E6C6",
+      "en": "outlines drawn in warm cream (#F6E6C6)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "warm cream"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

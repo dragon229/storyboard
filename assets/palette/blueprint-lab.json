@@ -1,0 +1,45 @@
+{
+  "name": "藍圖實驗室",
+  "slug": "blueprint-lab",
+  "_note": "科學。走的是工程藍圖而不是白袍實驗室——藍圖的深藍底加白線本來就是『這是一張圖解』的視覺慣例，正好對上圖解格。角色留一件磚橘毛衣當唯一的暖色，避免整支片變成規格書。",
+  "temperament": "理性但不冷。適合機制拆解、數據推演佔比高的內容。",
+  "roles": {
+    "現實底": {
+      "hex": "#E8EDF2",
+      "en": "a flat pale cool paper-blue background (#E8EDF2)",
+      "name_en": "pale cool paper-blue"
+    },
+    "推演底": {
+      "hex": "#C3D2E0",
+      "en": "a flat muted powder blue background (#C3D2E0)",
+      "name_en": "muted powder blue"
+    },
+    "圖解底": {
+      "hex": "#16324F",
+      "en": "a flat deep blueprint navy background (#16324F)",
+      "name_en": "deep blueprint navy"
+    },
+    "線稿": {
+      "hex": "#1B2A3A",
+      "en": "outlines drawn in a dark ink navy (#1B2A3A)",
+      "name_en": "dark ink navy"
+    },
+    "角色": {
+      "hex": "#D96F3C",
+      "en": "the host wears a solid burnt orange sweater (#D96F3C)",
+      "name_en": "burnt orange"
+    },
+    "高亮": {
+      "hex": "#35C4A8",
+      "en": "a single accent element in bright mint green (#35C4A8)",
+      "name_en": "bright mint green"
+    },
+    "反白線稿": {
+      "hex": "#E8EDF2",
+      "en": "outlines drawn in pale paper-blue (#E8EDF2)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "pale paper-blue"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

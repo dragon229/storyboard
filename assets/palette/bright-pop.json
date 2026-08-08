@@ -1,0 +1,45 @@
+{
+  "name": "高彩紙感",
+  "slug": "bright-pop",
+  "_note": "記憶點最強、縮圖最跳。代價是圖解底的橘紅跟角色毛衣撞色，而且高彩度撐一整支片會吵。調性偏兒少科普，不是推演型。",
+  "temperament": "明亮、外放。適合節奏快、格數少的短片。",
+  "roles": {
+    "現實底": {
+      "hex": "#FFEFD9",
+      "en": "a flat bright cream background (#FFEFD9)",
+      "name_en": "bright cream"
+    },
+    "推演底": {
+      "hex": "#FFCF8F",
+      "en": "a flat golden apricot background (#FFCF8F)",
+      "name_en": "golden apricot"
+    },
+    "圖解底": {
+      "hex": "#E0533A",
+      "en": "a flat vivid vermilion background (#E0533A)",
+      "name_en": "vivid vermilion"
+    },
+    "線稿": {
+      "hex": "#33251E",
+      "en": "thick outlines drawn in a dark espresso brown (#33251E)",
+      "name_en": "dark espresso brown"
+    },
+    "角色": {
+      "hex": "#C4553F",
+      "en": "the host wears a solid brick-red sweater (#C4553F)",
+      "name_en": "brick red"
+    },
+    "高亮": {
+      "hex": "#17A8A0",
+      "en": "a single accent element in bright turquoise (#17A8A0)",
+      "name_en": "bright turquoise"
+    },
+    "反白線稿": {
+      "hex": "#FFEFD9",
+      "en": "outlines drawn in bright cream (#FFEFD9)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "bright cream"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}

@@ -2,6 +2,8 @@
   "_note": "頻道風格常數。改這裡等於改整個頻道的長相。逐字複用，不要每格重寫。",
   "style_ref": "assets/style_image/style_ref_1.png",
   "_style_ref_note": "階段 2（統一畫風）用的風格參考圖路徑，相對專案根目錄。留空則 render.py --transfer 會略過階段 2。換這張圖之前要先用 VLM venv 產生 style caption 並人工複核，見 .claude/skills/style-transfer-qwenstyle/SKILL.md",
+  "palette": null,
+  "_palette_note": "頻道預設色卡 slug，對應 assets/palette/<slug>.json。null = 不套色卡，行為與加色卡之前完全一致。render.py --palette <slug> 可覆蓋，並改出到 images/content_<slug>/，不會蓋掉原本的 content/。哪一格用哪個底由分鏡稿資料決定，規則見 assets/palette/README.md。",
   "channel": {
     "tone": "輕鬆好奇——像朋友在聊，不端著",
     "positioning": "推演的樂趣為核心，不是知識傳遞"

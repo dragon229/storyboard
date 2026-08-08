@@ -1,31 +1,31 @@
 {
-  "_note": "主角固定設定。所有分鏡 prompt 的『主體』段（第③段）直接複用 base_en + costume_en，逐字照抄不要改寫。costume_en 必須整句用上（含下半身），只寫上衣的話模型會自己配色，角色會變成全身同色。定案於角色候選 A1 + mut1。",
+  "_note": "主角固定設定。所有分鏡 prompt 的『主體』段（第③段）直接複用 base_en + costume_en，逐字照抄不要改寫。costume_en 必須整句用上（含下半身），只寫上衣的話模型會自己補下半身，角色會變成全身同色。定案於角色候選 A1 + mut1。",
+  "_color_note": "★2026-08-07：這份檔案裡**不再寫任何色相**。原本寫死 muted dusty terracotta 毛衣、dark brown 頭髮、black-rimmed 眼鏡，接了色卡之後就變成兩套顏色互搶——色卡說珊瑚紅、這裡說赭紅，實測（if_test_2 whimsy）赭紅贏。顏色現在只有兩個來源：色卡的『角色』鍵（走 palette.py 進 prompt），以及該色卡版本的參考圖（assets/character_ref/<slug>_<real|spec|diagram>.png，由 scripts/character_palette.py 產生）。**明度詞（dark、pale、thick）可以留，色相詞（terracotta、brown、pink）不可以。** 腮紅同樣移除（2026-08-07 指定），參考圖與 base_en 兩邊一起拿掉——只拿掉一邊的話另一邊會把它補回來。",
   "codename": "觀察者",
-  "base_en": "a friendly gender-neutral cartoon character with a very round head, short messy dark brown hair with one strand sticking up from the top of the head, simple dot eyes behind large round black-rimmed glasses, no visible nose, a small curved smile, round pink blush marks on the cheeks",
+  "base_en": "a friendly gender-neutral cartoon character with a very round head, short messy dark hair with one strand sticking up from the top of the head, simple dot eyes behind large round thick-rimmed glasses, no visible nose, a small curved smile",
   "_costume_note": "分上下半身。特寫/近景只用 upper，中景用 upper+mid，全身/遠景才用 upper+mid+lower。實測：prompt 只要提到鞋子，模型就必須畫全身，景別描述會被直接推翻。",
   "costume_upper_en": {
-    "現代": "wearing a muted dusty terracotta long-sleeve sweater",
-    "科幻": "wearing a muted dusty terracotta jumpsuit with soft grey panel details",
-    "遠古": "wearing a muted dusty terracotta woven wrap over one shoulder"
+    "現代": "wearing a plain long-sleeve knit sweater",
+    "科幻": "wearing a plain jumpsuit with soft panel details",
+    "遠古": "wearing a plain woven wrap over one shoulder"
   },
   "costume_mid_en": {
-    "現代": "and warm grey trousers",
+    "現代": "and plain straight-leg trousers",
     "科幻": "with matching fitted trousers",
     "遠古": "with a simple cloth wrap around the waist"
   },
   "costume_lower_en": {
-    "現代": "and plain brown shoes",
+    "現代": "and plain low shoes",
     "科幻": "and simple boots",
     "遠古": "and simple hide sandals"
   },
   "locked_features": [
     "very round head",
-    "short messy dark brown hair with one upward strand",
-    "large round black-rimmed glasses",
-    "dot eyes, no visible nose",
-    "round pink blush marks",
-    "muted dusty terracotta as primary color"
+    "short messy dark hair with one upward strand",
+    "large round thick-rimmed glasses",
+    "dot eyes, no visible nose"
   ],
+  "_primary_color": "原本這裡有一條「muted dusty terracotta as primary color」。已移除——主色改由色卡的『角色』鍵決定，換色卡就換主色。要看某一組長什麼樣，開 assets/character_ref/_preview_<slug>.png。",
   "source_images": {
     "髮型與臉": "v2_角色候選/hairA1_a.png",
     "定案主色": "v2_角色候選/mut1_a.png"

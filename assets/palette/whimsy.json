@@ -1,0 +1,45 @@
+{
+  "name": "天馬行空",
+  "slug": "whimsy",
+  "_note": "推演格用紫，是這組的重點——紫在其他五組都只是配角，這裡讓它扛『這是想像出來的』。觀眾不用被告知也會分辨。風險是紫底跟珊瑚紅角色的彩度都高，同框容易吵，高亮的青綠要克制到一格一個。",
+  "temperament": "外放、跳躍。適合推演成分重、結論越離譜越好的內容。",
+  "roles": {
+    "現實底": {
+      "hex": "#FBEFE6",
+      "en": "a flat soft blush cream background (#FBEFE6)",
+      "name_en": "soft blush cream"
+    },
+    "推演底": {
+      "hex": "#E4D4F5",
+      "en": "a flat pale lavender background (#E4D4F5)",
+      "name_en": "pale lavender"
+    },
+    "圖解底": {
+      "hex": "#5B3FA8",
+      "en": "a flat deep violet background (#5B3FA8)",
+      "name_en": "deep violet"
+    },
+    "線稿": {
+      "hex": "#2F2440",
+      "en": "outlines drawn in a dark plum ink (#2F2440)",
+      "name_en": "dark plum"
+    },
+    "角色": {
+      "hex": "#F2705A",
+      "en": "the host wears a solid coral red sweater (#F2705A)",
+      "name_en": "coral red"
+    },
+    "高亮": {
+      "hex": "#34D1BF",
+      "en": "a single accent element in bright turquoise (#34D1BF)",
+      "name_en": "bright turquoise"
+    },
+    "反白線稿": {
+      "hex": "#FBEFE6",
+      "en": "outlines drawn in soft blush cream (#FBEFE6)",
+      "_when": "底色為深色時（多半是圖解格）改用這支，否則線稿會糊進背景",
+      "name_en": "soft blush cream"
+    }
+  },
+  "_name_en_note": "name_en 是這個角色鍵的『純色名』，不含句子。en 那一欄是整句（『the host wears a solid …』），只有分鏡 prompt 用得上；要把某個部位指定成這個顏色時（例如角色設計稿的斗篷）需要的是色名，所以另外開一欄，不要去 regex 拆 en。"
+}
